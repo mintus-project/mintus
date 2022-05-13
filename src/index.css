@@ -1,0 +1,9 @@
+.myh1 {
+  color: black;
+  font-size: 500px;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
