@@ -6,9 +6,19 @@
 
 <template>
   <button>{{ $t('message1') }}</button>
-  <MUButton :disabled="false">{{ $t('message1') }}</MUButton>
+  <MUButton :disabled="false">{{
+    $t('message1')
+  }}</MUButton>
   <br />
-  <MUButton :disabled="true">Next</MUButton>
+  <MUButton disabled>Next</MUButton>
+  <br />
+  <MUButton btn-type="outline">Next</MUButton>
+  <br />
+  <MUButton btn-type="outline" disabled>Next</MUButton>
+  <br />
+  <MUButton btn-type="ghost">Next</MUButton>
+  <br />
+  <MUButton btn-type="ghost" disabled>Next</MUButton>
   <br />
   <MUTag :disabled="false">Hair</MUTag>
   <br />

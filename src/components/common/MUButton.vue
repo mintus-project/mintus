@@ -1,7 +1,11 @@
 <template>
-  <button 
-    :class="{'btn-default': !props.disabled, 'btn-disabled': props.disabled}"
+  <button
     :disabled="props.disabled"
+    :class="{
+      'btn-default': props.btnType === 'default',
+      'btn-outline': props.btnType === 'outline',
+      'btn-ghost': props.btnType === 'ghost',
+    }"
   >
     <slot></slot>
   </button>
@@ -11,20 +15,31 @@
   import { defineProps } from 'vue'
 
   const props = defineProps({
-    disabled: Boolean
+    disabled: Boolean,
+    btnType: {
+      type: String,
+      default: 'default',
+      validator(value) {
+        return ['default', 'outline', 'ghost'].includes(value)
+      }
+    }
   })
 </script>
 
 <style scoped>
 .btn {
-  @apply box-border text-sm font-bold py-3 px-8 flex items-center justify-center rounded-xl bg-[#5D5FEF] text-white;
+  @apply box-border text-sm font-bold py-2 px-8 flex items-center justify-center rounded-xl border;
 }
 
 .btn-default {
-  @apply btn hover:bg-[#7879F1] active:bg-[#7879F1];
+  @apply btn bg-[#5D5FEF] border-[#5D5FEF] text-white hover:bg-[#7879F1] active:bg-[#7879F1] disabled:opacity-40 disabled:bg-[#5D5FEF];
 }
 
-.btn-disabled {
-  @apply btn opacity-40;
+.btn-outline {
+  @apply btn bg-transparent border-[#5D5FEF] text-[#5D5FEF] hover:bg-[#D7D8FC] active:bg-[#D7D8FC] disabled:opacity-40 disabled:bg-[#C6C6FF] disabled:border-[#EEEEEE];
+}
+
+.btn-ghost {
+  @apply btn bg-transparent border-transparent text-[#5D5FEF] hover:bg-[#EEEEEE] hover:border-[#EEEEEE] active:bg-[#EEEEEE] disabled:opacity-40 disabled:bg-transparent disabled:border-transparent;
 }
 </style>

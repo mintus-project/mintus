@@ -21,7 +21,7 @@
 }
 
 .btn-default {
-  @apply btn hover:bg-[#F1F1F180] hover:opacity-50 active:bg-[#7879F1];
+  @apply btn hover:bg-[#F8F8F8] active:bg-[#F8F8F8];
 }
 
 .btn-disabled {
