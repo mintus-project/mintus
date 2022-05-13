@@ -28,11 +28,11 @@
 
 <style scoped>
 .btn {
-  @apply box-border text-sm font-bold py-2 px-8 flex items-center justify-center rounded-xl border;
+  @apply box-border text-sm font-bold py-3 px-8 flex items-center justify-center rounded-xl border;
 }
 
 .btn-default {
-  @apply btn bg-[#5D5FEF] border-[#5D5FEF] text-white hover:bg-[#7879F1] active:bg-[#7879F1] disabled:opacity-40 disabled:bg-[#5D5FEF];
+  @apply btn bg-[#5D5FEF] border-[#5D5FEF] text-white hover:bg-[#7879F1] hover:border-[#7879F1] active:bg-[#7879F1] active:border-[#7879F1] disabled:opacity-40 disabled:bg-[#5D5FEF];
 }
 
 .btn-outline {
