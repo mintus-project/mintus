@@ -17,7 +17,7 @@
 
 <style scoped>
 .btn {
-  @apply box-border text-sm font-bold py-3 px-4 flex items-center justify-center rounded-lg bg-white text-black border border-[#EEEEEE];
+  @apply box-border text-sm font-bold py-3 px-4 flex items-center justify-center rounded-lg bg-white text-black border border-[#EEEEEE] transition;
 }
 
 .btn-default {
