@@ -8,7 +8,7 @@
     <span class="font-bold text-3xl">Username</span>
     <span>wallet address</span>
     <div class="flex gap-4">
-      <MUIconButton>Setting</MUIconButton>
+      <MUIconButton @click="$router.push('/setting')">Setting</MUIconButton>
       <MUButton>Download Avatar</MUButton>
     </div>
   </div>
