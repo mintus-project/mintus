@@ -2,7 +2,7 @@
   <div>
     <MUNavbar class="fixed"></MUNavbar>
     <div
-      class="dynamic-background pt-14 min-h-screen flex flex-col items-center justify-center"
+      class="dynamic-background pt-20 min-h-screen flex flex-col items-center justify-center"
     >
       <slot></slot>
     </div>
@@ -15,7 +15,7 @@
 
 <style scoped>
   .dynamic-background {
-    background-color: #c1d5ef;
+    background-color: #d2e3fa;
     background-image: radial-gradient(
         closest-side,
         rgb(236, 211, 205),
