@@ -1,13 +1,12 @@
 <template>
-  <div>
-    {{ $t('message2') }}
+  <div class="flex justify-center gap-2 p-10">
+    <MUButton @click="$router.push('/mint')">Mint</MUButton>
+    <MUButton @click="$router.push('/mint')">Mint</MUButton>
   </div>
 </template>
 
 <script setup>
-
+  import MUButton from '../../components/common/MUButton.vue'
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

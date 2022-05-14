@@ -1,33 +1,6 @@
-<script setup>
-  import MUButton from './components/common/MUButton.vue'
-  import MUTag from './components/common/MUTag.vue'
-  import MUIconButton from './components/common/MUIconButton.vue'
-</script>
+<script setup></script>
 
 <template>
-  <button>{{ $t('message1') }}</button>
-  <MUButton :disabled="false">{{
-    $t('message1')
-  }}</MUButton>
-  <br />
-  <MUButton disabled>Next</MUButton>
-  <br />
-  <MUButton btn-type="outline">Next</MUButton>
-  <br />
-  <MUButton btn-type="outline" disabled>Next</MUButton>
-  <br />
-  <MUButton btn-type="ghost">Next</MUButton>
-  <br />
-  <MUButton btn-type="ghost" disabled>Next</MUButton>
-  <br />
-  <MUTag :disabled="false">Hair</MUTag>
-  <br />
-  <MUTag :disabled="true">Hair</MUTag>
-  <br />
-  <MUIconButton :disabled="false">Setting</MUIconButton>
-  <br />
-  <MUIconButton :disabled="true">Setting</MUIconButton>
-
   <router-view></router-view>
 </template>
 
