@@ -1,13 +1,13 @@
 <template>
   <div>
-    <MUSiteMint>
+    <MUSiteMintProcess>
       <router-view></router-view>
-    </MUSiteMint>
+    </MUSiteMintProcess>
   </div>
 </template>
 
 <script setup>
-  import MUSiteMint from '../../components/site/MUSiteMint.vue'
+  import MUSiteMintProcess from '../../components/site/MUSiteMintProcess.vue'
 </script>
 
 <style lang="scss" scoped></style>

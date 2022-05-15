@@ -1,5 +1,6 @@
 <template>
   <button
+    class="btn"
     :class="{
       'btn-default': !props.active,
       'btn-active': props.active
@@ -25,10 +26,10 @@
   }
 
   .btn-default {
-    @apply btn bg-white text-black hover:bg-[#D7D8FC] hover:border-[#D7D8FC] hover:text-[#5D5FEF] active:bg-[#D7D8FC] disabled:opacity-40 disabled:bg-white disabled:text-black;
+    @apply bg-white text-black hover:bg-[#D7D8FC] hover:border-[#D7D8FC] hover:text-[#5D5FEF] active:bg-[#D7D8FC] disabled:opacity-40 disabled:bg-white disabled:text-black;
   }
 
   .btn-active {
-    @apply btn bg-[#D7D8FC] border-[#D7D8FC] text-[#5D5FEF];
+    @apply bg-[#D7D8FC] border-[#D7D8FC] text-[#5D5FEF];
   }
 </style>

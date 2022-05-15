@@ -1,6 +1,7 @@
 <template>
   <button
     :disabled="props.disabled"
+    class="btn"
     :class="{
       'btn-default': props.btnType === 'default',
       'btn-outline': props.btnType === 'outline',
@@ -32,14 +33,15 @@
   }
 
   .btn-default {
-    @apply btn bg-[#5D5FEF] border-[#5D5FEF] text-white hover:bg-[#7879F1] hover:border-[#7879F1] active:bg-[#7879F1] active:border-[#7879F1] disabled:opacity-40 disabled:bg-[#5D5FEF];
+    @apply bg-[#5D5FEF] border-[#5D5FEF] text-white hover:bg-[#7879F1] hover:border-[#7879F1] active:bg-[#7879F1] active:border-[#7879F1] disabled:opacity-40 disabled:bg-[#5D5FEF];
   }
 
   .btn-outline {
-    @apply btn bg-transparent border-[#5D5FEF] text-[#5D5FEF] hover:bg-[#D7D8FC] active:bg-[#D7D8FC] disabled:opacity-40 disabled:bg-[#C6C6FF] disabled:border-[#EEEEEE];
+    @apply bg-transparent border-[#5D5FEF] text-[#5D5FEF] hover:bg-[#D7D8FC] active:bg-[#D7D8FC] disabled:opacity-40 disabled:bg-[#C6C6FF] disabled:border-[#EEEEEE];
   }
 
   .btn-ghost {
-    @apply btn bg-transparent border-transparent text-[#5D5FEF] hover:bg-[#EEEEEE] hover:border-[#EEEEEE] active:bg-[#EEEEEE] disabled:opacity-40 disabled:bg-transparent disabled:border-transparent;
+    @apply bg-transparent border-transparent text-[#5D5FEF] hover:bg-[#EEEEEE] hover:border-[#EEEEEE] active:bg-[#EEEEEE] disabled:opacity-40 disabled:bg-transparent disabled:border-transparent;
+    /* @apply bg-transparent border-transparent text-[#5D5FEF] hover:outline active:bg-[#EEEEEE] disabled:opacity-40 disabled:bg-transparent disabled:border-transparent; */
   }
 </style>
