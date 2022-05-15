@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MUNavbar class="fixed"></MUNavbar>
+    <MUNavbar class="fixed backdrop-blur-none"></MUNavbar>
     <div
       class="dynamic-background min-h-screen pt-[20vh] flex flex-col items-center"
     >

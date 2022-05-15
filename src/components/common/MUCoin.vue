@@ -1,10 +1,10 @@
 <template>
-  <div class="items-center">
+  <div class="flex items-center gap-2">
     <Icon
       :icon="AllCoins[props.type].icon"
       height="24"
       :color="AllCoins[props.type].color"
-      class="inline-block m-2"
+      class="inline-block"
     />
     <span v-if="props.showName" class="font-bold text-sm text-[#727272]">{{
       AllCoins[props.type].text
