@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center gap-2 p-10">
-    <MUButton @click="$router.push('/mint')">Mint</MUButton>
-    <MUButton @click="$router.push('/mint')">Mint</MUButton>
+    <MUButton @click="$router.push('/mint-process/choose-avatar')">Mint</MUButton>
+    <MUButton @click="$router.push('/mint-process/choose-avatar')">Mint</MUButton>
   </div>
 </template>
 
