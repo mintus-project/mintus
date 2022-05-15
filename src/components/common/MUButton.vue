@@ -37,11 +37,11 @@
   }
 
   .btn-outline {
-    @apply bg-transparent border-[#5D5FEF] text-[#5D5FEF] hover:bg-[#D7D8FC] active:bg-[#D7D8FC] disabled:opacity-40 disabled:bg-[#C6C6FF] disabled:border-[#EEEEEE];
+    @apply bg-transparent border-[#5D5FEF] text-[#5D5FEF] hover:bg-[#D7D8FC] hover:border-[#5D5FEF] hover:text-[#5D5FEF] active:bg-[#D7D8FC] disabled:opacity-40 disabled:bg-[#C6C6FF] disabled:border-[#EEEEEE] disabled:text-[#5D5FEF];
   }
 
   .btn-ghost {
-    @apply bg-transparent border-transparent text-[#5D5FEF] hover:bg-[#EEEEEE] hover:border-[#EEEEEE] active:bg-[#EEEEEE] disabled:opacity-40 disabled:bg-transparent disabled:border-transparent;
-    /* @apply bg-transparent border-transparent text-[#5D5FEF] hover:outline active:bg-[#EEEEEE] disabled:opacity-40 disabled:bg-transparent disabled:border-transparent; */
+    /* @apply bg-transparent border-transparent text-[#5D5FEF] hover:bg-[#EEEEEE] hover:border-[#EEEEEE] active:bg-[#EEEEEE] disabled:opacity-40 disabled:bg-transparent disabled:border-transparent disabled:text-[#5D5FEF]; */
+    @apply bg-transparent border-transparent text-[#5D5FEF] hover:bg-[#555555]/[.1] active:bg-[#555555]/[.1] disabled:opacity-40 disabled:bg-transparent disabled:border-transparent disabled:text-[#5D5FEF];
   }
 </style>

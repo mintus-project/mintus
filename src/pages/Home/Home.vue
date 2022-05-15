@@ -3,9 +3,9 @@
     <MUButton @click="$router.push('/mint-process/choose-avatar')"
       >Mint</MUButton
     >
-    <MUButton @click="$router.push('/mint-process/choose-avatar')"
-      >Mint</MUButton
-    >
+    <MUButton btn-type="outline" @click="$router.push('/mint-process/choose-avatar')">
+      Mint
+    </MUButton>
   </div>
 </template>
 
