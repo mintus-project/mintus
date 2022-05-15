@@ -1,14 +1,16 @@
 <template>
-  <div class="w-148 h-46 rounded-xl bg-[#EEEEEE]">
-    <div class="mx-2 my-3 flex items-center gap-2">
-      <div class="badge badge-lg bg-[#C4C4C4] border-0"></div>
-      <span class="font-bold text-sm text-[#727272]">{{`${pre}...${tail}`}}</span>
-    </div>
+  <div
+    class="w-[9.5rem] h-[2.875rem] rounded-xl bg-black/[.05] px-2 py-3 flex items-center justify-center gap-2"
+  >
+    <div class="badge badge-lg bg-[#C4C4C4] border-0"></div>
+    <span class="font-bold text-sm text-[#727272]">{{
+      `${pre}...${tail}`
+    }}</span>
   </div>
 </template>
 
 <script setup>
-import { defineProps} from 'vue'
+  import { defineProps } from 'vue'
   const props = defineProps({
     addr: {
       type: String,
@@ -18,7 +20,7 @@ import { defineProps} from 'vue'
       }
     }
   })
-  const pre = props.addr.slice(0,6)
+  const pre = props.addr.slice(0, 6)
   const tail = props.addr.slice(-4)
 </script>
 

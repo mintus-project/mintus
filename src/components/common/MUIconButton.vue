@@ -22,7 +22,7 @@
   }
 
   .btn-default {
-    @apply hover:bg-[#F8F8F8] active:bg-[#F8F8F8];
+    @apply hover:bg-[#F8F8F8] hover:border-[#EEEEEE] active:bg-[#F8F8F8];
   }
 
   .btn-disabled {

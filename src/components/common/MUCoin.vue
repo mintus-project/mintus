@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center gap-2">
+  <div class="flex items-center gap-1">
     <Icon
       :icon="AllCoins[props.type].icon"
       height="24"
