@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-  import MUSiteProfile from '../../components/site/MUSiteProfile.vue'
+  import MUSiteProfile from '../../../components/site/MUSiteProfile.vue'
   import PersonalInfo from './components/PersonalInfo.vue'
   import Exhibition from './components/Exhibition.vue'
 </script>

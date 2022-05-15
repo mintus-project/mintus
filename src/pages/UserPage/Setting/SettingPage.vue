@@ -2,7 +2,9 @@
   <div>
     <MUSiteSetting>
       <template #sidebar>
-        <button class="sidebar-item">Dashboard</button>
+        <button class="sidebar-item" @click="$router.push('profile')">
+          Dashboard
+        </button>
         <button class="sidebar-item active">Edit Profile</button>
       </template>
       <template #content>jjj</template>
@@ -11,7 +13,7 @@
 </template>
 
 <script setup>
-  import MUSiteSetting from '../../components/site/MUSiteSetting.vue'
+  import MUSiteSetting from '../../../components/site/MUSiteSetting.vue'
 </script>
 
 <style scoped>

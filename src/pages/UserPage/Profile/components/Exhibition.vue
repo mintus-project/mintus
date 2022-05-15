@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-  import MUTag from '../../../components/common/MUTag.vue'
+  import MUTag from '../../../../components/common/MUTag.vue'
   import ExhibitionNFT from './ExhibitionNFT.vue'
   import ExhibitionDomain from './ExhibitionDomain.vue'
   import ExhibitionAddress from './ExhibitionAddress.vue'

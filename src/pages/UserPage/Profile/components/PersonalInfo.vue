@@ -5,18 +5,18 @@
         <img src="https://api.lorem.space/image/face?hash=92048" />
       </div>
     </div>
-    <span class="font-bold text-3xl">Username</span>
+    <span class="font-bold text-3xl">{{ $route.params.id }}</span>
     <span>wallet address</span>
     <div class="flex gap-4">
-      <MUIconButton @click="$router.push('/setting')">Setting</MUIconButton>
+      <MUIconButton @click="$router.push('setting')">Setting</MUIconButton>
       <MUButton>Download Avatar</MUButton>
     </div>
   </div>
 </template>
 
 <script setup>
-  import MUIconButton from '../../../components/common/MUIconButton.vue'
-  import MUButton from '../../../components/common/MUButton.vue'
+  import MUIconButton from '../../../../components/common/MUIconButton.vue'
+  import MUButton from '../../../../components/common/MUButton.vue'
 </script>
 
 <style lang="scss" scoped></style>
