@@ -7,7 +7,7 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import { Icon } from '@iconify/vue';
+import { Icon } from '@iconify/vue'
 const props = defineProps({
   showName: Boolean,  
   type: {
@@ -29,8 +29,8 @@ const AllCoins = {
     fantom: {text:'Fantom',icon: 'ph:coins-fill',color:'#6b8cef'},
     opera: {text:'Opera',icon: 'mdi:opera',color:'#6b8cef'},
     arbitrum: {text:'Arbitrum One',icon: 'ph:coins-fill',color:'#6b8cef'},
-    optimism: {text:'Optimism',icon: 'ph:coins-fill',color:'#6b8cef'},
-};
+    optimism: {text:'Optimism',icon: 'ph:coins-fill',color:'#6b8cef'}
+}
 </script>
 
 <style scoped>
