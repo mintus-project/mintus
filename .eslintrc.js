@@ -6,7 +6,8 @@ module.exports = {
   rules: {
     'vue/require-default-prop': 'off',
     quotes: ['error', 'single'],
-    'max-len': ['warn', { code: 80 }],
+    // 'max-len': ['warn', { code: 120 }],
+    'max-len': 'off',
     semi: ['error', 'never'],
     'comma-dangle': ['error', 'never'],
     'vue/multi-word-component-names': [
