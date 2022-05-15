@@ -1,9 +1,7 @@
 <template>
   <div>
     <MUNavbar class="fixed"></MUNavbar>
-    <div
-      class="dynamic-background pt-20 min-h-screen flex flex-col items-center justify-center"
-    >
+    <div class="dynamic-background min-h-screen pt-[20vh] flex flex-col items-center">
       <slot></slot>
     </div>
   </div>
@@ -15,32 +13,16 @@
 
 <style scoped>
   .dynamic-background {
-    background-color: #d2e3fa;
+    background-color: #ffffff;
     background-image: radial-gradient(
         closest-side,
         rgb(236, 211, 205),
-        rgba(235, 105, 78, 0)
+        rgba(244, 220, 255, 0)
       ),
-      radial-gradient(
-        closest-side,
-        rgb(246, 209, 234),
-        rgba(243, 11, 164, 0)
-      ),
-      radial-gradient(
-        closest-side,
-        rgb(243, 238, 212),
-        rgba(254, 234, 131, 0)
-      ),
-      radial-gradient(
-        closest-side,
-        rgb(220, 212, 243),
-        rgba(170, 142, 245, 0)
-      ),
-      radial-gradient(
-        closest-side,
-        rgb(242, 213, 190),
-        rgba(248, 192, 147, 0)
-      );
+      radial-gradient(closest-side, rgb(246, 209, 234), rgba(186, 185, 255, 0)),
+      radial-gradient(closest-side, rgb(212, 230, 243), rgba(239, 251, 255, 0)),
+      radial-gradient(closest-side, rgb(220, 212, 243), rgba(221, 208, 255, 0)),
+      radial-gradient(closest-side, rgb(221, 190, 242), rgba(188, 238, 255, 0));
     background-size: 130vmax, 130vmax, 80vmax, 80vmax, 90vmax, 90vmax, 110vmax,
       110vmax, 90vmax, 90vmax;
     background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax,

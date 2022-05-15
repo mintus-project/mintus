@@ -1,11 +1,20 @@
 <template>
-  <div class="flex flex-col items-center gap-10">
-    <h1 class="font-black text-9xl">Enter Info</h1>
-    <button class="btn" @click="$router.back()">back</button>
-    <router-link class="btn" to="mint">confirm</router-link>
-  </div>
+  <ProcessCard>
+    <template #title> Edit Your Profile </template>
+    <template #subtitle>
+      These information will display on your profile page.
+    </template>
+    <template #content></template>
+    <template #footer>
+      <MUButton btn-type="ghost">Back</MUButton>
+      <MUButton>Next</MUButton>
+    </template>
+  </ProcessCard>
 </template>
 
-<script setup></script>
+<script setup>
+  import ProcessCard from '../components/ProcessCard.vue'
+  import MUButton from '../../../components/common/MUButton.vue'
+</script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
