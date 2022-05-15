@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 // Components
-import Home from '../pages/Home/Home.vue'
-import MintPage from '../pages/Mint/MintPage.vue'
-import UserPage from '../pages/UserPage/UserPage.vue'
-import ProfilePage from '../pages/UserPage/Profile/ProfilePage.vue'
-import SettingPage from '../pages/UserPage/Setting/SettingPage.vue'
+import Home from '../pages/home/Home.vue'
+import MintProcessPage from '../pages/mint-process/MintProcessPage.vue'
+import UserPage from '../pages/user/UserPage.vue'
+import ProfilePage from '../pages/user/profile/ProfilePage.vue'
+import SettingPage from '../pages/user/setting/SettingPage.vue'
 
 const routes = [
   {
@@ -15,8 +15,25 @@ const routes = [
   },
   {
     path: '/mint',
-    name: 'MintPage',
-    component: MintPage
+    name: 'MintProcessPage',
+    component: MintProcessPage,
+    children: [
+      {
+        path: 'choose-avatar',
+        name: 'ChooseAvatarPage',
+        component: ProfilePage
+      },
+      {
+        path: 'enter-info',
+        name: 'ChooseAvatarPage',
+        component: ProfilePage
+      },
+      {
+        path: 'mint',
+        name: 'ChooseAvatarPage',
+        component: ProfilePage
+      }
+    ]
   },
   {
     path: '/user/:id',
