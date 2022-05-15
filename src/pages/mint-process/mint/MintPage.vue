@@ -1,11 +1,20 @@
 <template>
-  <div class="flex flex-col items-center gap-10">
-    <h1 class="font-black text-9xl">Mint</h1>
-    <button class="btn" @click="$router.back()">back</button>
-    <router-link class="btn" to="/user/id-10304/profile">confirm</router-link>
-  </div>
+  <ProcessCard>
+    <template #title>Ready to Mint?</template>
+    <template #subtitle>
+      Your unique NFT will be delivered to the connected wallet address.
+    </template>
+    <template #content></template>
+    <template #footer>
+      <MUButton btn-type="ghost" @click="$router.back()">Back</MUButton>
+      <MUButton @click="$router.push('/user/id-10304/profile')">Mint It</MUButton>
+    </template>
+  </ProcessCard>
 </template>
 
-<script setup></script>
+<script setup>
+  import ProcessCard from '../components/ProcessCard.vue'
+  import MUButton from '../../../components/common/MUButton.vue'
+</script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

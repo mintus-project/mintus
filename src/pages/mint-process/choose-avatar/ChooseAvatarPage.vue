@@ -1,11 +1,19 @@
 <template>
-  <div class="flex flex-col items-center gap-10">
-    <h1 class="font-black text-9xl">Choose Avatar</h1>
-    <button class="btn" @click="$router.back()">back</button>
-    <router-link class="btn" to="enter-info">confirm</router-link>
-  </div>
+  <ProcessCard>
+    <template #title>Customize A Unique Avatar</template>
+    <template #subtitle>
+      Every avatar is a unique NFT that only belongs to you.
+    </template>
+    <template #content></template>
+    <template #footer>
+      <MUButton @click="$router.push('enter-info')">Next</MUButton>
+    </template>
+  </ProcessCard>
 </template>
 
-<script setup></script>
+<script setup>
+  import ProcessCard from '../components/ProcessCard.vue'
+  import MUButton from '../../../components/common/MUButton.vue'
+</script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
