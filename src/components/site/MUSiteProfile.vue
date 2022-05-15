@@ -16,6 +16,4 @@
   import MUFooter from './MUFooter.vue'
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

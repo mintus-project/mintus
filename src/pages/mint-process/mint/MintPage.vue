@@ -7,7 +7,9 @@
     <template #content></template>
     <template #footer>
       <MUButton btn-type="ghost" @click="$router.back()">Back</MUButton>
-      <MUButton @click="$router.push('/user/id-10304/profile')">Mint It</MUButton>
+      <MUButton @click="$router.push('/user/id-10304/profile')"
+        >Mint It</MUButton
+      >
     </template>
   </ProcessCard>
 </template>
