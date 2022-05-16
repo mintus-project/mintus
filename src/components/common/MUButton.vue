@@ -1,7 +1,7 @@
 <template>
   <button
     :disabled="props.disabled"
-    class="btn"
+    class="my-btn"
     :class="{
       'btn-default': props.btnType === 'default',
       'btn-outline': props.btnType === 'outline',
@@ -28,7 +28,7 @@
 </script>
 
 <style scoped>
-  .btn {
+  .my-btn {
     @apply box-border text-sm font-bold py-3 px-8 flex items-center justify-center rounded-xl border transition;
   }
 

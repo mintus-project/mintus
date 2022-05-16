@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn"
+    class="my-btn"
     :class="{ 'btn-default': !props.disabled, 'btn-disabled': props.disabled }"
     :disabled="props.disabled"
   >
@@ -17,7 +17,7 @@
 </script>
 
 <style scoped>
-  .btn {
+  .my-btn {
     @apply box-border text-sm font-bold py-3 px-4 flex items-center justify-center rounded-lg bg-white text-black border border-[#EEEEEE] transition;
   }
 
