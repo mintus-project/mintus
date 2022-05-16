@@ -3,9 +3,9 @@
     <div tabindex="0"><MUWalletAddr :addr="shortAddress"></MUWalletAddr></div>
     <div
       tabindex="0"
-      class="dropdown-content card card-compact flex-col justify-items-center w-50 p-2 shadow bg-white"
+      class="dropdown-content card card-compact p-2 shadow bg-white"
     >
-      <div class="card-body flex-col">
+      <div class="card-body flex-col items-center">
         <MUWalletType
           :type="wallet.type"
           show-name
@@ -16,6 +16,15 @@
           <span class="font-bold text-base">{{ shortAddress }}</span>
           <Icon icon="bx:copy" class="w-4"></Icon>
         </div>
+        <div class="divider"></div>
+        <div id="options">
+          <div class="font-bold text-base">Change Wallet</div>
+          <div class="font-bold text-base">Disconnect</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <MUButton>My Profile</MUButton>
+        </div>
       </div>
     </div>
   </div>
@@ -25,6 +34,7 @@
   // import { defineProps} from 'vue'
   import MUWalletAddr from '../common/MUWalletAddr.vue'
   import MUWalletType from '../common/MUWalletType.vue'
+  import MUButton from '../common/MUButton.vue'
   import { Icon } from '@iconify/vue'
 
   // const props = defineProps({})
