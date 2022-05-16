@@ -6,8 +6,17 @@
     </template>
     <template #content>
       <form class="px-12 py-8 flex flex-col gap-4">
-        <MUInput label="Username" placeholder="Please input your username" required class="w-96"></MUInput>
-        <MUInput label="Domain" placeholder="Please input your Domain" class="w-96"></MUInput>
+        <MUInput
+          label="Username"
+          placeholder="Please input your username"
+          required
+          class="w-96"
+        ></MUInput>
+        <MUInput
+          label="Domain"
+          placeholder="Please input your Domain"
+          class="w-96"
+        ></MUInput>
       </form>
     </template>
     <template #footer>
