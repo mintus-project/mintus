@@ -24,8 +24,4 @@
 <script setup></script>
 
 <style scoped>
-  .my-shadow {
-    box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.02),
-      0px 8px 8px rgba(0, 0, 0, 0.0290085);
-  }
 </style>

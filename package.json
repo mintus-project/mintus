@@ -11,6 +11,7 @@
     "lint:fix": "eslint --ext .js --ext .jsx --ext .vue src/ --fix"
   },
   "dependencies": {
+    "@vueuse/core": "^8.5.0",
     "daisyui": "^2.14.3",
     "pinia": "^2.0.14",
     "vue": "^3.2.25",
