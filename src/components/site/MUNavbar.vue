@@ -9,7 +9,7 @@
       MintUs
     </span>
 
-    <MUAccount connected="true" purchased="true" />
+    <MUAccount :connected="true" :purchased="true" />
   </div>
 </template>
 
