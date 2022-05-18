@@ -44,6 +44,9 @@
   import MUInput from '@/components/data-input/MUInput.vue'
   import MUMultiInput from '@/components/data-input/MUMultiInput.vue'
   import { useForm, configure } from 'vee-validate'
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
 
   const { handleSubmit, resetForm } = useForm()
 
@@ -118,6 +121,7 @@
     }
     console.log('parse value: ', newValue)
     resetForm()
+    router.push('mint')
   }, onInvalidSubmit)
 
   // validator
