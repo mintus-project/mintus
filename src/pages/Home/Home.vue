@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-  import MUButton from '../../components/common/MUButton.vue'
+  import MUButton from '@/components/common/MUButton.vue'
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <MUButton :type="props.btnType" @click="state.openModal = true"
-    >Conncet Wallet</MUButton
+    >Connect Wallet</MUButton
   >
   <MUModal v-if="state.openModal" :open="state.openModal" @close="handleClose">
     <template #header>
@@ -23,7 +23,8 @@
 <script setup>
   import { defineProps, reactive } from 'vue'
   import MUButton from '../common/MUButton.vue'
-  import MUModal from '../common/MUModal.vue'
+  // import MUModal from '../feedback/MUModal.vue'
+  import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '../common/MUWalletType.vue'
   import { Icon } from '@iconify/vue'
 
