@@ -23,7 +23,12 @@
           <MUConnectWallet>
             <div class="font-bold text-base cursor-pointer">Change Wallet</div>
           </MUConnectWallet>
-          <div class="font-bold text-base cursor-pointer" @click="handleDisconnect">Disconnect</div>
+          <div
+            class="font-bold text-base cursor-pointer"
+            @click="handleDisconnect"
+          >
+            Disconnect
+          </div>
         </div>
 
         <div class="divider my-0"></div>
@@ -48,9 +53,10 @@
   import MUConnectWallet from './MUConnectWallet.vue'
 
   const store = useStore()
+
   const handleDisconnect = () => {
     store.walletInfo = {
-      type:'',
+      type: '',
       address: ''
     }
     store.userInfo.connected = false

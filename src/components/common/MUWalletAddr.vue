@@ -5,7 +5,7 @@
       class="badge badge-lg bg-[#C4C4C4] border-0"
     ></div>
     <div class="flex items-center gap-3">
-      <span class="font-bold text-sm text-[#727272]">{{ addrText }}</span>
+      <span class="font-bold text-sm text-[#727272]">{{ addrRef }}</span>
       <span v-show="props.showCopy" class="w-4">
         <Icon icon="bx:copy" @click="copy(props.addr)" />
       </span>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-  import { defineProps } from 'vue'
+  import { computed, defineProps } from 'vue'
   import { useClipboard } from '@vueuse/core'
   import { Icon } from '@iconify/vue'
   const props = defineProps({
@@ -39,9 +39,12 @@
     }
   })
   const { copy } = useClipboard()
-  const addrText = props.showFullAddr
-    ? props.addr
-    : `${props.addr.slice(0, 6)}...${props.addr.slice(-4)}`
+  const addrRef = computed(() => {
+    console.log(props.addr, typeof props.addr)
+    return props.showFullAddr
+      ? props.addr
+      : `${props.addr.slice(0, 6)}...${props.addr.slice(-4)}`
+  })
 </script>
 
 <style scoped></style>

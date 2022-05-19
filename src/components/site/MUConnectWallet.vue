@@ -28,19 +28,14 @@
 </template>
 
 <script setup>
-  import { defineProps, reactive } from 'vue'
+  import { reactive } from 'vue'
   import { useStore } from '@/store/index.js'
   import MUButton from '../common/MUButton.vue'
-  // import MUModal from '../feedback/MUModal.vue'
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '../common/MUWalletType.vue'
   import { Icon } from '@iconify/vue'
   import detectEthereumProvider from '@metamask/detect-provider'
-  // import {ethers} from 'ethers'
-
-  const props = defineProps({
-    btnType: String
-  })
+  
   const store = useStore()
   const state = reactive({ openModal: false })
   const walletList = ['metamask', 'coinbase', 'fortmatic']
