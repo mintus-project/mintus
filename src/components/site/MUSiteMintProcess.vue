@@ -2,7 +2,7 @@
   <div>
     <MUNavbar class="fixed"></MUNavbar>
     <div
-      class="dynamic-background min-h-screen pt-[20vh] flex flex-col items-center"
+      class="dynamic-background min-h-screen pt-[15vh] pb-[10vh] flex flex-col items-center"
     >
       <slot></slot>
     </div>

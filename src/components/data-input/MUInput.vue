@@ -4,16 +4,26 @@
       {{ props.label }}
       <span v-if="props.required" class="text-pink-500">*</span>
     </div>
-    <input
-      :type="props.type"
-      :placeholder="props.placeholder"
-      class="block w-full px-4 py-3 bg-white border border-[#EEEEEE] rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#D7D8FC] focus:border-[#D7D8FC] active:border-[#5D5FEF] disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-200 invalid:text-pink-500 active:invalid:border-pink-400 focus:invalid:ring-pink-200 focus:invalid:border-pink-200 transition"
-    />
+    <div class="flex justify-between items-center gap-2">
+      <slot name="before"></slot>
+      <input
+        v-model="value"
+        :name="props.name"
+        :type="props.type"
+        :placeholder="props.placeholder"
+        class="mu-input flex-1"
+        :class="{ invalid: errorMessage }"
+      />
+      <slot name="after"></slot>
+    </div>
+    <span class="text-pink-500 text-xs mt-[-.25rem]">{{ errorMessage }}</span>
   </div>
 </template>
 
 <script setup>
   import { defineProps } from 'vue'
+  import { useField } from 'vee-validate'
+
   const props = defineProps({
     disabled: Boolean,
     required: Boolean,
@@ -24,14 +34,39 @@
         return ['password', 'text', 'email', 'phone'].includes(value)
       }
     },
+    name: {
+      type: String,
+      required: true,
+      default: 'field'
+    },
     label: {
       type: String
     },
     placeholder: {
       type: String,
       default: ''
+    },
+    validator: {
+      type: Function,
+      default: () => true
     }
   })
+
+  // validator
+  function validator(value) {
+    // required
+    if (props.required && ((value && value.length === 0) || !value)) {
+      return 'this field is required'
+    }
+    return props.validator(value)
+  }
+
+  // value, error message
+  const { value, errorMessage } = useField(props.name, validator)
 </script>
 
-<style scoped></style>
+<style scoped>
+  .invalid {
+    @apply border-pink-200 text-pink-500 active:border-pink-400 focus:ring-pink-200 focus:border-pink-200;
+  }
+</style>
