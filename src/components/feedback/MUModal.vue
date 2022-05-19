@@ -2,8 +2,13 @@
   <Teleport to="body">
     <div
       v-if="props.open"
-      class="fixed top-0 left-0 bg-black/5 backdrop-blur-sm w-full h-full z-20 flex items-center justify-center"
-      @click.self="emit('close')"
+      class="fixed top-0 left-0 bg-black/5 backdrop-blur-sm w-full h-full z-[100] flex items-center justify-center"
+      @click.self="
+        (e) => {
+          e.stopPropagation()
+          emit('close')
+        }
+      "
     >
       <!-- card -->
       <div
@@ -12,6 +17,7 @@
         <div class="flex justify-between items-center font-bold text-xl">
           <slot name="header">default header</slot>
           <Icon
+            v-if="closeIcon"
             class="w-4 h-4"
             icon="material-symbols:close-rounded"
             @click="emit('close')"
@@ -28,6 +34,10 @@
   import { Icon } from '@iconify/vue'
   const props = defineProps({
     open: {
+      type: Boolean,
+      default: false
+    },
+    closeIcon: {
       type: Boolean,
       default: false
     }

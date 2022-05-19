@@ -1,9 +1,11 @@
 <template>
-  <div v-if="!props.connected">
-    <MUConnectWallet btn-type='default' />
+  <div v-if="!store.userInfo.connected">
+    <MUConnectWallet>
+      <MUButton>Connect Wallet</MUButton>
+    </MUConnectWallet>
   </div>
   <div v-else class="flex items-center gap-8">
-    <div v-if="props.purchased" class="avatar">
+    <div v-if="store.userInfo.purchased" class="avatar">
       <div class="w-[2.875rem] h-[2.875rem] rounded-full">
         <img :src="nftSrc" />
       </div>
@@ -16,20 +18,16 @@
 </template>
 
 <script setup>
-  import { defineProps } from 'vue'
-  // import MUButton from '../common/MUButton.vue'
+  import { useStore } from '@/store/index.js'
   import MUCoin from '../common/MUCoin.vue'
   import MUWalletDropdown from '../site/MUWalletDropdown.vue'
   import MUConnectWallet from './MUConnectWallet.vue'
+  import MUButton from '../common/MUButton.vue'
 
-  const props = defineProps({
-    connected: Boolean,
-    purchased: Boolean
-  })
+  const store = useStore()
 
   //TODO: 获取逻辑
   const nftSrc = 'https://api.lorem.space/image/face?hash=92310'
-  // const walletAddr = '0xd83039Ff4B0D7022281769eDb509b32F6c390867'
   const coinType = 'eth'
 </script>
 

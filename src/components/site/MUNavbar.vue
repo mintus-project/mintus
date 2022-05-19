@@ -9,8 +9,7 @@
       MintUs
     </span>
 
-    <MUAccount ref="1" :connected="true" :purchased="true" />
-    <MUAccount ref="2" :connected="false" :purchased="true" />
+    <MUAccount />
   </div>
 </template>
 
