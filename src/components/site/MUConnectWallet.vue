@@ -13,7 +13,7 @@
     </template>
     <template #content>
       <div class="flex flex-col items-stretch gap-2">
-        <button
+        <MUButton
           v-for="(type, index) in walletList"
           :key="index"
           class="btn gap-2"
@@ -21,7 +21,7 @@
         >
           <MUWalletType show-name :type="type" />
           <Icon icon="material-symbols:arrow-forward-ios-rounded" />
-        </button>
+        </MUButton>
       </div>
     </template>
   </MUModal>
@@ -35,6 +35,7 @@
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '../common/MUWalletType.vue'
   import { Icon } from '@iconify/vue'
+  import detectEthereumProvider from '@metamask/detect-provider'
   // import {ethers} from 'ethers'
 
   const props = defineProps({
@@ -47,7 +48,7 @@
   const handleClose = () => {
     state.openModal = false
   }
- 
+
   const handleConnect = (type) => {
     switch (type) {
       case 'metamask':
@@ -66,28 +67,43 @@
   }
   const connectMetaMask = async () => {
     try {
-      // 由Metamask植入
-      const { ethereum } = window
-      if (ethereum) {
-        console.log('metamask is available')
+      const provider = await detectEthereumProvider()
+      if (provider) {
+        if (provider == window.ethereum) {
+          const { ethereum } = window
+          // 询问用户是否授权当前网站获取钱包地址
+          ethereum
+            .request({
+              method: 'wallet_requestPermissions',
+              params: [
+                {
+                  eth_accounts: {}
+                }
+              ]
+            })
+            .then(() =>
+              ethereum.request({
+                method: 'eth_requestAccounts'
+              })
+            )
+            .then((accounts) => {
+              handleAccountsChanged(accounts)
+              ethereum.on('accountsChanged', handleAccountsChanged)
+            })
+            .catch((err) => {
+              if (err.code === 4001) {
+                // EIP-1193 userRejectedRequest error
+                // If this happens, the user rejected the connection request.
+                console.log('Please connect to MetaMask.')
+              } else {
+                console.error(err)
+              }
+            })
+        } else {
+          console.error('Do you have multiple wallets installed?')
+        }
       } else {
-        alert('please install metamask')
-      }
-      // 询问用户是否授权当前网站获取钱包地址
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts'
-      })
-      // 调用metamask的eth-accounts API，如果已授权会返回钱包地址
-      const ethAccounts = await ethereum.request({ method: 'eth_accounts' })
-      if (ethAccounts.length !== 0) {
-        const account = accounts[0]
-        console.log('found account with address', account)
-        store.walletInfo.address = accounts[0]
-        // TODO: 容易出错，better way is 用全局常量 or 枚举值
-        store.walletInfo.type = 'metamask'
-        store.userInfo.connected = true
-      } else {
-        console.log('no authorized account')
+        console.log('Please install MetaMask!')
       }
     } catch (err) {
       console.error(err)
@@ -95,5 +111,17 @@
   }
   const conncetCoinbase = () => {}
   const conncetFormatic = () => {}
+
+  const handleAccountsChanged = (accounts) => {
+    if (accounts.length === 0) {
+      // MetaMask is locked or the user has not connected any accounts
+      console.log('Please connect to MetaMask.')
+    } else if (accounts[0] !== store.walletInfo.address) {
+      console.log('found accounts with addresses', accounts)
+      store.walletInfo.address = accounts[0]
+      store.userInfo.connected = true
+      store.walletInfo.type = 'metamask'
+    }
+  }
 </script>
 <style scoped></style>
