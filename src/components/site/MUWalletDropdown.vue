@@ -5,7 +5,7 @@
     </div>
     <div
       tabindex="0"
-      class="dropdown-content card card-compact p-2 shadow bg-white"
+      class="dropdown-content card card-compact w-52 shadow bg-white mt-3"
     >
       <div class="card-body flex-col items-center">
         <MUWalletType
@@ -17,16 +17,20 @@
         <div class="badge badge-lg bg-[#C4C4C4] border-0 align-between"></div>
         <MUWalletAddr :addr="store.walletInfo.address" show-copy />
 
-        <div class="divider"></div>
-        <div id="options">
+        <div class="divider my-0"></div>
+
+        <div id="options" class="flex flex-col gap-6 items-center">
           <MUConnectWallet>
             <div class="font-bold text-base cursor-pointer">Change Wallet</div>
           </MUConnectWallet>
           <div class="font-bold text-base">Disconnect</div>
         </div>
-        <div class="divider"></div>
+
+        <div class="divider my-0"></div>
         <div>
-          <MUButton @click="$router.push('/user/id-10304/profile')"
+          <MUButton
+            :disabled="!store.userInfo.purchased"
+            @click="$router.push('/user/id-10304/profile')"
             >My Profile</MUButton
           >
         </div>

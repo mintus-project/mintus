@@ -10,7 +10,7 @@ export const useStore = defineStore('main', {
       },
       userInfo: {
         connected: false,
-        purchase: false
+        purchased: false
       }
     }
   },

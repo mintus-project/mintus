@@ -1,13 +1,13 @@
 <template>
-  <div class="px-2 py-3 flex items-center justify-center gap-2">
+  <div class="flex items-center justify-center gap-2">
     <div
       v-if="props.showBadge"
       class="badge badge-lg bg-[#C4C4C4] border-0"
     ></div>
     <div class="flex items-center gap-3">
       <span class="font-bold text-sm text-[#727272]">{{ addrText }}</span>
-      <span v-show="props.showCopy"  class="w-4">
-        <Icon icon="bx:copy" @click="copy(props.addr)"/>
+      <span v-show="props.showCopy" class="w-4">
+        <Icon icon="bx:copy" @click="copy(props.addr)" />
       </span>
     </div>
   </div>
@@ -38,7 +38,7 @@
       default: false
     }
   })
-  const {copy} = useClipboard()
+  const { copy } = useClipboard()
   const addrText = props.showFullAddr
     ? props.addr
     : `${props.addr.slice(0, 6)}...${props.addr.slice(-4)}`
