@@ -10,6 +10,11 @@
       <template #content>
         <div class="flex flex-col items-end gap-8">
           <form class="flex flex-col gap-4 w-[30rem] text-sm">
+            <MUWalletInput
+              label="Wallet"
+              required
+              :show-error-message="firstClicked && !store.userInfo.connected"
+            ></MUWalletInput>
             <MUInput
               name="username"
               label="Username"
@@ -47,6 +52,11 @@
   import MUInput from '@/components/data-input/MUInput.vue'
   import MUMultiInput from '@/components/data-input/MUMultiInput.vue'
   import { useForm, configure } from 'vee-validate'
+  import { useStore } from '@/store'
+  import { ref } from 'vue'
+
+  const store = useStore()
+
   const { handleSubmit, resetForm } = useForm()
 
   configure({
@@ -56,9 +66,15 @@
     validateOnModelUpdate: true // controls if `update:modelValue` events should trigger validation with `handleChange` handler
   })
 
+  //
+  const firstClicked = ref(false)
+
   // methods
   const handleSave = () => {
-    onSubmit()
+    firstClicked.value = true
+    if (store.userInfo.connected) {
+      onSubmit()
+    }
   }
   const onInvalidSubmit = ({ values, errors, results }) => {
     console.log('value: ', values)

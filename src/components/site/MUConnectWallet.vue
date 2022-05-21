@@ -1,5 +1,5 @@
 <template>
-  <div @click="state.openModal = true">
+  <div class="w-full" @click="state.openModal = true">
     <slot></slot>
   </div>
   <MUModal

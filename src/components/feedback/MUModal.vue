@@ -12,13 +12,13 @@
     >
       <!-- card -->
       <div
-        class="min-w-[23rem] bg-white rounded-xl my-shadow px-6 py-4 flex flex-col gap-4 items-stretch"
+        class="min-w-[23rem] bg-white rounded-xl my-shadow px-6 pt-4 pb-8 flex flex-col gap-4 items-stretch"
       >
         <div class="flex justify-between items-center font-bold text-xl">
           <slot name="header">default header</slot>
           <Icon
             v-if="closeIcon"
-            class="w-4 h-4"
+            class="w-4 h-4 cursor-pointer"
             icon="material-symbols:close-rounded"
             @click="emit('close')"
           />

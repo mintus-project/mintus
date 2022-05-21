@@ -15,7 +15,7 @@ export const useStore = defineStore('main', {
     }
   },
   getters: {
-    addressHidden(state) {
+    getShortAddress(state) {
       // return `${state.walletInfo.address.slice(0, 6)}...${state.walletInfo.address.slice(-4)}`
       const addr = state.walletInfo.address.toString()
       return `${addr.slice(0, 6)}...${addr.slice(-4)}`

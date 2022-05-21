@@ -9,6 +9,7 @@
         <MUWalletInput
           label="Wallet"
           required
+          :show-error-message="firstClicked && !store.userInfo.connected"
         ></MUWalletInput>
         <MUInput
           name="username"
@@ -50,6 +51,10 @@
   import { useForm, configure } from 'vee-validate'
   import { useRouter } from 'vue-router'
   import MUWalletInput from '@/components/data-input/MUWalletInput.vue'
+  import { useStore } from '@/store'
+import { ref } from 'vue'
+
+  const store = useStore()
 
   const router = useRouter()
 
@@ -62,9 +67,15 @@
     validateOnModelUpdate: true // controls if `update:modelValue` events should trigger validation with `handleChange` handler
   })
 
+  //
+  const firstClicked = ref(false)
+
   // methods
   const handleNext = () => {
-    onSubmit()
+    firstClicked.value = true
+    if (store.userInfo.connected) {
+      onSubmit()
+    }
   }
   const onInvalidSubmit = ({ values, errors, results }) => {
     console.log('value: ', values)

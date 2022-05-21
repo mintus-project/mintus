@@ -14,7 +14,9 @@
         <span class="font-bold text-xl">Username</span>
         <div class="border px-3 py-2 rounded-full flex items-center gap-1">
           <MUCoin type="eth"></MUCoin>
-          <span class="text-[#727272] font-normal">0x5B55...5f55</span>
+          <span class="text-[#727272] font-normal">{{
+            store.getShortAddress
+          }}</span>
         </div>
       </div>
     </template>
@@ -65,7 +67,7 @@
     >
       <template #header>Success</template>
       <template #content>
-        <div>
+        <div class="flex flex-col items-center gap-3 py-2">
           <svg
             width="68"
             height="68"
@@ -103,7 +105,7 @@
     >
       <template #header>Failed</template>
       <template #content>
-        <div>
+        <div class="flex flex-col items-center gap-3 py-2">
           <svg
             width="68"
             height="68"
@@ -126,6 +128,22 @@
       </template>
     </MUModal>
   </div>
+
+
+
+
+
+
+  
+  <MUPayResult
+    v-if="state.dialogModal"
+    :title="payResultConfig[modalType].title"
+    :description="payResultConfig[modalType].description"
+    :type="payResultConfig[modalType].type"
+    :button-text="payResultConfig[modalType].buttonText"
+    :close-callback="payResultConfig[modalType].closeCallback"
+    :button-callback="payResultConfig[modalType].buttonCallback"
+  />
 </template>
 
 <script setup>
@@ -137,7 +155,12 @@
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '@/components/common/MUWalletType.vue'
   import MUWalletAddr from '@/components/common/MUWalletAddr.vue'
+  import MUPayResult from '@/components/feedback/MUPayResult.vue'
+  import { useRouter } from 'vue-router'
+  import { computed } from '@vue/reactivity'
   // import { Icon } from '@iconify/vue'
+
+  const router = useRouter()
 
   const store = useStore()
   const state = reactive({
@@ -158,6 +181,39 @@
       store.userInfo.purchased = true
     } else {
       state.completed = false
+    }
+  }
+
+  const modalType = computed(() => {
+    return state.completed ? 'success' : 'failed'
+  })
+
+  const payResultConfig = {
+    success: {
+      title: 'Success',
+      description: 'Transaction completed successfully',
+      type: 'success',
+      buttonText: 'View my profile',
+      closeCallback: () => {
+        state.dialogModal = false
+        router.push('/user/id-10304/profile')
+      },
+      buttonCallback: () => {
+        state.dialogModal = false
+        router.push('/user/id-10304/profile')
+      }
+    },
+    failed: {
+      title: 'Failed',
+      description: 'Sorry, your transaction failed',
+      type: 'success',
+      buttonText: 'Close',
+      closeCallback: () => {
+        state.dialogModal = false
+      },
+      buttonCallback: () => {
+        state.dialogModal = false
+      }
     }
   }
 </script>
