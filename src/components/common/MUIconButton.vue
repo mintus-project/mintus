@@ -1,9 +1,10 @@
 <template>
   <button
-    class="my-btn"
+    class="my-btn flex gap-2"
     :class="{ 'btn-default': !props.disabled, 'btn-disabled': props.disabled }"
     :disabled="props.disabled"
   >
+    <slot name="icon"></slot>
     <slot></slot>
   </button>
 </template>

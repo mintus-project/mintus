@@ -6,6 +6,10 @@
     </template>
     <template #content>
       <form class="px-12 py-8 flex flex-col gap-4 w-[30rem] text-sm">
+        <MUWalletInput
+          label="Wallet"
+          required
+        ></MUWalletInput>
         <MUInput
           name="username"
           label="Username"
@@ -45,6 +49,7 @@
   import MUMultiInput from '@/components/data-input/MUMultiInput.vue'
   import { useForm, configure } from 'vee-validate'
   import { useRouter } from 'vue-router'
+  import MUWalletInput from '@/components/data-input/MUWalletInput.vue'
 
   const router = useRouter()
 

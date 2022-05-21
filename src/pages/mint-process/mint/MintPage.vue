@@ -23,6 +23,7 @@
       <MUButton @click="handleMint"> Mint It </MUButton>
     </template>
   </ProcessCard>
+  <!-- Bill Modal -->
   <MUModal
     v-if="state.billModal"
     key="bill"
@@ -49,6 +50,7 @@
       </div>
     </template>
   </MUModal>
+  <!-- Dialog Modal (Success / Failed) -->
   <div v-if="state.dialogModal">
     <MUModal
       key="suc"
@@ -78,7 +80,7 @@
               fill="#31C440"
             />
           </svg>
-          <p>Transaction completed successfuly</p>
+          <p>Transaction completed successfully</p>
         </div>
       </template>
       <template #footer>

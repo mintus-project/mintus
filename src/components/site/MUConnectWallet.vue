@@ -13,15 +13,14 @@
     </template>
     <template #content>
       <div class="flex flex-col items-stretch gap-2">
-        <MUButton
+        <MUWalletButton
           v-for="(type, index) in walletList"
           :key="index"
-          class="btn gap-2"
           @click="handleConnect(type)"
         >
           <MUWalletType show-name :type="type" />
           <Icon icon="material-symbols:arrow-forward-ios-rounded" />
-        </MUButton>
+        </MUWalletButton>
       </div>
     </template>
   </MUModal>
@@ -30,12 +29,12 @@
 <script setup>
   import { reactive } from 'vue'
   import { useStore } from '@/store/index.js'
-  import MUButton from '../common/MUButton.vue'
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '../common/MUWalletType.vue'
   import { Icon } from '@iconify/vue'
   import detectEthereumProvider from '@metamask/detect-provider'
-  
+  import MUWalletButton from '../common/MUWalletButton.vue'
+
   const store = useStore()
   const state = reactive({ openModal: false })
   const walletList = ['metamask', 'coinbase', 'fortmatic']

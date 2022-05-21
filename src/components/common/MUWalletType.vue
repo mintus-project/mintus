@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center gap-3">
-    <Icon :icon="AllWalletTypes[props.type].icon" class="w-8 h-8" />
+    <Icon :icon="AllWalletTypes[props.type].icon" :color="AllWalletTypes[props.type].color" height="20" />
     <span v-if="showName">{{ AllWalletTypes[props.type].text }}</span>
   </div>
 </template>
@@ -20,10 +20,14 @@
   })
 
   const AllWalletTypes = {
-    metamask: { text: 'MetaMask', icon: 'logos:metamask-icon' },
+    metamask: { text: 'MetaMask', icon: 'logos:metamask-icon', color: '' },
     // icon库没搜到，暂时用这些
-    coinbase: { text: 'Coinbase Wallet', icon: 'arcticons:coinbase' },
-    fortmatic: { text: 'Fortmatic', icon: 'mdi:wallet' }
+    coinbase: {
+      text: 'Coinbase Wallet',
+      icon: 'arcticons:coinbase',
+      color: '#2D65F8'
+    },
+    fortmatic: { text: 'Fortmatic', icon: 'mdi:wallet', color: '#617BFF' }
   }
 </script>
 
