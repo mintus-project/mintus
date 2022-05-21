@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply transition-all ease-in-out;
+}
+
 .btn {
   @apply normal-case;
 }
@@ -13,4 +17,8 @@
 
 .mu-input {
   @apply block px-4 py-3 bg-white border border-[#EEEEEE] rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#D7D8FC] focus:border-[#D7D8FC] active:border-[#5D5FEF] disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-200 invalid:text-pink-500 active:invalid:border-pink-400 focus:invalid:ring-pink-200 focus:invalid:border-pink-200 transition;
+}
+
+.my-btn {
+  @apply hover:scale-105 active:scale-110;
 }
