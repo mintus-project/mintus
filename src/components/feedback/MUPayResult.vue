@@ -1,5 +1,5 @@
 <template>
-  <MUModal open close-icon @close="props.closeCallback">
+  <MUModal close-icon @close="props.closeCallback">
     <template #header>{{ props.title }}</template>
     <template #content>
       <div class="flex flex-col items-center justify-evenly gap-3 h-52">

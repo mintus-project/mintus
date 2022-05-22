@@ -25,124 +25,20 @@
       <MUButton @click="handleMint"> Mint It </MUButton>
     </template>
   </ProcessCard>
-  <!-- Bill Modal -->
-  <MUModal
+  <BillModal
     v-if="state.billModal"
-    key="bill"
-    :open="state.billModal"
-    @close="state.billModal = false"
-  >
-    <template #header>Check the Bill</template>
-    <template #content>
-      <div class="flex justify-evenly">
-        <MUWalletType show-name :type="store.walletInfo.type" />
-        <MUWalletAddr :addr="store.walletInfo.address" show-badge />
-      </div>
-      <div class="divider my-0"></div>
-      <div>xxx fe(Estimated) 0.1ETH</div>
-      <div class="divider my-0"></div>
-      <div>Total(Estimated) 4.12ETH</div>
-    </template>
-    <template #footer>
-      <div class="flex justify-evenly">
-        <MUButton btn-type="outline" @click="state.billModal = false"
-          >Cancel</MUButton
-        >
-        <MUButton @click="handleConfirm">Confirm</MUButton>
-      </div>
-    </template>
-  </MUModal>
+    @cancel="state.billModal = false"
+    @confirm="handleConfirm"
+  />
   <!-- Dialog Modal (Success / Failed) -->
-  <div v-if="state.dialogModal">
-    <MUModal
-      key="suc"
-      :open="state.completed"
-      close-icon
-      @close="
-        () => {
-          state.dialogModal = false
-          $router.push('/user/id-10304/profile')
-        }
-      "
-    >
-      <template #header>Success</template>
-      <template #content>
-        <div class="flex flex-col items-center gap-3 py-2">
-          <svg
-            width="68"
-            height="68"
-            viewBox="0 0 68 68"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M67.3332 33.9994C67.3332 52.4088 52.4093 67.3327 33.9998 67.3327H3.97883C1.03377 67.3327 -0.441126 63.7422 1.64135 61.6423L8.16483 55.0643C3.47765 49.3226 0.666504 41.9893 0.666504 33.9994C0.666504 15.5899 15.5903 0.666016 33.9998 0.666016C52.4093 0.666016 67.3332 15.5899 67.3332 33.9994ZM46.3569 29.6897C47.6586 28.388 47.6586 26.2774 46.3569 24.9757C45.0551 23.6739 42.9446 23.6739 41.6428 24.9757L30.6665 35.952L26.3569 31.6423C25.0551 30.3406 22.9446 30.3406 21.6428 31.6423C20.3411 32.9441 20.3411 35.0546 21.6428 36.3564L28.3095 43.023C28.9346 43.6482 29.7824 43.9994 30.6665 43.9994C31.5506 43.9994 32.3984 43.6482 33.0235 43.023L46.3569 29.6897Z"
-              fill="#31C440"
-            />
-          </svg>
-          <p>Transaction completed successfully</p>
-        </div>
-      </template>
-      <template #footer>
-        <MUButton
-          @click="
-            () => {
-              state.dialogModal = false
-              $router.push('/user/id-10304/profile')
-            }
-          "
-          >View my profile</MUButton
-        >
-      </template>
-    </MUModal>
-    <MUModal
-      key="failed"
-      :open="!state.completed"
-      close-icon
-      @close="state.dialogModal = false"
-    >
-      <template #header>Failed</template>
-      <template #content>
-        <div class="flex flex-col items-center gap-3 py-2">
-          <svg
-            width="68"
-            height="68"
-            viewBox="0 0 68 68"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M67.3334 33.9994C67.3334 52.4088 52.4096 67.3327 34.0001 67.3327H3.97907C1.03401 67.3327 -0.440881 63.7422 1.64159 61.6423L8.16507 55.0643C3.47789 49.3226 0.666748 41.9893 0.666748 33.9994C0.666748 15.5899 15.5906 0.666016 34.0001 0.666016C52.4096 0.666016 67.3334 15.5899 67.3334 33.9994ZM44.6904 23.309C45.9922 24.6107 45.9922 26.7213 44.6904 28.023L38.7141 33.9994L44.6904 39.9757C45.9922 41.2774 45.9922 43.388 44.6904 44.6897C43.3887 45.9915 41.2781 45.9915 39.9764 44.6897L34.0001 38.7134L28.0238 44.6897C26.722 45.9915 24.6115 45.9915 23.3097 44.6897C22.008 43.388 22.008 41.2774 23.3097 39.9757L29.286 33.9994L23.3097 28.023C22.008 26.7213 22.008 24.6107 23.3097 23.309C24.6115 22.0072 26.722 22.0072 28.0238 23.309L34.0001 29.2853L39.9764 23.309C41.2781 22.0072 43.3887 22.0072 44.6904 23.309Z"
-              fill="#FF3333"
-            />
-          </svg>
-          <p>Sorry, your transaction failed</p>
-        </div>
-      </template>
-      <template #footer>
-        <MUButton @click="state.dialogModal = false">Close</MUButton>
-      </template>
-    </MUModal>
-  </div>
-
-
-
-
-
-
-  
   <MUPayResult
     v-if="state.dialogModal"
-    :title="payResultConfig[modalType].title"
-    :description="payResultConfig[modalType].description"
-    :type="payResultConfig[modalType].type"
-    :button-text="payResultConfig[modalType].buttonText"
-    :close-callback="payResultConfig[modalType].closeCallback"
-    :button-callback="payResultConfig[modalType].buttonCallback"
+    :title="payResultConfig[resultModalType].title"
+    :description="payResultConfig[resultModalType].description"
+    :type="payResultConfig[resultModalType].type"
+    :button-text="payResultConfig[resultModalType].buttonText"
+    :close-callback="payResultConfig[resultModalType].closeCallback"
+    :button-callback="payResultConfig[resultModalType].buttonCallback"
   />
 </template>
 
@@ -152,13 +48,11 @@
   import ProcessCard from '../components/ProcessCard.vue'
   import MUButton from '../../../components/common/MUButton.vue'
   import MUCoin from '../../../components/common/MUCoin.vue'
-  import MUModal from '@/components/feedback/MUModal.vue'
-  import MUWalletType from '@/components/common/MUWalletType.vue'
-  import MUWalletAddr from '@/components/common/MUWalletAddr.vue'
   import MUPayResult from '@/components/feedback/MUPayResult.vue'
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
-  // import { Icon } from '@iconify/vue'
+  import BillModal from '../components/BillModal.vue'
+  import { ethers } from 'ethers'
 
   const router = useRouter()
 
@@ -171,20 +65,44 @@
   const handleMint = () => {
     state.billModal = true
   }
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     //TODO: 钱包支付逻辑
-    const suc = true // 支付结果
+
+    const res = await addNft()// 支付结果
     state.billModal = false
     state.dialogModal = true
-    if (suc) {
+    if (res) {
       state.completed = true
       store.userInfo.purchased = true
     } else {
       state.completed = false
     }
   }
+  const addNft = async () => {
+    try {
+      // 先判断ethereum是否可用
+      const { ethereum } = window
+      if (!ethereum) {
+        alert('Please install metamask')
+        return false
+      }
+      // ethereum -> provider -> signer(执行合约的签名方)
+      const provider = new ethers.providers.Web3Provider(ethereum)
+      const signer = provider.getSigner()
+      // 建立一个合约的实体（合约地址、合约ABI(之前由hardhat编译生成的Counter.json文件)、签名方）
+      const CounterContract = new ethers.Contract(store.contractInfo.address, store.contractInfo.abi, signer)
+      let tx = await CounterContract.add() // transaction 
+      await tx.wait() // 确定上链后
+      const counts = await CounterContract.getCounts() // 值很大，通过对象返回了
+      console.log('链上的count:',counts)
+      return true
+    } catch(err) {
+      console.error(err)
+    }
+  }
 
-  const modalType = computed(() => {
+
+  const resultModalType = computed(() => {
     return state.completed ? 'success' : 'failed'
   })
 

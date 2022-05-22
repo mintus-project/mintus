@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-// import { useStorage } from '@vueuse/core'
+import abi from '@/utils/Contract.json'
 
 export const useStore = defineStore('main', {
   state: () => {
@@ -11,6 +11,10 @@ export const useStore = defineStore('main', {
       userInfo: {
         connected: false,
         purchased: false
+      },
+      contractInfo: {
+        address: '0x5fbdb2315678afecb367f032d93f642f64180aa3',
+        abi: abi.abi
       }
     }
   },

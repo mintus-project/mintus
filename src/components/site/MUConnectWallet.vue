@@ -4,7 +4,6 @@
   </div>
   <MUModal
     v-if="state.openModal"
-    :open="state.openModal"
     close-icon
     @close="handleClose"
   >
