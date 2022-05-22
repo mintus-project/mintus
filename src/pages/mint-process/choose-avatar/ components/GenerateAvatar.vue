@@ -9,13 +9,27 @@
         </div>
       </div>
       <div class="flex flex-col gap-4">
-        <MUIconButton>
+        <MUIconButton
+          @click="
+            () => {
+              avatarConfig = [0, 0, 0, 0, 0, 0, 0]
+              drawAvatar(avatarConfig)
+            }
+          "
+        >
           <template #icon>
             <Icon icon="fe:loop" height="16" />
           </template>
           <template #default> Reset </template>
         </MUIconButton>
-        <MUIconButton @click="drawAvatar(avatarConfig)">
+        <MUIconButton
+          @click="
+            () => {
+              avatarConfig = generateRandomAvatarConfig()
+              drawAvatar(avatarConfig)
+            }
+          "
+        >
           <template #icon>
             <Icon icon="ps:random" height="14" />
           </template>
@@ -60,6 +74,7 @@
   import MUTag from '@/components/common/MUTag.vue'
   import { ref } from 'vue'
   import materials from '@/utils/materials'
+  import randomFromTo from '@/utils/randomFromTo'
 
   // refs
   const canvas = ref(null)
@@ -150,6 +165,23 @@
   const drawAvatar = (avatarConfig) => {
     const images = createImages(avatarConfig)
     imagesSetOnLoad(images)
+  }
+
+  const generateRandomAvatarConfig = () => {
+    const arr = [
+      randomFromTo(0, materials.background.matPathArr.length - 1),
+      randomFromTo(0, materials.cloth.matPathArr.length - 1),
+      randomFromTo(0, materials.body.matPathArr.length - 1),
+      randomFromTo(0, materials.mouth.matPathArr.length - 1),
+      randomFromTo(0, materials.nose.matPathArr.length - 1),
+      randomFromTo(0, materials.eyes.matPathArr.length - 1),
+      randomFromTo(0, materials.hair.matPathArr.length - 1)
+    ]
+    // materials.forEach((e) => {
+    //   arr.push(randomFromTo(0, e.matPathArr.length - 1))
+    // })
+    console.log(arr)
+    return arr
   }
 </script>
 
