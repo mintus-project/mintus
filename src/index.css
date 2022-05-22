@@ -20,5 +20,5 @@
 }
 
 .my-btn {
-  @apply hover:scale-105 active:scale-110;
+  @apply hover:scale-[1.04] active:scale-[1.06];
 }

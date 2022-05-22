@@ -26,7 +26,7 @@
   }
 
   .btn-default {
-    @apply bg-white text-[#727272] hover:bg-[#D7D8FC] hover:border-[#D7D8FC] hover:text-[#5D5FEF] active:bg-[#D7D8FC] active:text-[#5D5FEF] disabled:opacity-40 disabled:bg-white disabled:text-black;
+    @apply bg-white text-[#727272] hover:bg-[#F1F1F180] active:bg-[#F1F1F180] disabled:opacity-40 disabled:bg-white disabled:text-black;
   }
 
   .btn-active {

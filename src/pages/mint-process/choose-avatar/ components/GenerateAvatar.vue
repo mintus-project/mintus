@@ -36,7 +36,7 @@
         <div
           v-for="(item, index) in 30"
           :key="index"
-          class="avatar rounded-xl cursor-pointer hover:scale-95 transition ease-in-out"
+          class="avatar rounded-xl cursor-pointer hover:scale-[0.96] duration-300 ease-in-out"
         >
           <div class="w-[6.25rem] rounded-xl">
             <img src="https://api.lorem.space/image/face?hash=64318" />

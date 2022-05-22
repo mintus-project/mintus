@@ -1,6 +1,6 @@
 <template>
-  <div class="dropdown z-10">
-    <div tabindex="0">
+  <div class="dropdown dropdown-end z-10">
+    <div tabindex="0" class="cursor-pointer">
       <MUWalletAddr :addr="store.walletInfo.address" show-badge />
     </div>
     <div

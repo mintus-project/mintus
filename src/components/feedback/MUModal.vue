@@ -17,7 +17,7 @@
           <slot name="header">default header</slot>
           <Icon
             v-if="props.closeIcon"
-            class="w-4 h-4 cursor-pointer"
+            class="w-4 h-4 cursor-pointer hover:rotate-90 duration-300"
             icon="material-symbols:close-rounded"
             @click="emit('close')"
           />
