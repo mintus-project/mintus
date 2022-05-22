@@ -5,7 +5,7 @@
       <!-- avatar -->
       <div class="avatar">
         <div class="w-56 rounded-xl">
-          <img src="https://api.lorem.space/image/face?hash=64318" />
+          <canvas ref="canvas"></canvas>
         </div>
       </div>
       <div class="flex flex-col gap-4">
@@ -15,7 +15,7 @@
           </template>
           <template #default> Reset </template>
         </MUIconButton>
-        <MUIconButton>
+        <MUIconButton @click="drawAvatar(avatarConfig)">
           <template #icon>
             <Icon icon="ps:random" height="14" />
           </template>
@@ -27,19 +27,26 @@
     <div class="flex flex-col justify-between">
       <!-- select bar -->
       <div class="flex gap-2">
-        <MUTag v-for="item in tabs" :key="item.tabName">
+        <MUTag
+          v-for="item in tabs"
+          :key="item.tabName"
+          :active="item.active"
+          @click="handleTabClick(item)"
+        >
           {{ item.tabName }}
         </MUTag>
       </div>
       <!-- style grid -->
-      <div class="h-[19.75rem] rounded-xl grid grid-cols-6 gap-2 overflow-auto">
+      <div
+        class="h-[19.75rem] p-2 rounded-xl grid grid-cols-6 items-start gap-2 overflow-auto"
+      >
         <div
-          v-for="(item, index) in 30"
+          v-for="(item, index) in materials[currentTab].matPathArr"
           :key="index"
-          class="avatar rounded-xl cursor-pointer hover:scale-[0.96] duration-300 ease-in-out"
+          class="avatar rounded-xl border border-[#EEEEEE] my-shadow-sm cursor-pointer hover:scale-[0.96] duration-300 ease-in-out"
         >
           <div class="w-[6.25rem] rounded-xl">
-            <img src="https://api.lorem.space/image/face?hash=64318" />
+            <img :src="item" />
           </div>
         </div>
       </div>
@@ -51,30 +58,99 @@
   import MUIconButton from '@/components/common/MUIconButton.vue'
   import { Icon } from '@iconify/vue'
   import MUTag from '@/components/common/MUTag.vue'
+  import { ref } from 'vue'
+  import materials from '@/utils/materials'
 
-  const tabs = [
+  // refs
+  const canvas = ref(null)
+
+  // data
+  const tabs = ref([
     {
-      tabName: 'Base'
+      tabName: 'Body',
+      active: true
     },
     {
-      tabName: 'Hair'
+      tabName: 'Hair',
+      active: false
     },
     {
-      tabName: 'Clothes'
+      tabName: 'Cloth',
+      active: false
     },
     {
-      tabName: 'Eyes'
+      tabName: 'Eyes',
+      active: false
     },
     {
-      tabName: 'Noses'
+      tabName: 'Nose',
+      active: false
     },
     {
-      tabName: 'Mouths'
+      tabName: 'Mouth',
+      active: false
     },
     {
-      tabName: 'Background'
+      tabName: 'Background',
+      active: false
     }
-  ]
+  ])
+
+  const currentTab = ref('body')
+
+  const avatarConfig = ref([1, 1, 1, 1, 1, 1, 1])
+
+  // method
+  const handleTabClick = (item) => {
+    tabs.value.forEach((e) => {
+      e.active = false
+    })
+    item.active = true
+
+    currentTab.value = item.tabName.toLowerCase()
+  }
+
+  const contextDraw = (images) => {
+    const ctx = canvas.value.getContext('2d')
+    canvas.value.width = 224
+    canvas.value.height = 224
+
+    images.forEach((img) => {
+      ctx.drawImage(img, 0, 0, 224, 224)
+    })
+  }
+
+  const createImages = (avatarConfig) => {
+    const orderArr = [
+      'background',
+      'cloth',
+      'body',
+      'mouth',
+      'nose',
+      'eyes',
+      'hair'
+    ]
+    const arr = []
+    orderArr.forEach((e, i) => {
+      const img = new Image()
+      img.src = materials[e].matPathArr[avatarConfig[i]]
+      arr.push(img)
+    })
+    return arr
+  }
+
+  const imagesSetOnLoad = (images) => {
+    images.forEach((img) => {
+      img.onload = () => {
+        contextDraw(images)
+      }
+    })
+  }
+
+  const drawAvatar = (avatarConfig) => {
+    const images = createImages(avatarConfig)
+    imagesSetOnLoad(images)
+  }
 </script>
 
 <style lang="scss" scoped></style>
