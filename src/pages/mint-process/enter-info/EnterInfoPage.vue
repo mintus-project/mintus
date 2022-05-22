@@ -5,7 +5,7 @@
       These information will display on your profile page.
     </template>
     <template #content>
-      <form class="px-12 py-8 flex flex-col gap-4 w-[30rem] text-sm">
+      <form class="px-12 py-8 flex flex-col gap-4 w-[30rem] text-sm" @submit.prevent="">
         <MUWalletInput
           label="Wallet"
           required
