@@ -9,7 +9,9 @@
     <span>wallet address</span>
     <div class="flex gap-4">
       <MUIconButton @click="$router.push('setting')">
-        <template #icon><Icon height="16" icon="material-symbols:settings-outline-rounded" /></template>
+        <template #icon
+          ><Icon height="16" icon="material-symbols:settings-outline-rounded"
+        /></template>
         <template #default>Setting</template>
       </MUIconButton>
       <MUButton>Download Avatar</MUButton>

@@ -1,6 +1,10 @@
 <template>
   <div class="flex items-center gap-3">
-    <Icon :icon="AllWalletTypes[props.type].icon" :color="AllWalletTypes[props.type].color" height="20" />
+    <Icon
+      :icon="AllWalletTypes[props.type].icon"
+      :color="AllWalletTypes[props.type].color"
+      height="20"
+    />
     <span v-if="showName">{{ AllWalletTypes[props.type].text }}</span>
   </div>
 </template>

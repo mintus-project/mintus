@@ -2,11 +2,7 @@
   <div class="w-full" @click="state.openModal = true">
     <slot></slot>
   </div>
-  <MUModal
-    v-if="state.openModal"
-    close-icon
-    @close="handleClose"
-  >
+  <MUModal v-if="state.openModal" close-icon @close="handleClose">
     <template #header>
       <h2>Connect to Your Wallet</h2>
     </template>

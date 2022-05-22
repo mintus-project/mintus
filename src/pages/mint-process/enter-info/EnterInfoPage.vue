@@ -5,7 +5,10 @@
       These information will display on your profile page.
     </template>
     <template #content>
-      <form class="px-12 py-8 flex flex-col gap-4 w-[30rem] text-sm" @submit.prevent="">
+      <form
+        class="px-12 py-8 flex flex-col gap-4 w-[30rem] text-sm"
+        @submit.prevent=""
+      >
         <MUWalletInput
           label="Wallet"
           required
@@ -52,7 +55,7 @@
   import { useRouter } from 'vue-router'
   import MUWalletInput from '@/components/data-input/MUWalletInput.vue'
   import { useStore } from '@/store'
-import { ref } from 'vue'
+  import { ref } from 'vue'
 
   const store = useStore()
 

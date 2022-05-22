@@ -9,7 +9,11 @@
     :validator="props.validator"
   >
     <template #before>
-      <select v-model="coinType" :name="`${props.name}-coinType`" class="text-sm mu-input">
+      <select
+        v-model="coinType"
+        :name="`${props.name}-coinType`"
+        class="text-sm mu-input"
+      >
         <option value="ETH">ETH</option>
         <option value="BTC">BTC</option>
         <option value="ABC">ABC</option>

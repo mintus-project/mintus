@@ -2,30 +2,44 @@
   <MUModal @close="emit('cancel')">
     <template #header>Check the Bill</template>
     <template #content>
-      <div class="flex justify-evenly">
-        <MUWalletType show-name :type="store.walletInfo.type" />
+      <div class="py-8 flex justify-between">
+        <MUWalletType
+          show-name
+          :type="store.walletInfo.type"
+          class="text-[#727272] font-bold"
+        />
         <MUWalletAddr :addr="store.walletInfo.address" show-badge />
       </div>
-      <div class="divider my-0"></div>
-      <div class="flex justify-between">
-        <p>xxx fe(Estimated)</p>
-        <p>{{`${transInfo.basFee} ETH`}}</p>
+
+      <div class="border-t-[1px] my-2"></div>
+
+      <div class="flex flex-col gap-6">
+        <div class="flex justify-between items-center text-sm">
+          <span>xxx fe (Estimated)</span>
+          <span class="text-base font-bold">
+            {{ `${transInfo.basFee} ETH` }}
+          </span>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span>xxx fe (Estimated)</span>
+          <span class="text-base font-bold">
+            {{ `${transInfo.priorityFee} ETH` }}
+          </span>
+        </div>
       </div>
-       <div class="flex justify-between">
-        <p>xxx fe(Estimated)</p>
-        <p>{{`${transInfo.priorityFee} ETH`}}</p>
-      </div>
-      <div class="divider my-0"></div>
-      <div class="flex justify-between">
-        <p>Total (Estimated)</p>
-        <p>{{`${transInfo.total} ETH`}}</p>
+
+      <div class="border-t-[1px] my-2"></div>
+
+      <div class="flex justify-between items-center text-sm mb-8">
+        <span>Total (Estimated)</span>
+        <span class="text-xl font-bold">
+          {{ `${transInfo.total} ETH` }}
+        </span>
       </div>
     </template>
     <template #footer>
       <div class="flex justify-evenly">
-        <MUButton btn-type="outline" @click="emit('cancel')"
-          >Cancel</MUButton
-        >
+        <MUButton btn-type="outline" @click="emit('cancel')">Cancel</MUButton>
         <MUButton @click="emit('confirm')">Confirm</MUButton>
       </div>
     </template>
@@ -50,6 +64,5 @@
   // onMounted(() => {
   //   // getGasOracle
   // })
-
 </script>
 <style scoped></style>

@@ -68,7 +68,7 @@
   const handleConfirm = async () => {
     //TODO: 钱包支付逻辑
 
-    const res = await addNft()// 支付结果
+    const res = await addNft() // 支付结果
     state.billModal = false
     state.dialogModal = true
     if (res) {
@@ -90,17 +90,20 @@
       const provider = new ethers.providers.Web3Provider(ethereum)
       const signer = provider.getSigner()
       // 建立一个合约的实体（合约地址、合约ABI(之前由hardhat编译生成的Counter.json文件)、签名方）
-      const CounterContract = new ethers.Contract(store.contractInfo.address, store.contractInfo.abi, signer)
-      let tx = await CounterContract.add() // transaction 
+      const CounterContract = new ethers.Contract(
+        store.contractInfo.address,
+        store.contractInfo.abi,
+        signer
+      )
+      let tx = await CounterContract.add() // transaction
       await tx.wait() // 确定上链后
       const counts = await CounterContract.getCounts() // 值很大，通过对象返回了
-      console.log('链上的count:',counts)
+      console.log('链上的count:', counts)
       return true
-    } catch(err) {
+    } catch (err) {
       console.error(err)
     }
   }
-
 
   const resultModalType = computed(() => {
     return state.completed ? 'success' : 'failed'
@@ -124,7 +127,7 @@
     failed: {
       title: 'Failed',
       description: 'Sorry, your transaction failed',
-      type: 'success',
+      type: 'failed',
       buttonText: 'Close',
       closeCallback: () => {
         state.dialogModal = false
