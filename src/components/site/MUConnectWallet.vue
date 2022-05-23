@@ -27,7 +27,7 @@
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '../common/MUWalletType.vue'
   import { Icon } from '@iconify/vue'
-  import detectEthereumProvider from '@metamask/detect-provider'
+  // import detectEthereumProvider from '@metamask/detect-provider'
   import MUWalletButton from '../common/MUWalletButton.vue'
 
   const store = useStore()
@@ -41,7 +41,7 @@
   const handleConnect = (type) => {
     switch (type) {
       case 'metamask':
-        connectMetaMask()
+        store.connectMetaMask()
         break
       case 'coinbase':
         conncetCoinbase()
@@ -54,63 +54,7 @@
     }
     handleClose()
   }
-  const connectMetaMask = async () => {
-    try {
-      const provider = await detectEthereumProvider()
-      if (provider) {
-        if (provider == window.ethereum) {
-          const { ethereum } = window
-          // 询问用户是否授权当前网站获取钱包地址
-          ethereum
-            .request({
-              method: 'wallet_requestPermissions',
-              params: [
-                {
-                  eth_accounts: {}
-                }
-              ]
-            })
-            .then(() =>
-              ethereum.request({
-                method: 'eth_requestAccounts'
-              })
-            )
-            .then((accounts) => {
-              handleAccountsChanged(accounts)
-              ethereum.on('accountsChanged', handleAccountsChanged)
-            })
-            .catch((err) => {
-              if (err.code === 4001) {
-                // EIP-1193 userRejectedRequest error
-                // If this happens, the user rejected the connection request.
-                console.log('Please connect to MetaMask.')
-              } else {
-                console.error(err)
-              }
-            })
-        } else {
-          console.error('Do you have multiple wallets installed?')
-        }
-      } else {
-        console.log('Please install MetaMask!')
-      }
-    } catch (err) {
-      console.error(err)
-    }
-  }
   const conncetCoinbase = () => {}
   const conncetFormatic = () => {}
-
-  const handleAccountsChanged = (accounts) => {
-    if (accounts.length === 0) {
-      // MetaMask is locked or the user has not connected any accounts
-      console.log('Please connect to MetaMask.')
-    } else if (accounts[0] !== store.walletInfo.address) {
-      console.log('found accounts with addresses', accounts)
-      store.walletInfo.address = accounts[0]
-      store.userInfo.connected = true
-      store.walletInfo.type = 'metamask'
-    }
-  }
 </script>
 <style scoped></style>
