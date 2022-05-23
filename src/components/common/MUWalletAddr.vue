@@ -40,7 +40,6 @@
   })
   const { copy } = useClipboard()
   const addrRef = computed(() => {
-    console.log(props.addr, typeof props.addr)
     return props.showFullAddr
       ? props.addr
       : `${props.addr.slice(0, 6)}...${props.addr.slice(-4)}`

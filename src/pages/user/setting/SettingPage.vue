@@ -2,7 +2,10 @@
   <div>
     <MUSiteSetting>
       <template #sidebar>
-        <button class="sidebar-item" @click="$router.push('profile')">
+        <button
+          class="sidebar-item"
+          @click="$router.push(`/profile/${store.walletInfo.address}`)"
+        >
           Dashboard
         </button>
         <button class="sidebar-item active">Edit Profile</button>

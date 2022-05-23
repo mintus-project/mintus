@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown dropdown-end z-10">
-    <div tabindex="0" class="cursor-pointer rounded-xl bg-gray-100 py-2 px-4">
+    <div tabindex="0" class="cursor-pointer rounded-xl bg-gray-500/[0.1] py-2 px-4">
       <MUWalletAddr :addr="store.walletInfo.address" show-badge />
     </div>
     <div
@@ -35,7 +35,7 @@
         <div>
           <MUButton
             :disabled="!store.userInfo.purchased"
-            @click="$router.push('/user/id-10304/profile')"
+            @click="$router.push('/profile/0xd83039Ff4B0D7022281769eDb509b32F6c390867')"
             >My Profile</MUButton
           >
         </div>

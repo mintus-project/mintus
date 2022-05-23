@@ -118,11 +118,13 @@
       buttonText: 'View my profile',
       closeCallback: () => {
         state.dialogModal = false
-        router.push('/user/id-10304/profile')
+        router.push(`/profile/${store.walletInfo.address}`)
+        // router.push('/user/id-10304/profile')
       },
       buttonCallback: () => {
         state.dialogModal = false
-        router.push('/user/id-10304/profile')
+        router.push(`/profile/${store.walletInfo.address}`)
+        // router.push('/user/id-10304/profile')
       }
     },
     failed: {

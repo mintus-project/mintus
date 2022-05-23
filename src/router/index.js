@@ -43,17 +43,17 @@ const routes = [
     ]
   },
   {
-    path: '/user/:id',
+    path: '/',
     name: 'UserPage',
     component: UserPage,
     children: [
       {
-        path: 'profile',
+        path: '/profile/:address',
         name: 'ProfilePage',
         component: ProfilePage
       },
       {
-        path: 'setting',
+        path: '/setting/:address',
         name: 'SettingPage',
         component: SettingPage
       }
@@ -65,5 +65,37 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
-
+router.beforeEach(async (to) => {
+  console.log(to)
+  const toProfile = to.path.split('/').includes('profile')
+  const toSetting = to.path.split('/').includes('setting')
+  const address = to.params.address
+  if (toProfile) {
+    // address是否买过nft
+    return true
+  }
+  if (toSetting) {
+    // address是否买过nft(暂时默认true)
+    // 访问的是否是当前连接钱包地址对应的setting
+    if (window.ethereum) {
+      const { ethereum } = window
+      if (ethereum) {
+        // 如果已授权会返回钱包地址
+        try {
+          const accounts = await ethereum.request({ method: 'eth_accounts' })
+          if (accounts.length !== 0) {
+            return address.toLowerCase() === accounts[0].toLowerCase()
+              ? true
+              : {name: 'Home'}
+          } else {
+           return {name: 'Home'}
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      return {name: 'Home'}
+    }
+  }
+})
 export default router

@@ -40,26 +40,12 @@ export const useStore = defineStore('main', {
             this.userInfo.connected = true
             console.log('found connected accounts', accounts)
           }
-          ethereum.on('accountsChanged', this.updateWalletInfo)
+          ethereum.on('accountsChanged', ()=>{ window.history.go(0)})
         } catch (error) {
           console.error(error)
         }
       } else {
         console.log('Please install Metamask or other wallets!')
-      }
-    },
-    updateWalletInfo(accounts) {
-      if (accounts && accounts.length === 0) {
-        console.log('no connected accounts')
-        this.walletInfo.address = ''
-        this.walletInfo.type = ''
-        this.userInfo.connected = false
-        this.userInfo.purchased = false
-      } else if (accounts[0] !== this.walletInfo.address) {
-        console.log('accounts changed', accounts[0])
-        this.walletInfo.address = accounts[0]
-        this.userInfo.connected = true
-        this.walletInfo.type = 'metamask'
       }
     },
     async connectMetaMask() {
