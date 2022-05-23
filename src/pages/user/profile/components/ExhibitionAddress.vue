@@ -4,8 +4,9 @@
       <tbody>
         <tr v-for="(item, index) in addresses" :key="index">
           <th>{{ item.coinType }}</th>
-          <td>{{ item.address }}</td>
-          <td>copy</td>
+          <td>
+            <MUWalletAddr show-copy :addr="item.address" show-full-addr />
+          </td>
         </tr>
       </tbody>
     </table>
@@ -14,6 +15,7 @@
 
 <script setup>
   import { ref } from 'vue'
+  import MUWalletAddr from '@/components/common/MUWalletAddr.vue'
 
   const addresses = ref([
     {

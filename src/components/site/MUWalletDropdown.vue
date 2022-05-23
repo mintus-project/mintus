@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown dropdown-end z-10">
-    <div tabindex="0" class="cursor-pointer">
+    <div tabindex="0" class="cursor-pointer rounded-xl bg-gray-100 py-2 px-4">
       <MUWalletAddr :addr="store.walletInfo.address" show-badge />
     </div>
     <div
@@ -14,7 +14,7 @@
           class="text-sm font-normal text-[#000000]"
         />
 
-        <div class="badge badge-lg bg-[#C4C4C4] border-0 align-between"></div>
+        <div class="badge badge-lg bg-[#C4C4C4] border-0 rounded-full h-8 w-8"></div>
         <MUWalletAddr :addr="store.walletInfo.address" show-copy />
 
         <div class="divider my-0"></div>

@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center gap-2">
     <div
       v-if="props.showBadge"
-      class="badge badge-lg bg-[#C4C4C4] border-0"
+      class="badge badge-lg bg-[#C4C4C4] border-0 rounded-full h-6 w-6"
     ></div>
     <div class="flex items-center gap-3">
       <span class="font-bold text-sm text-[#727272]">{{ addrRef }}</span>
