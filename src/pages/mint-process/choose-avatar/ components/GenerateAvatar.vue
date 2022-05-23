@@ -12,8 +12,7 @@
         <MUIconButton
           @click="
             () => {
-              avatarConfig = [0, 0, 0, 0, 0, 0, 0]
-              drawAvatar(avatarConfig)
+              avatarConfig = [1, 0, 0, 0, 0, 0, 0]
             }
           "
         >
@@ -26,7 +25,6 @@
           @click="
             () => {
               avatarConfig = generateRandomAvatarConfig()
-              drawAvatar(avatarConfig)
             }
           "
         >
@@ -57,9 +55,18 @@
         <div
           v-for="(item, index) in materials[currentTab].matPathArr"
           :key="index"
-          class="avatar rounded-xl border border-[#EEEEEE] my-shadow-sm cursor-pointer hover:scale-[0.96] duration-300 ease-in-out"
+          class="avatar rounded-xl border-4 border-white my-shadow-sm cursor-pointer hover:scale-[0.96] duration-300 ease-in-out"
+          :class="{
+            pickedMaterial:
+              index === avatarConfig[7 - materials[currentTab].level]
+          }"
+          @click="
+            () => {
+              avatarConfig[7 - materials[currentTab].level] = index
+            }
+          "
         >
-          <div class="w-[6.25rem] rounded-xl">
+          <div class="w-[6.25rem] rounded-lg">
             <img :src="item" />
           </div>
         </div>
@@ -72,7 +79,7 @@
   import MUIconButton from '@/components/common/MUIconButton.vue'
   import { Icon } from '@iconify/vue'
   import MUTag from '@/components/common/MUTag.vue'
-  import { ref } from 'vue'
+  import { ref, watchEffect } from 'vue'
   import materials from '@/utils/materials'
   import randomFromTo from '@/utils/randomFromTo'
 
@@ -113,7 +120,7 @@
 
   const currentTab = ref('body')
 
-  const avatarConfig = ref([1, 1, 1, 1, 1, 1, 1])
+  const avatarConfig = ref([1, 0, 0, 0, 0, 0, 0])
 
   // method
   const handleTabClick = (item) => {
@@ -167,8 +174,10 @@
     imagesSetOnLoad(images)
   }
 
+  watchEffect(() => drawAvatar(avatarConfig.value))
+
   const generateRandomAvatarConfig = () => {
-    const arr = [
+    return [
       randomFromTo(0, materials.background.matPathArr.length - 1),
       randomFromTo(0, materials.cloth.matPathArr.length - 1),
       randomFromTo(0, materials.body.matPathArr.length - 1),
@@ -177,12 +186,11 @@
       randomFromTo(0, materials.eyes.matPathArr.length - 1),
       randomFromTo(0, materials.hair.matPathArr.length - 1)
     ]
-    // materials.forEach((e) => {
-    //   arr.push(randomFromTo(0, e.matPathArr.length - 1))
-    // })
-    console.log(arr)
-    return arr
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+  .pickedMaterial {
+    @apply border-4 border-purple-300;
+  }
+</style>
