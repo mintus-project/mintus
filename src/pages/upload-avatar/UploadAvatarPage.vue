@@ -29,38 +29,25 @@
               :on-before-upload="onBeforeUpload"
               :on-error="onError"
               :on-finish="onFinish"
-              @change="handleChange"
               action="http://localhost:3000"
+              @change="handleChange"
             >
               <n-upload-dragger
-                class="w-[560px] h-[324px] bg-[#F3F3FE]/50 rounded-xl flex flex-col items-center justify-evenly"
+                class="w-[560px] h-[324px] bg-white rounded-xl flex flex-col items-center justify-evenly"
+                @dragover="handleDragOver"
               >
-                <svg
-                  width="65"
-                  height="46"
-                  viewBox="0 0 65 46"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M37.3 0.599614C39.264 0.599103 41.2073 1.00043 43.0104 1.77891C44.8135 2.5574 46.4382 3.69656 47.7847 5.12634C49.1311 6.55611 50.1708 8.24626 50.8397 10.0928C51.5086 11.9393 51.7927 13.9032 51.6744 15.8636H51.7L51.6968 19.79C54.9808 19.7891 58.1395 21.0505 60.5196 23.3133C62.8996 25.576 64.319 28.667 64.484 31.9468L64.5 32.5868C64.4975 35.8691 63.2343 39.0251 60.9712 41.4025C58.7081 43.7799 55.6182 45.1971 52.34 45.3612L51.7 45.3772H51.6968L51.7 45.3996H35.6968V32.846H43.5816L32.5 19.8092L21.4472 32.8492H29.3L29.2968 45.3996H13.3C9.90506 45.3911 6.65182 44.0377 4.25273 41.6356C1.85364 39.2335 0.504223 35.9786 0.5 32.5836C0.500571 29.6348 1.51926 26.7767 3.38388 24.4922C5.2485 22.2078 7.84468 20.6372 10.7336 20.046C10.0232 18.1901 9.90627 16.1596 10.3989 14.2344C10.8915 12.3093 11.9694 10.5844 13.4838 9.29785C14.9983 8.01128 16.8747 7.22639 18.8541 7.05146C20.8336 6.87653 22.8186 7.32018 24.5352 8.32121C25.7544 5.99075 27.5887 4.03887 29.8391 2.67758C32.0895 1.31628 34.6699 0.597609 37.3 0.599614Z"
-                    fill="white"
-                  />
-                </svg>
+                <Icon
+                  icon="ion:upload"
+                  class="text-[#EEEEEE] text-[6rem] leading-[6rem]"
+                />
                 <div style="font-size: 16px">
                   Drag or drop the avatar to upload or
                 </div>
                 <n-upload-trigger
-                  #="{ handleClick, handleDragOver, handleDragLeave }"
+                  #="{ handleClick }"
                   abstract
                 >
-                  <div>
-                    <MUButton @click.stop="handleClick">
-                      Browse files
-                    </MUButton>
-                  </div>
+                  <MUButton class="my-[1.3125rem]" @click.stop="handleClick"> Browse files </MUButton>
                 </n-upload-trigger>
               </n-upload-dragger>
             </n-upload>
@@ -68,7 +55,7 @@
           <!-- failed -->
           <div
             v-if="state.content === 'failed'"
-            class="w-full h-full bg-[#F3F3FE]/50 rounded-xl border-red-400 border border-dashed flex flex-col justify-evenly items-center"
+            class="w-full h-full bg-white rounded-xl border-red-400 border border-dashed flex flex-col justify-evenly items-center"
           >
             <svg
               width="55"
@@ -133,4 +120,8 @@
   // }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+  .drag-over {
+    @apply bg-[#F3F3FE]/50;
+  }
+</style>
