@@ -39,7 +39,7 @@
                 'icon-white': state.dragCoverLayers > 0
               }"
             />
-            <span> Drag or drop the avatar to upload </span>
+            <span class="text-sm"> Drag or drop the avatar to upload </span>
             <n-upload-trigger #="{ handleClick }" abstract>
               <MUButton class="my-[1.3125rem]" @click.stop="handleClick">
                 Browse files
@@ -57,7 +57,7 @@
             icon="gg:spinner"
             class="text-[#5D5FEF] animate-spin"
           />
-          <span>Uploading</span>
+          <span class="text-sm">Uploading</span>
         </div>
         <!-- failed -->
         <div
@@ -78,7 +78,7 @@
               fill="#FF3333"
             />
           </svg>
-          <p>Failed, please try it later</p>
+          <span class="text-sm">Failed, please try it later</span>
           <MUButton
             @click="
               () => {
