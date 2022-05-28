@@ -1,14 +1,18 @@
 <template>
   <MUSiteDynamicBackground>
     <div class="flex flex-col items-center gap-8 mt-[15vh]">
-      <div class="flex flex-col items-center gap-4">
-        <h1 class="text-[2.5rem] font-extrabold leading-10 text-black">
-          Upload the Avatar
-        </h1>
-        <h2 class="text-[#727272] leading-6">
-          And then, you can view one's profile page
-        </h2>
-      </div>
+      <MUTitle>
+        <template #title>
+          <slot name="title">
+            Upload the Avatar
+          </slot>
+        </template>
+        <template #subtitle>
+          <slot name="subtitle">
+            And then, you can view one's profile page
+          </slot>
+        </template>
+      </MUTitle>
 
       <div class="rounded-xl my-shadow">
         <!-- upload -->
@@ -37,9 +41,7 @@
                 'icon-white': state.dragCoverLayers > 0
               }"
             />
-            <span>
-              Drag or drop the avatar to upload
-            </span>
+            <span> Drag or drop the avatar to upload </span>
             <n-upload-trigger #="{ handleClick }" abstract>
               <MUButton class="my-[1.3125rem]" @click.stop="handleClick">
                 Browse files
@@ -99,6 +101,7 @@
   import { Icon } from '@iconify/vue'
   import { reactive } from 'vue'
   import { useRouter } from 'vue-router'
+  import MUTitle from '@/components/typography/MUTitle.vue'
 
   const router = useRouter()
   const state = reactive({

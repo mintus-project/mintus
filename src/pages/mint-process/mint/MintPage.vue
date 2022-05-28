@@ -1,4 +1,5 @@
 <template>
+<div>
   <ProcessCard>
     <template #title>Ready to Mint?</template>
     <template #subtitle>
@@ -40,6 +41,7 @@
     :close-callback="payResultConfig[resultModalType].closeCallback"
     :button-callback="payResultConfig[resultModalType].buttonCallback"
   />
+  </div>
 </template>
 
 <script setup>

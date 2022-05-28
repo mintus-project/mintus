@@ -3,9 +3,9 @@
     <h1 class="text-[2.5rem] font-extrabold leading-10 text-black">
       <slot name="title"></slot>
     </h1>
-    <h2 class="text-[#727272] leading-6">
+    <spn class="text-[#727272] text-base leading-6">
       <slot name="subtitle"></slot>
-    </h2>
+    </spn>
   </div>
 </template>
 
