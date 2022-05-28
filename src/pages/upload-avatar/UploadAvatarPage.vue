@@ -11,7 +11,7 @@
           </h2>
         </div>
 
-        <div class="w-[560px] h-[324px] overflow-auto rounded-xl my-shadow">
+        <div class="w-[35rem] h-[20.25rem] overflow-auto rounded-xl my-shadow">
           <!-- upload -->
           <n-spin
             v-if="state.content === 'upload'"
@@ -24,8 +24,7 @@
             </template>
             <template #description>Uploading</template>
             <n-upload
-              accept=".png"
-              :show-file-list="false"
+              :show-file-list="true"
               :on-before-upload="onBeforeUpload"
               :on-error="onError"
               :on-finish="onFinish"
@@ -33,8 +32,8 @@
               @change="handleChange"
             >
               <n-upload-dragger
-                class="w-[560px] h-[324px] bg-white rounded-xl flex flex-col items-center justify-evenly"
-                @dragover="handleDragOver"
+                class="w-[35rem] h-[20.25rem] rounded-xl flex flex-col items-center justify-evenly"
+                
               >
                 <Icon
                   icon="ion:upload"
@@ -43,11 +42,10 @@
                 <div style="font-size: 16px">
                   Drag or drop the avatar to upload or
                 </div>
-                <n-upload-trigger
-                  #="{ handleClick }"
-                  abstract
-                >
-                  <MUButton class="my-[1.3125rem]" @click.stop="handleClick"> Browse files </MUButton>
+                <n-upload-trigger #="{ handleClick }" abstract>
+                  <MUButton class="my-[1.3125rem]" @click.stop="handleClick">
+                    Browse files
+                  </MUButton>
                 </n-upload-trigger>
               </n-upload-dragger>
             </n-upload>
@@ -95,7 +93,11 @@
   import { useRouter } from 'vue-router'
 
   const router = useRouter()
-  const state = reactive({ loading: false, content: 'upload' })
+  const state = reactive({
+    loading: false,
+    content: 'upload',
+    dragCoverLayers: 0
+  })
   const onBeforeUpload = () => {
     state.loading = true
   }
@@ -110,18 +112,21 @@
   const handleChange = (options) => {
     console.log(1111, options)
   }
-  const handleDragOver = (e) => {
-    console.log(2222, e)
+  const handleDragEnter = (e) => {
+    state.dragCoverLayers++
+    console.log('++', state.dragCoverLayers, e, e.target)
   }
-  // const uploadTriggerOptions = {
-  //   handleDragOver: (e) => {
-  //     console.log(2222, e)
-  //   }
-  // }
+  const handleDragLeave = (e) => {
+    state.dragCoverLayers--
+    console.log('--', e, e.target)
+  }
 </script>
 
 <style scoped>
-  .drag-over {
+  .drag-enter {
     @apply bg-[#F3F3FE]/50;
+  }
+  .drag-leave {
+    @apply bg-white;
   }
 </style>
