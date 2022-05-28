@@ -12,7 +12,7 @@
         <MUIconButton
           @click="
             () => {
-              avatarConfig = [1, 0, 0, 0, 0, 0, 0]
+              avatarConfig = [0, 0, 0, 0, 0, 0, 0]
             }
           "
         >
@@ -55,7 +55,7 @@
         <div
           v-for="(item, index) in materials[currentTab].matPathArr"
           :key="index"
-          class="avatar rounded-xl border-4 border-white my-shadow-sm cursor-pointer hover:scale-[0.96] duration-300 ease-in-out"
+          class="avatar rounded-xl border-4 border-white my-shadow-sm cursor-pointer hover:scale-[0.96] hover:border-gray-100 duration-200 ease-in-out"
           :class="{
             pickedMaterial:
               index === avatarConfig[7 - materials[currentTab].level]
@@ -81,7 +81,7 @@
   import MUTag from '@/components/common/MUTag.vue'
   import { ref, watchEffect } from 'vue'
   import materials from '@/utils/materials'
-  import randomFromTo from '@/utils/randomFromTo'
+  import { drawAvatar, generateRandomAvatarConfig } from '@/utils/generateAvatar'
 
   // refs
   const canvas = ref(null)
@@ -120,7 +120,7 @@
 
   const currentTab = ref('body')
 
-  const avatarConfig = ref([1, 0, 0, 0, 0, 0, 0])
+  const avatarConfig = ref([0, 0, 0, 0, 0, 0, 0])
 
   // method
   const handleTabClick = (item) => {
@@ -132,65 +132,13 @@
     currentTab.value = item.tabName.toLowerCase()
   }
 
-  const contextDraw = (images) => {
-    const ctx = canvas.value.getContext('2d')
-    canvas.value.width = 224
-    canvas.value.height = 224
+  watchEffect(() => drawAvatar(canvas, avatarConfig.value))
 
-    images.forEach((img) => {
-      ctx.drawImage(img, 0, 0, 224, 224)
-    })
-  }
-
-  const createImages = (avatarConfig) => {
-    const orderArr = [
-      'background',
-      'cloth',
-      'body',
-      'mouth',
-      'nose',
-      'eyes',
-      'hair'
-    ]
-    const arr = []
-    orderArr.forEach((e, i) => {
-      const img = new Image()
-      img.src = materials[e].matPathArr[avatarConfig[i]]
-      arr.push(img)
-    })
-    return arr
-  }
-
-  const imagesSetOnLoad = (images) => {
-    images.forEach((img) => {
-      img.onload = () => {
-        contextDraw(images)
-      }
-    })
-  }
-
-  const drawAvatar = (avatarConfig) => {
-    const images = createImages(avatarConfig)
-    imagesSetOnLoad(images)
-  }
-
-  watchEffect(() => drawAvatar(avatarConfig.value))
-
-  const generateRandomAvatarConfig = () => {
-    return [
-      randomFromTo(0, materials.background.matPathArr.length - 1),
-      randomFromTo(0, materials.cloth.matPathArr.length - 1),
-      randomFromTo(0, materials.body.matPathArr.length - 1),
-      randomFromTo(0, materials.mouth.matPathArr.length - 1),
-      randomFromTo(0, materials.nose.matPathArr.length - 1),
-      randomFromTo(0, materials.eyes.matPathArr.length - 1),
-      randomFromTo(0, materials.hair.matPathArr.length - 1)
-    ]
-  }
+  
 </script>
 
 <style scoped>
   .pickedMaterial {
-    @apply border-4 border-purple-300;
+    @apply border-4 border-gray-300 hover:scale-100 hover:border-gray-300;
   }
 </style>
