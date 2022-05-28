@@ -9,6 +9,7 @@ import MintPage from '../pages/mint-process/mint/MintPage.vue'
 import UserPage from '../pages/user/UserPage.vue'
 import ProfilePage from '../pages/user/profile/ProfilePage.vue'
 import SettingPage from '../pages/user/setting/SettingPage.vue'
+import UploadAvatarPage from '../pages/upload-avatar/UploadAvatarPage.vue'
 
 const routes = [
   {
@@ -58,6 +59,11 @@ const routes = [
         component: SettingPage
       }
     ]
+  },
+  {
+    path: '/upload-avatar',
+    name: 'UploadAvatarPage',
+    component: UploadAvatarPage
   }
 ]
 

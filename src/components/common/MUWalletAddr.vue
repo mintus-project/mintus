@@ -5,9 +5,20 @@
       class="badge badge-lg bg-[#C4C4C4] border-0 rounded-full h-6 w-6"
     ></div>
     <div class="flex items-center gap-3">
-      <span class="font-bold text-sm text-[#727272]">{{ addrRef }}</span>
+      <span>{{ addrRef }}</span>
       <span v-show="props.showCopy" class="w-4">
-        <Icon icon="bx:copy" @click="copy(props.addr)" />
+        <Icon
+          v-if="!copied"
+          class="cursor-pointer text-black hover:text-gray-500 transition-none"
+          icon="ion:copy"
+          @click="copy(props.addr)"
+        />
+        <Icon
+          v-if="copied"
+          class="text-black transition-none"
+          icon="clarity:success-standard-solid"
+          color="green"
+        />
       </span>
     </div>
   </div>
@@ -38,7 +49,7 @@
       default: false
     }
   })
-  const { copy } = useClipboard()
+  const { copy, copied } = useClipboard()
   const addrRef = computed(() => {
     return props.showFullAddr
       ? props.addr

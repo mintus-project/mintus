@@ -8,7 +8,7 @@
           :type="store.walletInfo.type"
           class="text-[#727272] font-bold"
         />
-        <MUWalletAddr :addr="store.walletInfo.address" show-badge />
+        <MUWalletAddr class="font-bold text-sm text-[#727272]" :addr="store.walletInfo.address" show-badge />
       </div>
 
       <div class="border-t-[1px] my-2"></div>
