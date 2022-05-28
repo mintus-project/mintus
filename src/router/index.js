@@ -72,7 +72,6 @@ const router = createRouter({
   routes
 })
 router.beforeEach(async (to) => {
-  console.log(to)
   const toProfile = to.path.split('/').includes('profile')
   const toSetting = to.path.split('/').includes('setting')
   const address = to.params.address

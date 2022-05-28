@@ -38,7 +38,6 @@ export const useStore = defineStore('main', {
             this.walletInfo.address = accounts[0]
             this.walletInfo.type = 'metamask'
             this.userInfo.connected = true
-            console.log('found connected accounts', accounts)
           }
           ethereum.on('accountsChanged', () => {
             window.history.go(0)

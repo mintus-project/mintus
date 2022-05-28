@@ -16,6 +16,7 @@
         <!-- upload -->
         <n-upload
           v-show="state.content === 'upload'"
+          accept=".png"
           :show-file-list="false"
           :on-before-upload="onBeforeUpload"
           :on-error="onError"
@@ -111,23 +112,16 @@
   }
   const onError = () => {
     state.content = 'failed'
-    console.log('----====------=======')
-    console.log(state.content)
   }
   const onFinish = () => {
-    console.log('----====------=======')
     router.push('/profile/0xd83039Ff4B0D7022281769eDb509b32F6c390867')
   }
-  const handleChange = (options) => {
-    console.log(1111, options)
-  }
-  const handleDragEnter = (e) => {
+  const handleChange = () => {}
+  const handleDragEnter = () => {
     state.dragCoverLayers++
-    console.log('++', state.dragCoverLayers, e, e.target)
   }
-  const handleDragLeave = (e) => {
+  const handleDragLeave = () => {
     state.dragCoverLayers--
-    console.log('--', e, e.target)
   }
 </script>
 

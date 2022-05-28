@@ -99,11 +99,9 @@
       )
       let tx = await CounterContract.add() // transaction
       await tx.wait() // 确定上链后
-      const counts = await CounterContract.getCounts() // 值很大，通过对象返回了
-      console.log('链上的count:', counts)
+      await CounterContract.getCounts() // 值很大，通过对象返回了
       return true
     } catch (err) {
-      console.error(err)
       return false
     }
   }

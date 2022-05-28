@@ -32,7 +32,6 @@
     addr: {
       type: String,
       validator(value) {
-        console.log(value)
         return value.length > 10
       }
     },

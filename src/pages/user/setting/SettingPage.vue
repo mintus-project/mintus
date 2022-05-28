@@ -79,10 +79,8 @@
       onSubmit()
     }
   }
+  // eslint-disable-next-line no-unused-vars
   const onInvalidSubmit = ({ values, errors, results }) => {
-    console.log('value: ', values)
-    console.log('errors: ', errors)
-    console.log('results: ', results)
     const newValue = {
       username: '',
       domains: [],
@@ -108,10 +106,8 @@
         }
       }
     }
-    console.log('parse value: ', newValue)
   }
   const onSubmit = handleSubmit((values) => {
-    console.log(values)
     const newValue = {
       username: '',
       domains: [],
@@ -137,7 +133,6 @@
         }
       }
     }
-    console.log('parse value: ', newValue)
     resetForm()
   }, onInvalidSubmit)
 
