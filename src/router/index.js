@@ -92,15 +92,15 @@ router.beforeEach(async (to) => {
           if (accounts.length !== 0) {
             return address.toLowerCase() === accounts[0].toLowerCase()
               ? true
-              : {name: 'Home'}
+              : { name: 'Home' }
           } else {
-           return {name: 'Home'}
+            return { name: 'Home' }
           }
         } catch (error) {
           console.error(error)
         }
       }
-      return {name: 'Home'}
+      return { name: 'Home' }
     }
   }
 })

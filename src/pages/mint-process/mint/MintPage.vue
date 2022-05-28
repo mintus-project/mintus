@@ -1,46 +1,46 @@
 <template>
-<div>
-  <ProcessCard>
-    <template #title>Ready to Mint?</template>
-    <template #subtitle>
-      Your unique NFT will be delivered to the connected wallet address.
-    </template>
-    <template #content>
-      <div class="w-full p-6 flex flex-col items-center gap-6">
-        <div class="avatar">
-          <div class="w-[13.75rem] rounded-xl">
-            <img src="https://api.lorem.space/image/face?hash=92048" />
+  <div>
+    <ProcessCard>
+      <template #title>Ready to Mint?</template>
+      <template #subtitle>
+        Your unique NFT will be delivered to the connected wallet address.
+      </template>
+      <template #content>
+        <div class="w-full p-6 flex flex-col items-center gap-6">
+          <div class="avatar">
+            <div class="w-[13.75rem] rounded-xl">
+              <img src="https://api.lorem.space/image/face?hash=92048" />
+            </div>
+          </div>
+          <span class="font-bold text-xl">Username</span>
+          <div class="border px-3 py-2 rounded-full flex items-center gap-1">
+            <MUCoin type="eth"></MUCoin>
+            <span class="text-[#727272] font-normal">{{
+              store.getShortAddress
+            }}</span>
           </div>
         </div>
-        <span class="font-bold text-xl">Username</span>
-        <div class="border px-3 py-2 rounded-full flex items-center gap-1">
-          <MUCoin type="eth"></MUCoin>
-          <span class="text-[#727272] font-normal">{{
-            store.getShortAddress
-          }}</span>
-        </div>
-      </div>
-    </template>
-    <template #footer>
-      <MUButton btn-type="ghost" @click="$router.back()">Back</MUButton>
-      <MUButton @click="handleMint"> Mint It </MUButton>
-    </template>
-  </ProcessCard>
-  <BillModal
-    v-if="state.billModal"
-    @cancel="state.billModal = false"
-    @confirm="handleConfirm"
-  />
-  <!-- Dialog Modal (Success / Failed) -->
-  <MUPayResult
-    v-if="state.dialogModal"
-    :title="payResultConfig[resultModalType].title"
-    :description="payResultConfig[resultModalType].description"
-    :type="payResultConfig[resultModalType].type"
-    :button-text="payResultConfig[resultModalType].buttonText"
-    :close-callback="payResultConfig[resultModalType].closeCallback"
-    :button-callback="payResultConfig[resultModalType].buttonCallback"
-  />
+      </template>
+      <template #footer>
+        <MUButton btn-type="ghost" @click="$router.back()">Back</MUButton>
+        <MUButton @click="handleMint"> Mint It </MUButton>
+      </template>
+    </ProcessCard>
+    <BillModal
+      v-if="state.billModal"
+      @cancel="state.billModal = false"
+      @confirm="handleConfirm"
+    />
+    <!-- Dialog Modal (Success / Failed) -->
+    <MUPayResult
+      v-if="state.dialogModal"
+      :title="payResultConfig[resultModalType].title"
+      :description="payResultConfig[resultModalType].description"
+      :type="payResultConfig[resultModalType].type"
+      :button-text="payResultConfig[resultModalType].buttonText"
+      :close-callback="payResultConfig[resultModalType].closeCallback"
+      :button-callback="payResultConfig[resultModalType].buttonCallback"
+    />
   </div>
 </template>
 

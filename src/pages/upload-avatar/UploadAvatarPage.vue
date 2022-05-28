@@ -3,9 +3,7 @@
     <div class="flex flex-col items-center gap-8 mt-[15vh]">
       <MUTitle>
         <template #title>
-          <slot name="title">
-            Upload the Avatar
-          </slot>
+          <slot name="title"> Upload the Avatar </slot>
         </template>
         <template #subtitle>
           <slot name="subtitle">

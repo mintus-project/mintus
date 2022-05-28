@@ -9,10 +9,16 @@
     <!-- <span>wallet address</span> -->
     <div class="flex border border-gray-200 rounded-full py-2 px-4 gap-2">
       <MUCoin type="eth" />
-      <MUWalletAddr class="text-sm text-[#727272]" :addr="$route.params.address" />
+      <MUWalletAddr
+        class="text-sm text-[#727272]"
+        :addr="$route.params.address"
+      />
     </div>
     <div class="flex gap-4">
-      <MUIconButton v-if="isOwnerRef" @click="$router.push(`/setting/${store.walletInfo.address}`)">
+      <MUIconButton
+        v-if="isOwnerRef"
+        @click="$router.push(`/setting/${store.walletInfo.address}`)"
+      >
         <template #icon
           ><Icon height="16" icon="material-symbols:settings-outline-rounded"
         /></template>
@@ -37,7 +43,10 @@
   const route = useRoute()
   const isOwnerRef = computed(() => {
     if (store.userInfo.connected && store.walletInfo.address) {
-      return store.walletInfo.address.toLowerCase() == route.params.address.toLowerCase()
+      return (
+        store.walletInfo.address.toLowerCase() ==
+        route.params.address.toLowerCase()
+      )
     } else {
       return false
     }

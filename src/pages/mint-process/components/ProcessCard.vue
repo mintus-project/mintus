@@ -24,6 +24,7 @@
 </template>
 
 <script setup>
-import MUTitle from '@/components/typography/MUTitle.vue';</script>
+  import MUTitle from '@/components/typography/MUTitle.vue'
+</script>
 
 <style scoped></style>

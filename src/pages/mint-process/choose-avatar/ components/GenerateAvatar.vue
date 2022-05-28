@@ -81,7 +81,10 @@
   import MUTag from '@/components/common/MUTag.vue'
   import { ref, watchEffect } from 'vue'
   import materials from '@/utils/materials'
-  import { drawAvatar, generateRandomAvatarConfig } from '@/utils/generateAvatar'
+  import {
+    drawAvatar,
+    generateRandomAvatarConfig
+  } from '@/utils/generateAvatar'
 
   // refs
   const canvas = ref(null)
@@ -133,8 +136,6 @@
   }
 
   watchEffect(() => drawAvatar(canvas, avatarConfig.value))
-
-  
 </script>
 
 <style scoped>

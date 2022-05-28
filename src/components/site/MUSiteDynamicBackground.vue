@@ -1,9 +1,7 @@
 <template>
   <div>
     <MUNavbar class="fixed"></MUNavbar>
-    <div
-      class="dynamic-background min-h-screen flex flex-col items-center"
-    >
+    <div class="dynamic-background min-h-screen flex flex-col items-center">
       <slot></slot>
     </div>
   </div>

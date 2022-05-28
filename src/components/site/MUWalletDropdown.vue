@@ -4,7 +4,11 @@
       tabindex="0"
       class="cursor-pointer rounded-xl bg-gray-500/[0.1] hover:bg-gray-500/[0.15] py-2 px-4"
     >
-      <MUWalletAddr class="font-bold text-sm text-[#727272] cursor-pointer" :addr="store.walletInfo.address" show-badge />
+      <MUWalletAddr
+        class="font-bold text-sm text-[#727272] cursor-pointer"
+        :addr="store.walletInfo.address"
+        show-badge
+      />
     </div>
     <div
       tabindex="0"
