@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col items-center gap-8">
-    <div class="flex flex-col items-center gap-4">
-      <h1 class="text-[2.5rem] font-extrabold leading-10 text-black">
+    <MUTitle>
+      <template #title>
         <slot name="title"></slot>
-      </h1>
-      <h2 class="text-[#727272] leading-6">
+      </template>
+      <template #subtitle>
         <slot name="subtitle"></slot>
-      </h2>
-    </div>
+      </template>
+    </MUTitle>
     <div class="flex flex-col gap-8">
       <!-- card -->
       <div
@@ -23,6 +23,7 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import MUTitle from '@/components/typography/MUTitle.vue';</script>
 
 <style scoped></style>

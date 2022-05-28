@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <MUSiteMintProcess>
-      <div class="flex flex-col items-center gap-8">
+    <MUSiteDynamicBackground>
+      <div class="flex flex-col items-center gap-8 mt-[15vh]">
         <div class="flex flex-col items-center gap-4">
           <h1 class="text-[2.5rem] font-extrabold leading-10 text-black">
             Upload the Avatar
@@ -11,7 +10,7 @@
           </h2>
         </div>
 
-        <div class="w-[35rem] h-[20.25rem] overflow-auto rounded-xl my-shadow">
+        <div class="rounded-xl my-shadow">
           <!-- upload -->
           <n-spin
             v-if="state.content === 'upload'"
@@ -24,20 +23,28 @@
             </template>
             <template #description>Uploading</template>
             <n-upload
-              :show-file-list="true"
+              :show-file-list="false"
               :on-before-upload="onBeforeUpload"
               :on-error="onError"
               :on-finish="onFinish"
-              action="http://localhost:3000"
+              action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
               @change="handleChange"
             >
               <n-upload-dragger
-                class="w-[35rem] h-[20.25rem] rounded-xl flex flex-col items-center justify-evenly"
-                
+                class="w-[35rem] h-[20.25rem] border-[#5D5FEF] hover:border-[#5D5FEF] rounded-xl flex flex-col items-center justify-evenly"
+                :class="{
+                  'drag-enter': state.dragCoverLayers > 0
+                }"
+                @dragenter="handleDragEnter"
+                @dragleave="handleDragLeave"
+                @drop="handleDragLeave"
               >
                 <Icon
                   icon="ion:upload"
                   class="text-[#EEEEEE] text-[6rem] leading-[6rem]"
+                  :class="{
+                    'icon-white': state.dragCoverLayers > 0
+                  }"
                 />
                 <div style="font-size: 16px">
                   Drag or drop the avatar to upload or
@@ -53,7 +60,7 @@
           <!-- failed -->
           <div
             v-if="state.content === 'failed'"
-            class="w-full h-full bg-white rounded-xl border-red-400 border border-dashed flex flex-col justify-evenly items-center"
+            class="w-[35rem] h-[20.25rem] bg-white rounded-xl border-red-400 border border-dashed flex flex-col justify-evenly items-center"
           >
             <svg
               width="55"
@@ -81,12 +88,11 @@
           </div>
         </div>
       </div>
-    </MUSiteMintProcess>
-  </div>
+    </MUSiteDynamicBackground>
 </template>
 
 <script setup>
-  import MUSiteMintProcess from '../../components/site/MUSiteMintProcess.vue'
+  import MUSiteDynamicBackground from '../../components/site/MUSiteDynamicBackground.vue'
   import MUButton from '@/components/common/MUButton.vue'
   import { Icon } from '@iconify/vue'
   import { reactive } from 'vue'
@@ -124,9 +130,10 @@
 
 <style scoped>
   .drag-enter {
-    @apply bg-[#F3F3FE]/50;
+    @apply bg-[#F3F3FE]/50 border-[#5D5FEF];
   }
-  .drag-leave {
-    @apply bg-white;
+
+  .icon-white {
+    @apply text-white;
   }
 </style>

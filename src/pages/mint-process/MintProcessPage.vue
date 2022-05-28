@@ -1,13 +1,13 @@
 <template>
   <div>
-    <MUSiteMintProcess>
-      <router-view></router-view>
-    </MUSiteMintProcess>
+    <MUSiteDynamicBackground>
+      <router-view class="mt-[15vh] mb-[18vh]"></router-view>
+    </MUSiteDynamicBackground>
   </div>
 </template>
 
 <script setup>
-  import MUSiteMintProcess from '../../components/site/MUSiteMintProcess.vue'
+  import MUSiteDynamicBackground from '../../components/site/MUSiteDynamicBackground.vue'
 </script>
 
 <style lang="scss" scoped></style>
