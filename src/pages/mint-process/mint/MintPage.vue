@@ -54,7 +54,6 @@
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
   import BillModal from '../components/BillModal.vue'
-  import { ethers } from 'ethers'
 
   const router = useRouter()
 
@@ -80,21 +79,6 @@
   }
   const addNft = async () => {
     try {
-      // 先判断ethereum是否可用
-      const { ethereum } = window
-      if (!ethereum) {
-        alert('Please install metamask')
-        return false
-      }
-      // ethereum -> provider -> signer(执行合约的签名方)
-      const provider = new ethers.providers.Web3Provider(ethereum)
-      const signer = provider.getSigner()
-      // 建立一个合约的实体（合约地址、合约ABI(之前由hardhat编译生成的Counter.json文件)、签名方）
-      const TestContract = new ethers.Contract(
-        store.contractInfo.address,
-        store.contractInfo.abi,
-        signer
-      )
       const { username, domains, addresses } = store.mintInfo
       console.log(
         111111,
@@ -103,14 +87,14 @@
         JSON.stringify(domains),
         JSON.stringify(addresses)
       )
-      let tx = await TestContract.regist(
+      let tx = await store.mintContract.regist(
         'avatarString',
         username,
         JSON.stringify(domains),
         JSON.stringify(addresses)
       ) // transaction
       await tx.wait() // 确定上链后
-      const res = await TestContract.getRecord(store.walletInfo.address) // 值很大，通过对象返回了
+      const res = await store.mintContract.getRecord(store.walletInfo.address)
       store.profileInfo = {
         avatar: res[0],
         username: res[1],

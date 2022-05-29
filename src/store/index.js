@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import abi from '@/utils/Contract.json'
 import detectEthereumProvider from '@metamask/detect-provider'
+import { ethers } from 'ethers'
 
 export const useStore = defineStore('main', {
   state: () => {
@@ -12,10 +13,6 @@ export const useStore = defineStore('main', {
       userInfo: {
         connected: false,
         purchased: false
-      },
-      contractInfo: {
-        address: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
-        abi: abi.abi
       },
       mintInfo: {
         avatar: '',
@@ -29,7 +26,28 @@ export const useStore = defineStore('main', {
         username: '',
         domains: [],
         addresses: []
-      }
+      },
+      mintContract: (function () {
+        const contractInfo = {
+          address: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+          abi: abi.abi
+        }
+        // 先判断ethereum是否可用
+        const { ethereum } = window
+        if (!ethereum) {
+          alert('Please install metamask')
+          return false
+        }
+        // ethereum -> provider -> signer(执行合约的签名方)
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        // 建立一个合约的实体（合约地址、合约ABI(之前由hardhat编译生成的Counter.json文件)、签名方）
+        return new ethers.Contract(
+          contractInfo.address,
+          contractInfo.abi,
+          signer
+        )
+      })()
     }
   },
   getters: {
