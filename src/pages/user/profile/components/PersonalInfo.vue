@@ -5,7 +5,7 @@
         <img src="https://api.lorem.space/image/face?hash=92048" />
       </div>
     </div>
-    <span class="font-bold text-3xl">Username</span>
+    <span class="font-bold text-3xl">{{store.profileInfo.username}}</span>
     <!-- <span>wallet address</span> -->
     <div class="flex border border-gray-200 rounded-full py-2 px-4 gap-2">
       <MUCoin type="eth" />

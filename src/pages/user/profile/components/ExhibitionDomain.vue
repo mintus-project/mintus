@@ -2,7 +2,7 @@
   <div class="overflow-x-auto shadow rounded-xl">
     <table class="table w-[40rem] text-sm">
       <tbody>
-        <tr v-for="(item, index) in domains" :key="index">
+        <tr v-for="(item, index) in store.profileInfo.domains" :key="index">
           <th>{{ item }}</th>
         </tr>
       </tbody>
@@ -11,18 +11,21 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  // import { ref } from 'vue'
+  import { useStore } from '@/store'
 
-  const domains = ref([
-    'Domain111.eth',
-    'Domain111.eth',
-    'Domain111.eth',
-    'Domain111.eth',
-    'Domain111.eth',
-    'Domain111.eth',
-    'Domain111.eth',
-    'Domain111.eth'
-  ])
+  const store = useStore()
+
+  // const domains = ref([
+  //   'Domain111.eth',
+  //   'Domain111.eth',
+  //   'Domain111.eth',
+  //   'Domain111.eth',
+  //   'Domain111.eth',
+  //   'Domain111.eth',
+  //   'Domain111.eth',
+  //   'Domain111.eth'
+  // ])
 </script>
 
 <style lang="scss" scoped></style>
