@@ -54,3 +54,48 @@ export const generateRandomAvatarConfig = () => {
     randomFromTo(0, materials.hair.matPathArr.length - 1)
   ]
 }
+
+export const fromAvatarConfigToAvatarString = ([...avatarConfig]) => {
+  // avatar config 顺序为：background, cloth, body, mouth, nose, eyes, hair
+  // avatar string 顺序为：hair, body, eyes, nose, mouth, cloth, background
+  const avatarStringArr = []
+  // 改顺序
+  avatarConfig.reverse()
+  avatarConfig = [
+    avatarConfig[0],
+    avatarConfig[4],
+    avatarConfig[1],
+    avatarConfig[2],
+    avatarConfig[3],
+    avatarConfig[5],
+    avatarConfig[6]
+  ]
+
+  avatarConfig.forEach((e) => {
+    avatarStringArr.push(String.fromCharCode(e + 65))
+  })
+  const avatarString = avatarStringArr.join('_')
+  // console.log(avatarString)
+  return avatarString
+}
+
+export const fromAvatarStringToAvatarConfig = (avatarString) => {
+  let avatarStringArr = avatarString.split('_')
+  // 改顺序
+  avatarStringArr.reverse()
+  avatarStringArr = [
+    avatarStringArr[0],
+    avatarStringArr[1],
+    avatarStringArr[5],
+    avatarStringArr[2],
+    avatarStringArr[3],
+    avatarStringArr[4],
+    avatarStringArr[6]
+  ]
+  const avatarConfig = []
+  avatarStringArr.forEach((e) => {
+    avatarConfig.push(e.charCodeAt() - 65)
+  })
+  // console.log(avatarConfig)
+  return avatarConfig
+}

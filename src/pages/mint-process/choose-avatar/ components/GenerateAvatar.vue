@@ -12,7 +12,7 @@
         <MUIconButton
           @click="
             () => {
-              avatarConfig = [0, 0, 0, 0, 0, 0, 0]
+              store.mintInfo.avatarConfig = [0, 0, 0, 0, 0, 0, 0]
             }
           "
         >
@@ -24,7 +24,7 @@
         <MUIconButton
           @click="
             () => {
-              avatarConfig = generateRandomAvatarConfig()
+              store.mintInfo.avatarConfig = generateRandomAvatarConfig()
             }
           "
         >
@@ -58,11 +58,13 @@
           class="avatar rounded-xl border-4 border-white my-shadow-sm cursor-pointer hover:scale-[0.96] hover:border-gray-100 duration-200 ease-in-out"
           :class="{
             pickedMaterial:
-              index === avatarConfig[7 - materials[currentTab].level]
+              index ===
+              store.mintInfo.avatarConfig[7 - materials[currentTab].level]
           }"
           @click="
             () => {
-              avatarConfig[7 - materials[currentTab].level] = index
+              store.mintInfo.avatarConfig[7 - materials[currentTab].level] =
+                index
             }
           "
         >
@@ -85,6 +87,9 @@
     drawAvatar,
     generateRandomAvatarConfig
   } from '@/utils/generateAvatar'
+  import { useStore } from '@/store'
+
+  const store = useStore()
 
   // refs
   const canvas = ref(null)
@@ -123,8 +128,6 @@
 
   const currentTab = ref('body')
 
-  const avatarConfig = ref([0, 0, 0, 0, 0, 0, 0])
-
   // method
   const handleTabClick = (item) => {
     tabs.value.forEach((e) => {
@@ -135,7 +138,9 @@
     currentTab.value = item.tabName.toLowerCase()
   }
 
-  watchEffect(() => drawAvatar(canvas, avatarConfig.value))
+  watchEffect(() => {
+    drawAvatar(canvas, store.mintInfo.avatarConfig)
+  })
 </script>
 
 <style scoped>

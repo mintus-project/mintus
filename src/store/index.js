@@ -15,14 +15,16 @@ export const useStore = defineStore('main', {
         purchased: false
       },
       mintInfo: {
-        avatar: '',
+        avatarString: '',
+        avatarConfig: [0, 0, 0, 0, 0, 0, 0],
         username: '',
         domains: [],
         addresses: [],
         payAddress: ''
       },
       profileInfo: {
-        avatar: '',
+        avatarString: '',
+        avatarConfig: [],
         username: '',
         domains: [],
         addresses: []

@@ -8,7 +8,7 @@
       <GenerateAvatar></GenerateAvatar>
     </template>
     <template #footer>
-      <MUButton @click="$router.push('enter-info')">Next</MUButton>
+      <MUButton @click="handleNextClick">Next</MUButton>
     </template>
   </ProcessCard>
 </template>
@@ -17,6 +17,28 @@
   import ProcessCard from '../components/ProcessCard.vue'
   import MUButton from '../../../components/common/MUButton.vue'
   import GenerateAvatar from './ components/GenerateAvatar.vue'
+  import { fromAvatarConfigToAvatarString } from '@/utils/generateAvatar'
+  // import { useRouter } from 'vue-router'
+  import { useStore } from '@/store'
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
+  const store = useStore()
+
+  const handleNextClick = () => {
+    // console.log('111', store.mintInfo.avatarConfig)
+    // const avatarString = fromAvatarConfigToAvatarString(
+    //   store.mintInfo.avatarConfig
+    // )
+    // const avatarConfig = fromAvatarStringToAvatarConfig(avatarString)
+    // console.log('222', avatarConfig, avatarString)
+
+    // 设置 avatar string
+    store.mintInfo.avatarString = fromAvatarConfigToAvatarString(
+      store.mintInfo.avatarConfig
+    )
+    router.push('enter-info')
+  }
 </script>
 
 <style scoped></style>
