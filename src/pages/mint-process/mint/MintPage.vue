@@ -68,9 +68,7 @@
     state.billModal = true
   }
   const handleConfirm = async () => {
-    //TODO: 钱包支付逻辑
-
-    const res = await addNft() // 支付结果
+    const res = await addNft()
     state.billModal = false
     state.dialogModal = true
     if (res) {
@@ -98,9 +96,12 @@
         signer
       )
       const {username, domains, addresses} = store.mintInfo
-      let tx = await TestContract.regist('',username,domains.toString(),addresses.toString()) // transaction
+      console.log(111111, 'avatarString',username,JSON.stringify(domains),JSON.stringify(addresses))
+      let tx = await TestContract.regist('avatarString',username,JSON.stringify(domains),JSON.stringify(addresses)) // transaction
       await tx.wait() // 确定上链后
-      await TestContract.getRecord(store.walletInfo.address) // 值很大，通过对象返回了
+      const res = await TestContract.getRecord(store.walletInfo.address) // 值很大，通过对象返回了
+      store.profileInfo = {avatar: res[0], username: res[1],domains: JSON.parse(res[3]), addresses:JSON.parse(res[4])}
+      console.log(222222, store.profileInfo)
       return true
     } catch (err) {
       return false
