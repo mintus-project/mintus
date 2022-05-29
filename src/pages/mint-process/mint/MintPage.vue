@@ -12,7 +12,7 @@
               <img src="https://api.lorem.space/image/face?hash=92048" />
             </div>
           </div>
-          <span class="font-bold text-xl">{{store.mintInfo.username}}</span>
+          <span class="font-bold text-xl">{{ store.mintInfo.username }}</span>
           <div class="border px-3 py-2 rounded-full flex items-center gap-1">
             <MUCoin type="eth"></MUCoin>
             <span class="text-[#727272] font-normal">{{
@@ -95,12 +95,28 @@
         store.contractInfo.abi,
         signer
       )
-      const {username, domains, addresses} = store.mintInfo
-      console.log(111111, 'avatarString',username,JSON.stringify(domains),JSON.stringify(addresses))
-      let tx = await TestContract.regist('avatarString',username,JSON.stringify(domains),JSON.stringify(addresses)) // transaction
+      const { username, domains, addresses } = store.mintInfo
+      console.log(
+        111111,
+        'avatarString',
+        username,
+        JSON.stringify(domains),
+        JSON.stringify(addresses)
+      )
+      let tx = await TestContract.regist(
+        'avatarString',
+        username,
+        JSON.stringify(domains),
+        JSON.stringify(addresses)
+      ) // transaction
       await tx.wait() // 确定上链后
       const res = await TestContract.getRecord(store.walletInfo.address) // 值很大，通过对象返回了
-      store.profileInfo = {avatar: res[0], username: res[1],domains: JSON.parse(res[2]), addresses:JSON.parse(res[3])}
+      store.profileInfo = {
+        avatar: res[0],
+        username: res[1],
+        domains: JSON.parse(res[2]),
+        addresses: JSON.parse(res[3])
+      }
       console.log(222222, store.profileInfo)
       return true
     } catch (err) {
@@ -120,11 +136,11 @@
       buttonText: 'View my profile',
       closeCallback: () => {
         state.dialogModal = false
-        router.push(`/profile/${store.mintInfo.payAddress}`)
+        router.push(`/profile/${store.walletInfo.address}`)
       },
       buttonCallback: () => {
         state.dialogModal = false
-        router.push(`/profile/${store.mintInfo.payAddress}`)
+        router.push(`/profile/${store.walletInfo.address}`)
       }
     },
     failed: {
