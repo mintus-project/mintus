@@ -92,14 +92,15 @@
       const provider = new ethers.providers.Web3Provider(ethereum)
       const signer = provider.getSigner()
       // 建立一个合约的实体（合约地址、合约ABI(之前由hardhat编译生成的Counter.json文件)、签名方）
-      const CounterContract = new ethers.Contract(
+      const TestContract = new ethers.Contract(
         store.contractInfo.address,
         store.contractInfo.abi,
         signer
       )
-      let tx = await CounterContract.add() // transaction
+      const {username, domains, addresses} = store.mintInfo
+      let tx = await TestContract.regist('',username,domains.toString(),addresses.toString()) // transaction
       await tx.wait() // 确定上链后
-      await CounterContract.getCounts() // 值很大，通过对象返回了
+      await TestContract.getRecord(store.walletInfo.address) // 值很大，通过对象返回了
       return true
     } catch (err) {
       return false

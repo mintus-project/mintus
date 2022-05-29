@@ -134,6 +134,7 @@
         }
       }
     }
+    store.mintInfo = {...newValue}
     resetForm()
     router.push('mint')
   }, onInvalidSubmit)
