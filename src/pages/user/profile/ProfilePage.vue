@@ -19,13 +19,13 @@
   const route = useRoute()
   const setProfile = async () => {
     try {
-      const res = await getRecord(route.params.address)
+      const {avatarString, username, domains, addresses} = await getRecord(route.params.address)
       store.profileInfo = {
         ...store.profileInfo,
-        avatar: res[0],
-        username: res[1],
-        domains: JSON.parse(res[2]),
-        addresses: JSON.parse(res[3])
+        avatarString,
+        username,
+        domains,
+        addresses
       }
     } catch (err) {
       console.error(err)

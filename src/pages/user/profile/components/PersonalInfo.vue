@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center gap-6">
     <div class="avatar">
       <div class="w-[12.5rem] rounded-2xl border-4 border-white shadow-lg">
-        <img ref="avatarImg" src="https://api.lorem.space/image/face?hash=92048" />
+        <canvas ref="canvas"></canvas>
       </div>
     </div>
     <span class="font-bold text-3xl">{{ store.profileInfo.username }}</span>
@@ -24,13 +24,13 @@
         /></template>
         <template #default>Setting</template>
       </MUIconButton>
-      <MUButton @click="handleDownload">Download Avatar</MUButton>
+      <MUButton @click="handleDownloadAvatar">Download Avatar</MUButton>
     </div>
   </div>
 </template>
 
 <script setup>
-  import { computed, ref } from 'vue'
+  import { computed, ref, watchEffect } from 'vue'
   import MUIconButton from '../../../../components/common/MUIconButton.vue'
   import MUButton from '../../../../components/common/MUButton.vue'
   import { Icon } from '@iconify/vue'
@@ -38,11 +38,15 @@
   import { useStore } from '@/store'
   import { useRoute } from 'vue-router'
   import MUCoin from '@/components/common/MUCoin.vue'
+  import {
+    drawAvatar,
+    fromAvatarStringToAvatarConfig
+  } from '@/utils/generateAvatar'
 
   const store = useStore()
   const route = useRoute()
 
-  const avatarImg = ref(null)
+  const canvas = ref(null)
 
   const isOwnerRef = computed(() => {
     if (store.userInfo.connected && store.walletInfo.address) {
@@ -55,6 +59,16 @@
     }
   })
 
+  watchEffect(() => {
+    if (store.profileInfo.avatarString) {
+      drawAvatar(
+        canvas,
+        fromAvatarStringToAvatarConfig(store.profileInfo.avatarString),
+        200
+      )
+    }
+  })
+
   const downloadImageFromCanvas = (canvas, name) => {
     const aTag = document.createElement('a')
     aTag.href = canvas.value.toDataURL()
@@ -62,7 +76,9 @@
     aTag.click()
   }
 
-
+  const handleDownloadAvatar = () => {
+    downloadImageFromCanvas(canvas, store.profileInfo.avatarString)
+  }
 </script>
 
 <style lang="scss" scoped></style>
