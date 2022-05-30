@@ -27,8 +27,8 @@
             ></MUInput>
             <MUMultiInput
               name="domain"
-              label="Domain"
-              placeholder="Please input your domain"
+              label="Domain Name"
+              placeholder="Please input your domain name"
               :required="false"
               :validator="validators.domain"
               :component="'MUInput'"
@@ -46,6 +46,21 @@
         </div>
       </template>
     </MUSiteSetting>
+    <BillModal
+      v-if="state.billModal"
+      @cancel="state.billModal = false"
+      @confirm="handleConfirm"
+    />
+    <!-- Dialog Modal (Success / Failed) -->
+    <MUPayResult
+      v-if="state.dialogModal"
+      :title="payResultConfig[resultModalType].title"
+      :description="payResultConfig[resultModalType].description"
+      :type="payResultConfig[resultModalType].type"
+      :button-text="payResultConfig[resultModalType].buttonText"
+      :close-callback="payResultConfig[resultModalType].closeCallback"
+      :button-callback="payResultConfig[resultModalType].buttonCallback"
+    />
   </div>
 </template>
 
@@ -56,9 +71,22 @@
   import MUMultiInput from '@/components/data-input/MUMultiInput.vue'
   import { useForm, configure } from 'vee-validate'
   import { useStore } from '@/store'
-  import { ref } from 'vue'
+  import { ref, reactive } from 'vue'
+  import BillModal from '../../mint-process/components/BillModal.vue'
+  import MUPayResult from '@/components/feedback/MUPayResult.vue'
+  import { useRouter } from 'vue-router'
+  import { computed } from '@vue/reactivity'
+  // import { ethers } from 'ethers'
+  // import abi from '@/utils/Contract.json'
 
   const store = useStore()
+  const state = reactive({
+    billModal: false,
+    completed: false,
+    dialogModal: false
+  })
+  const router = useRouter()
+
 
   const { handleSubmit, resetForm } = useForm()
 
@@ -69,10 +97,8 @@
     validateOnModelUpdate: true // controls if `update:modelValue` events should trigger validation with `handleChange` handler
   })
 
-  //
   const firstClicked = ref(false)
 
-  // methods
   const handleSave = () => {
     firstClicked.value = true
     if (store.userInfo.connected) {
@@ -133,21 +159,21 @@
         }
       }
     }
-    resetForm()
+    state.billModal = true
+    store.mintInfo = { ...newValue }
   }, onInvalidSubmit)
 
-  // validator
+  
   const validators = {
     username: (value) => {
-      if (value?.length < 5) {
-        return 'value should >= 5'
+      if (!/^[a-zA-Z0-9]{6,12}$/.test(value)) {
+        return 'a-z, A-Z, 0-9, length 6-12'
       }
       return true
     },
     domain: (value) => {
       if (
-        value &&
-        !/^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
+       !/^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
           value
         )
       ) {
@@ -156,12 +182,71 @@
       return true
     },
     address: (value) => {
-      if (value?.length < 10) {
-        return 'value should >= 5'
+      if ( value &&  !/^(0x)?[0-9a-fA-F]{40}$/.test(value)) {
+        return 'please input a valid wallet address'
       }
       return true
     }
   }
+
+  const handleConfirm = async () => {
+    const res = await updateRecord()
+    state.billModal = false
+    if(res){
+      resetForm()
+    }
+    state.completed = res
+    state.dialogModal = true
+  }
+  const updateRecord = async () => {
+    try {
+      const { username, domains, addresses } = store.mintInfo
+      let tx = await store.mintContract.updateRecord(
+        username,
+        JSON.stringify(domains),
+        JSON.stringify(addresses)
+      )
+      await tx.wait()
+      return true
+    } catch (err) {
+      return false
+    }
+  }
+
+  const resultModalType = computed(() => {
+    return state.completed ? 'success' : 'failed'
+  })
+
+  const payResultConfig = {
+    success: {
+      title: 'Success',
+      description: 'Transaction completed successfully',
+      type: 'success',
+      buttonText: 'View my profile',
+      closeCallback: () => {
+        state.dialogModal = false
+        router.push(`/profile/${store.walletInfo.address}`)
+      },
+      buttonCallback: () => {
+        state.dialogModal = false
+        router.push(`/profile/${store.walletInfo.address}`)
+      }
+    },
+    failed: {
+      title: 'Failed',
+      description: 'Sorry, your transaction failed',
+      type: 'failed',
+      buttonText: 'Close',
+      closeCallback: () => {
+        state.dialogModal = false
+      },
+      buttonCallback: () => {
+        state.dialogModal = false
+      }
+    }
+  }
+
+
 </script>
 
 <style scoped>

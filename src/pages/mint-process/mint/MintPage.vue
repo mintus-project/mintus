@@ -87,7 +87,7 @@
         JSON.stringify(domains),
         JSON.stringify(addresses)
       )
-      let tx = await store.mintContract.regist(
+      let tx = await store.mintContract.register(
         'avatarString',
         username,
         JSON.stringify(domains),

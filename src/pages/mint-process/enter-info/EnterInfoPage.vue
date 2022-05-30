@@ -23,8 +23,8 @@
         ></MUInput>
         <MUMultiInput
           name="domain"
-          label="Domain"
-          placeholder="Please input your domain"
+          label="Domain Name"
+          placeholder="Please input your domain name"
           :required="false"
           :validator="validators.domain"
           :component="'MUInput'"
@@ -134,7 +134,7 @@
         }
       }
     }
-    store.mintInfo = {...newValue}
+    store.mintInfo = { ...newValue }
     resetForm()
     router.push('mint')
   }, onInvalidSubmit)
@@ -142,15 +142,14 @@
   // validator
   const validators = {
     username: (value) => {
-      if (value?.length < 5) {
-        return 'value should >= 5'
+      if (!/^[a-zA-Z0-9]{6,12}$/.test(value)) {
+        return 'a-z, A-Z, 0-9, length 6-12'
       }
       return true
     },
     domain: (value) => {
       if (
-        value &&
-        !/^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
+        value && !/^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
           value
         )
       ) {
@@ -159,8 +158,8 @@
       return true
     },
     address: (value) => {
-      if (value?.length < 10) {
-        return 'value should >= 5'
+      if (value && !/^(0x)?[0-9a-fA-F]{40}$/.test(value)) {
+        return 'please input a valid wallet address'
       }
       return true
     }
