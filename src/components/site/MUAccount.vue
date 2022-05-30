@@ -45,6 +45,9 @@
           fromAvatarStringToAvatarConfig(store.userInfo.avatarString),
           46
         )
+      } else {
+        store.userInfo.avatarString = ''
+        store.userInfo.purchased = false
       }
     }
   })

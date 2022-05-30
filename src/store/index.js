@@ -52,8 +52,15 @@ export const useStore = defineStore('main', {
             this.walletInfo.type = 'metamask'
             this.userInfo.connected = true
           }
-          ethereum.on('accountsChanged', () => {
-            window.history.go(0)
+          ethereum.on('accountsChanged', (accounts) => {
+            console.log(accounts)
+            if (accounts.length !== 0) {
+              this.walletInfo.address = accounts[0]
+              this.walletInfo.type = 'metamask'
+              this.userInfo.connected = true
+            } else {
+              this.userInfo.connected = false
+            }
           })
         } catch (error) {
           console.error(error)
@@ -85,6 +92,8 @@ export const useStore = defineStore('main', {
               )
               .then((accounts) => {
                 this.walletInfo.address = accounts[0]
+                this.walletInfo.type = 'metamask'
+                this.userInfo.connected = true
               })
               .catch((err) => {
                 if (err.code === 4001) {

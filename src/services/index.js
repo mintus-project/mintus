@@ -59,8 +59,8 @@ export const getRecord = async (address) => {
     return {
       avatarString: res[0],
       username: res[1],
-      domains: JSON.parse(res[2]),
-      addresses: JSON.parse(res[3])
+      domains: res[2] ? JSON.parse(res[2]) : [],
+      addresses: res[3] ? JSON.parse(res[3]) : []
     }
   } catch (err) {
     console.error(err)
