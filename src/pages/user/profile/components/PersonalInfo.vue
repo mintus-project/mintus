@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center gap-6">
     <div class="avatar">
       <div class="w-[12.5rem] rounded-2xl border-4 border-white shadow-lg">
-        <img src="https://api.lorem.space/image/face?hash=92048" />
+        <img ref="avatarImg" src="https://api.lorem.space/image/face?hash=92048" />
       </div>
     </div>
     <span class="font-bold text-3xl">{{ store.profileInfo.username }}</span>
@@ -24,13 +24,13 @@
         /></template>
         <template #default>Setting</template>
       </MUIconButton>
-      <MUButton>Download Avatar</MUButton>
+      <MUButton @click="handleDownload">Download Avatar</MUButton>
     </div>
   </div>
 </template>
 
 <script setup>
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import MUIconButton from '../../../../components/common/MUIconButton.vue'
   import MUButton from '../../../../components/common/MUButton.vue'
   import { Icon } from '@iconify/vue'
@@ -41,6 +41,9 @@
 
   const store = useStore()
   const route = useRoute()
+
+  const avatarImg = ref(null)
+
   const isOwnerRef = computed(() => {
     if (store.userInfo.connected && store.walletInfo.address) {
       return (
@@ -51,6 +54,15 @@
       return false
     }
   })
+
+  const downloadImageFromCanvas = (canvas, name) => {
+    const aTag = document.createElement('a')
+    aTag.href = canvas.value.toDataURL()
+    aTag.download = name
+    aTag.click()
+  }
+
+
 </script>
 
 <style lang="scss" scoped></style>
