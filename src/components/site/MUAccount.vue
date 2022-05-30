@@ -7,7 +7,7 @@
   <div v-else class="flex items-center gap-8">
     <div v-if="store.userInfo.purchased" class="avatar">
       <div class="w-[2.875rem] h-[2.875rem] rounded-full">
-        <img :src="nftSrc" />
+        <canvas ref="canvas"></canvas>
       </div>
     </div>
     <div class="flex items-center gap-5">
@@ -23,22 +23,26 @@
   import MUWalletDropdown from '../site/MUWalletDropdown.vue'
   import MUConnectWallet from './MUConnectWallet.vue'
   import MUButton from '../common/MUButton.vue'
-import { watchEffect } from 'vue'
-import { getRecord } from '@/services'
+  import { ref, watchEffect } from 'vue'
+  import { getRecord } from '@/services'
+import { drawAvatar, fromAvatarStringToAvatarConfig } from '@/utils/generateAvatar'
+
+  const canvas = ref(null)
 
   const store = useStore()
-  watchEffect( async ()=>{
-    if(store.userInfo.connected){
+  watchEffect(async () => {
+    if (store.userInfo.connected) {
       const res = await getRecord(store.walletInfo.address)
-      if(res?.avatarString){
+      // 如果用户有购买过我们的 nft 头像
+      if (res?.avatarString) {
         store.userInfo.avatarString = res?.avatarString
         store.userInfo.purchased = true
+        drawAvatar(canvas, fromAvatarStringToAvatarConfig(store.userInfo.avatarString))
       }
     }
   })
 
   //TODO: 获取逻辑
-  const nftSrc = 'https://api.lorem.space/image/face?hash=92310'
   const coinType = 'eth'
 </script>
 
