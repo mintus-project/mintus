@@ -68,7 +68,7 @@
     state.billModal = true
   }
   const handleConfirm = async () => {
-    const res = await addNft()
+    const res = await mintIt()
     state.billModal = false
     state.dialogModal = true
     if (res) {
@@ -79,42 +79,22 @@
     }
   }
 
-  const mintIt = () => {
+  const mintIt = async () => {
     try {
-      const { username, domains, addresses } = store.mintInfo
-      await register
+      const { avatarString, username, domains, addresses } = store.mintInfo
+      const res = await register(store.mintContract,avatarString,username,domains,addresses)
+      if(res){
+        const profile = await getRecord(store.mintContract, store.walletInfo.address)
+        store.profileInfo = {...store.profileInfo, ...profile}
+        return true
+      } else {
+        return false
+      }
+    } catch(err) {
+      console.error(err)
+      return false
     }
   }
-  // const addNft = async () => {
-  //   try {
-  //     const { username, domains, addresses } = store.mintInfo
-  //     console.log(
-  //       111111,
-  //       'avatarString',
-  //       username,
-  //       JSON.stringify(domains),
-  //       JSON.stringify(addresses)
-  //     )
-  //     let tx = await store.mintContract.register(
-  //       'avatarString',
-  //       username,
-  //       JSON.stringify(domains),
-  //       JSON.stringify(addresses)
-  //     ) // transaction
-  //     await tx.wait() // 确定上链后
-  //     const res = await store.mintContract.getRecord(store.walletInfo.address)
-  //     store.profileInfo = {
-  //       avatar: res[0],
-  //       username: res[1],
-  //       domains: JSON.parse(res[2]),
-  //       addresses: JSON.parse(res[3])
-  //     }
-  //     console.log(222222, store.profileInfo)
-  //     return true
-  //   } catch (err) {
-  //     return false
-  //   }
-  // }
 
   const resultModalType = computed(() => {
     return state.completed ? 'success' : 'failed'

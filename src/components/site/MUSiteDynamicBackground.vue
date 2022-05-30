@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-w-[1200px]">
     <MUNavbar class="fixed"></MUNavbar>
     <div class="dynamic-background min-h-screen flex flex-col items-center">
       <slot></slot>
@@ -16,13 +16,13 @@
     background-color: #ffffff;
     background-image: radial-gradient(
         closest-side,
-        rgb(255, 228, 222),
+        rgb(255, 255, 255),
         rgba(246, 228, 255, 0)
       ),
-      radial-gradient(closest-side, rgb(255, 230, 247), rgba(211, 211, 255, 0)),
+      radial-gradient(closest-side, rgb(255, 255, 255), rgba(211, 211, 255, 0)),
       radial-gradient(closest-side, rgb(212, 230, 243), rgba(239, 251, 255, 0)),
-      radial-gradient(closest-side, rgb(220, 212, 243), rgba(221, 208, 255, 0)),
-      radial-gradient(closest-side, rgb(246, 231, 255), rgba(224, 247, 255, 0));
+      radial-gradient(closest-side, rgb(255, 255, 255), rgba(221, 208, 255, 0)),
+      radial-gradient(closest-side, rgb(255, 255, 255), rgba(224, 247, 255, 0));
     background-size: 130vmax, 130vmax, 80vmax, 80vmax, 90vmax, 90vmax, 110vmax,
       110vmax, 90vmax, 90vmax;
     background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax,

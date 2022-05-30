@@ -134,7 +134,7 @@
         }
       }
     }
-    store.mintInfo = { ...newValue }
+    store.mintInfo = { ...store.mintInfo, ...newValue }
     resetForm()
     router.push('mint')
   }, onInvalidSubmit)
@@ -149,7 +149,8 @@
     },
     domain: (value) => {
       if (
-        value && !/^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
+        value &&
+        !/^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
           value
         )
       ) {

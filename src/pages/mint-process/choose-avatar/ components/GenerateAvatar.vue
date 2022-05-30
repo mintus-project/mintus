@@ -139,7 +139,8 @@
   }
 
   watchEffect(() => {
-    drawAvatar(canvas, store.mintInfo.avatarConfig)
+    console.log(11111)
+    drawAvatar(canvas, [...store.mintInfo.avatarConfig])
   })
 </script>
 

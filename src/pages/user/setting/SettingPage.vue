@@ -151,7 +151,7 @@
       }
     }
     state.billModal = true
-    store.mintInfo = { ...newValue }
+    store.mintInfo = { ...store.mintInfo, ...newValue }
   }, onInvalidSubmit)
 
   const validators = {
@@ -190,21 +190,6 @@
     state.completed = res
     state.dialogModal = true
   }
-  // const updateRecord = async () => {
-  //   try {
-  //     const { username, domains, addresses } = store.mintInfo
-  //     let tx = await store.mintContract.updateRecord(
-  //       username,
-  //       JSON.stringify(domains),
-  //       JSON.stringify(addresses)
-  //     )
-  //     await tx.wait()
-  //     return true
-  //   } catch (err) {
-  //     return false
-  //   }
-  // }
-
   const resultModalType = computed(() => {
     return state.completed ? 'success' : 'failed'
   })

@@ -25,7 +25,7 @@
         </MUButton>
       </div>
     </div>
-    <img class="absolute bottom-0" :src="HomePageBackground" alt="" />
+    <img class="absolute bottom-0 h-[40vh]" :src="HomePageBackground" alt="" />
   </MUSiteDynamicBackground>
 </template>
 

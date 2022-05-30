@@ -34,8 +34,10 @@ export const register = async (
       JSON.stringify(addresses)
     )
     await tx.wait() // 确定上链
+    return true
   } catch (err) {
     console.error(err)
+    return false
   }
 }
 
@@ -56,7 +58,7 @@ export const getRecord = async (contract, address) => {
   try {
     const res = await contract.getRecord(address)
     return {
-      avatar: res[0],
+      avatarString: res[0],
       username: res[1],
       domains: JSON.parse(res[2]),
       addresses: JSON.parse(res[3])

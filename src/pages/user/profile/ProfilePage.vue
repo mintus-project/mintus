@@ -21,12 +21,12 @@
       if (store.mintContract) {
         const res = await store.mintContract.getRecord(route.params.address)
         store.profileInfo = {
+          ...store.profileInfo,
           avatar: res[0],
           username: res[1],
           domains: JSON.parse(res[2]),
           addresses: JSON.parse(res[3])
         }
-        console.log(222222, store.profileInfo)
         return true
       } else {
         return false
