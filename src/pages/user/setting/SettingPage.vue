@@ -13,18 +13,14 @@
       <template #content>
         <div class="flex flex-col items-end gap-8">
           <form class="flex flex-col gap-4 w-[30rem] text-sm">
-            <MUWalletInput
-              label="Wallet"
-              required
-              :show-error-message="firstClicked && !store.userInfo.connected"
-            ></MUWalletInput>
             <MUInput
+              id="username"
               name="username"
               label="Username"
               placeholder="Please input your username"
-              required
+              :required="false"
               :validator="validators.username"
-            ></MUInput>
+            />
             <MUMultiInput
               name="domain"
               label="Domain Name"
@@ -71,13 +67,12 @@
   import MUMultiInput from '@/components/data-input/MUMultiInput.vue'
   import { useForm, configure } from 'vee-validate'
   import { useStore } from '@/store'
-  import { ref, reactive } from 'vue'
+  import { reactive } from 'vue'
   import BillModal from '../../mint-process/components/BillModal.vue'
   import MUPayResult from '@/components/feedback/MUPayResult.vue'
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
-  // import { ethers } from 'ethers'
-  // import abi from '@/utils/Contract.json'
+  import { updateRecord } from '@/services'
 
   const store = useStore()
   const state = reactive({
@@ -86,7 +81,6 @@
     dialogModal: false
   })
   const router = useRouter()
-
 
   const { handleSubmit, resetForm } = useForm()
 
@@ -97,10 +91,7 @@
     validateOnModelUpdate: true // controls if `update:modelValue` events should trigger validation with `handleChange` handler
   })
 
-  const firstClicked = ref(false)
-
   const handleSave = () => {
-    firstClicked.value = true
     if (store.userInfo.connected) {
       onSubmit()
     }
@@ -163,17 +154,17 @@
     store.mintInfo = { ...newValue }
   }, onInvalidSubmit)
 
-  
   const validators = {
     username: (value) => {
-      if (!/^[a-zA-Z0-9]{6,12}$/.test(value)) {
+      if (value && !/^[a-zA-Z0-9]{6,12}$/.test(value)) {
         return 'a-z, A-Z, 0-9, length 6-12'
       }
       return true
     },
     domain: (value) => {
       if (
-       !/^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
+        value &&
+        !/^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
           value
         )
       ) {
@@ -182,7 +173,7 @@
       return true
     },
     address: (value) => {
-      if ( value &&  !/^(0x)?[0-9a-fA-F]{40}$/.test(value)) {
+      if (value && !/^(0x)?[0-9a-fA-F]{40}$/.test(value)) {
         return 'please input a valid wallet address'
       }
       return true
@@ -190,28 +181,29 @@
   }
 
   const handleConfirm = async () => {
-    const res = await updateRecord()
+    const { username, domains, addresses } = store.mintInfo
+    const res = await updateRecord(store.mintContract, username, domains, addresses)
     state.billModal = false
-    if(res){
+    if (res) {
       resetForm()
     }
     state.completed = res
     state.dialogModal = true
   }
-  const updateRecord = async () => {
-    try {
-      const { username, domains, addresses } = store.mintInfo
-      let tx = await store.mintContract.updateRecord(
-        username,
-        JSON.stringify(domains),
-        JSON.stringify(addresses)
-      )
-      await tx.wait()
-      return true
-    } catch (err) {
-      return false
-    }
-  }
+  // const updateRecord = async () => {
+  //   try {
+  //     const { username, domains, addresses } = store.mintInfo
+  //     let tx = await store.mintContract.updateRecord(
+  //       username,
+  //       JSON.stringify(domains),
+  //       JSON.stringify(addresses)
+  //     )
+  //     await tx.wait()
+  //     return true
+  //   } catch (err) {
+  //     return false
+  //   }
+  // }
 
   const resultModalType = computed(() => {
     return state.completed ? 'success' : 'failed'
@@ -245,8 +237,6 @@
       }
     }
   }
-
-
 </script>
 
 <style scoped>

@@ -54,6 +54,7 @@
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
   import BillModal from '../components/BillModal.vue'
+  import { register, getRecord } from '@/services'
 
   const router = useRouter()
 
@@ -77,36 +78,43 @@
       state.completed = false
     }
   }
-  const addNft = async () => {
+
+  const mintIt = () => {
     try {
       const { username, domains, addresses } = store.mintInfo
-      console.log(
-        111111,
-        'avatarString',
-        username,
-        JSON.stringify(domains),
-        JSON.stringify(addresses)
-      )
-      let tx = await store.mintContract.register(
-        'avatarString',
-        username,
-        JSON.stringify(domains),
-        JSON.stringify(addresses)
-      ) // transaction
-      await tx.wait() // 确定上链后
-      const res = await store.mintContract.getRecord(store.walletInfo.address)
-      store.profileInfo = {
-        avatar: res[0],
-        username: res[1],
-        domains: JSON.parse(res[2]),
-        addresses: JSON.parse(res[3])
-      }
-      console.log(222222, store.profileInfo)
-      return true
-    } catch (err) {
-      return false
+      await register
     }
   }
+  // const addNft = async () => {
+  //   try {
+  //     const { username, domains, addresses } = store.mintInfo
+  //     console.log(
+  //       111111,
+  //       'avatarString',
+  //       username,
+  //       JSON.stringify(domains),
+  //       JSON.stringify(addresses)
+  //     )
+  //     let tx = await store.mintContract.register(
+  //       'avatarString',
+  //       username,
+  //       JSON.stringify(domains),
+  //       JSON.stringify(addresses)
+  //     ) // transaction
+  //     await tx.wait() // 确定上链后
+  //     const res = await store.mintContract.getRecord(store.walletInfo.address)
+  //     store.profileInfo = {
+  //       avatar: res[0],
+  //       username: res[1],
+  //       domains: JSON.parse(res[2]),
+  //       addresses: JSON.parse(res[3])
+  //     }
+  //     console.log(222222, store.profileInfo)
+  //     return true
+  //   } catch (err) {
+  //     return false
+  //   }
+  // }
 
   const resultModalType = computed(() => {
     return state.completed ? 'success' : 'failed'
