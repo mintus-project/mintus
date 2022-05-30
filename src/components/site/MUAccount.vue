@@ -25,7 +25,10 @@
   import MUButton from '../common/MUButton.vue'
   import { ref, watchEffect } from 'vue'
   import { getRecord } from '@/services'
-import { drawAvatar, fromAvatarStringToAvatarConfig } from '@/utils/generateAvatar'
+  import {
+    drawAvatar,
+    fromAvatarStringToAvatarConfig
+  } from '@/utils/generateAvatar'
 
   const canvas = ref(null)
 
@@ -37,7 +40,11 @@ import { drawAvatar, fromAvatarStringToAvatarConfig } from '@/utils/generateAvat
       if (res?.avatarString) {
         store.userInfo.avatarString = res?.avatarString
         store.userInfo.purchased = true
-        drawAvatar(canvas, fromAvatarStringToAvatarConfig(store.userInfo.avatarString))
+        drawAvatar(
+          canvas,
+          fromAvatarStringToAvatarConfig(store.userInfo.avatarString),
+          46
+        )
       }
     }
   })

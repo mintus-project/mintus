@@ -20,27 +20,27 @@ export const createImages = (avatarConfig) => {
   return arr
 }
 
-export const contextDraw = (canvas, images) => {
+export const contextDraw = (canvas, images, size) => {
   const ctx = canvas.value.getContext('2d')
-  canvas.value.width = 224
-  canvas.value.height = 224
+  canvas.value.width = size
+  canvas.value.height = size
 
   images.forEach((img) => {
-    ctx.drawImage(img, 0, 0, 224, 224)
+    ctx.drawImage(img, 0, 0, size, size)
   })
 }
 
-export const imagesSetOnLoad = (canvas, images) => {
+export const imagesSetOnLoad = (canvas, images, size) => {
   images.forEach((img) => {
     img.onload = () => {
-      contextDraw(canvas, images)
+      contextDraw(canvas, images, size)
     }
   })
 }
 
-export const drawAvatar = (canvas, avatarConfig) => {
+export const drawAvatar = (canvas, avatarConfig, size = 224) => {
   const images = createImages(avatarConfig)
-  imagesSetOnLoad(canvas, images)
+  imagesSetOnLoad(canvas, images, size)
 }
 
 export const generateRandomAvatarConfig = () => {
