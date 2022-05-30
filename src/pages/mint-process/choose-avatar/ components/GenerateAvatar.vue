@@ -94,6 +94,8 @@
   // refs
   const canvas = ref(null)
 
+  store.mintInfo.canvas = canvas
+
   // data
   const tabs = ref([
     {
@@ -139,7 +141,6 @@
   }
 
   watchEffect(() => {
-    console.log(11111)
     drawAvatar(canvas, [...store.mintInfo.avatarConfig])
   })
 </script>

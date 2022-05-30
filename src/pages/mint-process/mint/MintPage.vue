@@ -9,7 +9,7 @@
         <div class="w-full p-6 flex flex-col items-center gap-6">
           <div class="avatar">
             <div class="w-[13.75rem] rounded-xl">
-              <img src="https://api.lorem.space/image/face?hash=92048" />
+              <img :src="store.mintInfo.avatarBase64" />
             </div>
           </div>
           <span class="font-bold text-xl">{{ store.mintInfo.username }}</span>

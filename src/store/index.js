@@ -16,6 +16,8 @@ export const useStore = defineStore('main', {
       mintInfo: {
         avatarString: '',
         avatarConfig: [0, 0, 0, 0, 0, 0, 0],
+        avatarBase64: '',
+        canvas: {},
         username: '',
         domains: [],
         addresses: [],

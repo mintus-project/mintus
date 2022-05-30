@@ -37,6 +37,7 @@
     store.mintInfo.avatarString = fromAvatarConfigToAvatarString(
       store.mintInfo.avatarConfig
     )
+    store.mintInfo.avatarBase64 = store.mintInfo.canvas.toDataURL('image/png', 1)
     router.push('enter-info')
   }
 </script>
