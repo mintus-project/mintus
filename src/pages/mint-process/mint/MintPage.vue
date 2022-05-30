@@ -28,6 +28,8 @@
     </ProcessCard>
     <BillModal
       v-if="state.billModal"
+      :gas-fee="state.gasFee"
+      :service-fee="state.serviceFee"
       @cancel="state.billModal = false"
       @confirm="handleConfirm"
     />
@@ -54,18 +56,31 @@
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
   import BillModal from '../components/BillModal.vue'
-  import { register, getRecord } from '@/services'
+  import { register, getRecord, getEstimatedGasFee } from '@/services'
 
   const router = useRouter()
 
   const store = useStore()
   const state = reactive({
     billModal: false,
+    gasFee: 0,
+    serviceFee: 0,
     completed: false,
     dialogModal: false
   })
-  const handleMint = () => {
-    state.billModal = true
+
+  const handleMint = async () => {
+    try {
+      const res = await getEstimatedGasFee(
+        store.walletInfo.address,
+        '0x5fbdb2315678afecb367f032d93f642f64180aa3'
+      )
+      state.gasFee = res?.result ?? 0
+      state.serviceFee = 0
+      state.billModal = true
+    } catch (err) {
+      console.error(err)
+    }
   }
   const handleConfirm = async () => {
     const res = await mintIt()
@@ -78,19 +93,27 @@
       state.completed = false
     }
   }
-
   const mintIt = async () => {
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
-      const res = await register(store.mintContract,avatarString,username,domains,addresses)
-      if(res){
-        const profile = await getRecord(store.mintContract, store.walletInfo.address)
-        store.profileInfo = {...store.profileInfo, ...profile}
+      const res = await register(
+        store.mintContract,
+        avatarString,
+        username,
+        domains,
+        addresses
+      )
+      if (res) {
+        const profile = await getRecord(
+          store.mintContract,
+          store.walletInfo.address
+        )
+        store.profileInfo = { ...store.profileInfo, ...profile }
         return true
       } else {
         return false
       }
-    } catch(err) {
+    } catch (err) {
       console.error(err)
       return false
     }

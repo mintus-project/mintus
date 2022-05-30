@@ -19,15 +19,15 @@
 
       <div class="flex flex-col gap-6">
         <div class="flex justify-between items-center text-sm">
-          <span>xxx fe (Estimated)</span>
+          <span>Gas fee (Estimated)</span>
           <span class="text-base font-bold">
-            {{ `${transInfo.basFee} ETH` }}
+            {{ `${props.gasFee} ETH` }}
           </span>
         </div>
         <div class="flex justify-between items-center text-sm">
-          <span>xxx fe (Estimated)</span>
+          <span>Service fee (Estimated)</span>
           <span class="text-base font-bold">
-            {{ `${transInfo.priorityFee} ETH` }}
+            {{ `${props.serviceFee} ETH` }}
           </span>
         </div>
       </div>
@@ -37,7 +37,7 @@
       <div class="flex justify-between items-center text-sm mb-8">
         <span>Total (Estimated)</span>
         <span class="text-xl font-bold">
-          {{ `${transInfo.total} ETH` }}
+          {{ `${props.serviceFee+props.gasFee} ETH` }}
         </span>
       </div>
     </template>
@@ -50,18 +50,24 @@
   </MUModal>
 </template>
 <script setup>
-  import { reactive } from 'vue'
+  import { defineProps } from 'vue'
   import { useStore } from '@/store'
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '@/components/common/MUWalletType.vue'
   import MUWalletAddr from '@/components/common/MUWalletAddr.vue'
   import MUButton from '../../../components/common/MUButton.vue'
-  const store = useStore()
-  const transInfo = reactive({
-    basFee: '0.1',
-    priorityFee: '0.5',
-    total: '4.12'
+
+  const props = defineProps({
+    gasFee: {
+      type: Number,
+      default: 0
+    },
+    serviceFee: {
+      type: Number,
+      default: 0
+    }
   })
+  const store = useStore()
   // eslint-disable-next-line no-undef
   const emit = defineEmits(['confirm', 'cancel'])
 

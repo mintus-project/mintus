@@ -67,3 +67,22 @@ export const getRecord = async (contract, address) => {
     console.error(err)
   }
 }
+
+export const getEstimatedGasFee = async (from, to) => {
+  try {
+    const { ethereum } = window
+    if (ethereum) {
+      console.log(111111, {
+        method: 'eth_estimateGas',
+        params: [{ from, to }]
+      })
+      const res = await ethereum.request({
+        method: 'eth_estimateGas',
+        params: [{ from, to }]
+      })
+      return res
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}

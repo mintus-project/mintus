@@ -44,6 +44,8 @@
     </MUSiteSetting>
     <BillModal
       v-if="state.billModal"
+      :gas-fee="state.gasFee"
+      :service-fee="state.serviceFee"
       @cancel="state.billModal = false"
       @confirm="handleConfirm"
     />
@@ -72,11 +74,13 @@
   import MUPayResult from '@/components/feedback/MUPayResult.vue'
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
-  import { updateRecord } from '@/services'
+  import { updateRecord,getEstimatedGasFee } from '@/services'
 
   const store = useStore()
   const state = reactive({
     billModal: false,
+    gasFee: 0,
+    serviceFee: 0,
     completed: false,
     dialogModal: false
   })
@@ -150,8 +154,8 @@
         }
       }
     }
-    state.billModal = true
     store.mintInfo = { ...store.mintInfo, ...newValue }
+    openBillModal()
   }, onInvalidSubmit)
 
   const validators = {
@@ -177,6 +181,20 @@
         return 'please input a valid wallet address'
       }
       return true
+    }
+  }
+
+  const openBillModal = async () => {
+    try {
+      const res = await getEstimatedGasFee(
+        store.walletInfo.address,
+        '0x5fbdb2315678afecb367f032d93f642f64180aa3'
+      )
+      state.gasFee = res?.result ?? 0
+      state.serviceFee = 0
+      state.billModal = true
+    } catch (err) {
+      console.error(err)
     }
   }
 
