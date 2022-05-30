@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import detectEthereumProvider from '@metamask/detect-provider'
-import { initContract } from '@/services'
 
 export const useStore = defineStore('main', {
   state: () => {
@@ -11,7 +10,8 @@ export const useStore = defineStore('main', {
       },
       userInfo: {
         connected: false,
-        purchased: false
+        purchased: false,
+        avatarString: ''
       },
       mintInfo: {
         avatarString: '',
@@ -29,8 +29,7 @@ export const useStore = defineStore('main', {
         username: '',
         domains: [],
         addresses: []
-      },
-      mintContract: initContract()
+      }
     }
   },
   getters: {
@@ -85,7 +84,7 @@ export const useStore = defineStore('main', {
                 })
               )
               .then((accounts) => {
-                this.updateWalletInfo(accounts)
+                this.walletInfo.address = accounts[0]
               })
               .catch((err) => {
                 if (err.code === 4001) {

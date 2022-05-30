@@ -44,17 +44,17 @@
         store.connectMetaMask()
         break
       case 'coinbase':
-        conncetCoinbase()
+        connectCoinbase()
         break
       case 'formatic':
-        conncetFormatic()
+        connectFormatic()
         break
       default:
         break
     }
     handleClose()
   }
-  const conncetCoinbase = () => {}
-  const conncetFormatic = () => {}
+  const connectCoinbase = () => {}
+  const connectFormatic = () => {}
 </script>
 <style scoped></style>

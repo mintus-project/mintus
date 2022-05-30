@@ -97,7 +97,6 @@
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
       const res = await register(
-        store.mintContract,
         avatarString,
         username,
         domains,
@@ -105,7 +104,6 @@
       )
       if (res) {
         const profile = await getRecord(
-          store.mintContract,
           store.walletInfo.address
         )
         store.profileInfo = { ...store.profileInfo, ...profile }

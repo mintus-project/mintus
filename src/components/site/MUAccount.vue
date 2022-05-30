@@ -23,8 +23,19 @@
   import MUWalletDropdown from '../site/MUWalletDropdown.vue'
   import MUConnectWallet from './MUConnectWallet.vue'
   import MUButton from '../common/MUButton.vue'
+import { watchEffect } from 'vue'
+import { getRecord } from '@/services'
 
   const store = useStore()
+  watchEffect( async ()=>{
+    if(store.userInfo.connected){
+      const res = await getRecord(store.walletInfo.address)
+      if(res?.avatarString){
+        store.userInfo.avatarString = res?.avatarString
+        store.userInfo.purchased = true
+      }
+    }
+  })
 
   //TODO: 获取逻辑
   const nftSrc = 'https://api.lorem.space/image/face?hash=92310'

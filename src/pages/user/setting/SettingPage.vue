@@ -200,7 +200,7 @@
 
   const handleConfirm = async () => {
     const { username, domains, addresses } = store.mintInfo
-    const res = await updateRecord(store.mintContract, username, domains, addresses)
+    const res = await updateRecord(username, domains, addresses)
     state.billModal = false
     if (res) {
       resetForm()
