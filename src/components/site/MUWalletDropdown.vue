@@ -52,7 +52,7 @@
           class="w-full"
           :disabled="!store.userInfo.purchased"
           @click="
-            $router.push('/profile/0xd83039Ff4B0D7022281769eDb509b32F6c390867')
+            $router.push(`/profile/${store.walletInfo.address}`)
           "
           >My Profile</MUButton
         >
