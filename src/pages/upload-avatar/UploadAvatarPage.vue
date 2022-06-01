@@ -21,7 +21,7 @@
           :on-before-upload="onBeforeUpload"
           :on-error="onError"
           :on-finish="onFinish"
-          action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
+          action="/api/picture_recognition"
           @change="handleChange"
         >
           <n-upload-dragger
@@ -113,7 +113,8 @@
   const onError = () => {
     state.content = 'failed'
   }
-  const onFinish = () => {
+  const onFinish = (res) => {
+    console.log(res)
     router.push('/profile/0xd83039Ff4B0D7022281769eDb509b32F6c390867')
   }
   const handleChange = () => {}

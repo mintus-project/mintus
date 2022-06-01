@@ -20,7 +20,7 @@
   const setProfile = async () => {
     try {
       const {avatarString, username, domains, addresses} = await getRecord(route.params.address)
-      store.profileInfo = {
+        store.profileInfo = {
         ...store.profileInfo,
         avatarString,
         username,

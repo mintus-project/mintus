@@ -1,7 +1,7 @@
 import abi from '@/utils/Contract.json'
 import { ethers } from 'ethers'
 
-const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+const CONTRACT_ADDRESS = '0x0165878A594ca255338adfa4d48449f69242Eb8F'
 
 export const initContract = () => {
   // 先判断ethereum是否可用
@@ -57,8 +57,8 @@ export const getRecord = async (address) => {
   try {
     const res = await contractObj.getRecord(address)
     return {
-      avatarString: res[0],
-      username: res[1],
+      avatarString: res[0] ?? '',
+      username: res[1] ?? '',
       domains: res[2] ? JSON.parse(res[2]) : [],
       addresses: res[3] ? JSON.parse(res[3]) : []
     }
