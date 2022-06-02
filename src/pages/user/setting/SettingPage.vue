@@ -74,7 +74,7 @@
   import MUPayResult from '@/components/feedback/MUPayResult.vue'
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
-  import { updateRecord,getEstimatedGasFee } from '@/services'
+  import { updateRecord, getEstimatedGasFee } from '@/services'
 
   const store = useStore()
   const state = reactive({

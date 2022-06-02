@@ -19,12 +19,7 @@ export const initContract = () => {
 
 const contractObj = initContract()
 
-export const register = async (
-  avatarString,
-  username,
-  domains,
-  addresses
-) => {
+export const register = async (avatarString, username, domains, addresses) => {
   try {
     let tx = await contractObj.register(
       avatarString,

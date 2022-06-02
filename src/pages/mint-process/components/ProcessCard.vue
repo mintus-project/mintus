@@ -10,9 +10,7 @@
     </MUTitle>
     <div class="flex flex-col gap-8">
       <!-- card -->
-      <div
-        class="min-w-[16rem] min-h-[23rem] bg-white rounded-xl my-shadow"
-      >
+      <div class="min-w-[16rem] min-h-[23rem] bg-white rounded-xl my-shadow">
         <slot name="content"></slot>
       </div>
       <!-- back & next -->

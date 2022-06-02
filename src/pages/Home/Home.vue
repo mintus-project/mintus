@@ -5,7 +5,13 @@
         <template #title> Build your future identity via NFT. </template>
         <template #subtitle>
           <span class="w-[48rem] inline-block text-justify">
-            Users can customize and mint unique Avatar NFTs and set their Web3 profile on MintUs. The minted NFT has a mapping relationship with user's profile. Using the image recognition algorithm, when a user scans/uploads an nft avatar, the system will retrieve and display the profile corresponding to the avatar. MintUs has a broad application scenario in the filed of web3 profile creation, online and offline payment, NFT trading platform.
+            Users can customize and mint unique Avatar NFTs and set their Web3
+            profile on MintUs. The minted NFT has a mapping relationship with
+            user's profile. Using the image recognition algorithm, when a user
+            scans/uploads an nft avatar, the system will retrieve and display
+            the profile corresponding to the avatar. MintUs has a broad
+            application scenario in the filed of web3 profile creation, online
+            and offline payment, NFT trading platform.
           </span>
         </template>
       </MUTitle>

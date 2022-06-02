@@ -6,7 +6,7 @@
       class="text-3xl font-black text-[#5D5FEF] cursor-pointer"
       @click="$router.push('/')"
     >
-      <img src="@/assets/mintUs.svg">
+      <img src="@/assets/mintUs.svg" />
     </span>
 
     <MUAccount />

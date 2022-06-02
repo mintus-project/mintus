@@ -141,7 +141,12 @@ export default {
     path: '@/assets/avatar-material/background',
     level: 7,
     // matPathArr: [bg_1_url, bg_2_url, bg_3_url, bg_4_url],
-    matPathArr320: [bg_1_url_320px, bg_2_url_320px, bg_3_url_320px, bg_4_url_320px]
+    matPathArr320: [
+      bg_1_url_320px,
+      bg_2_url_320px,
+      bg_3_url_320px,
+      bg_4_url_320px
+    ]
   },
   cloth: {
     path: '@/assets/avatar-material/cloth',
@@ -215,13 +220,24 @@ export default {
     path: '@/assets/avatar-material/nose',
     level: 3,
     // matPathArr: [nose_1_url, nose_2_url, nose_3_url, nose_4_url],
-    matPathArr320: [nose_1_url_320px, nose_2_url_320px, nose_3_url_320px, nose_4_url_320px]
+    matPathArr320: [
+      nose_1_url_320px,
+      nose_2_url_320px,
+      nose_3_url_320px,
+      nose_4_url_320px
+    ]
   },
   eyes: {
     path: '@/assets/avatar-material/eyes',
     level: 2,
     // matPathArr: [eyes_1_url, eyes_2_url, eyes_3_url, eyes_4_url, eyes_5_url],
-    matPathArr320: [eyes_1_url_320px, eyes_2_url_320px, eyes_3_url_320px, eyes_4_url_320px, eyes_5_url_320px]
+    matPathArr320: [
+      eyes_1_url_320px,
+      eyes_2_url_320px,
+      eyes_3_url_320px,
+      eyes_4_url_320px,
+      eyes_5_url_320px
+    ]
   },
   hair: {
     path: '@/assets/avatar-material/hair',

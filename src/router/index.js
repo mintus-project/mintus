@@ -112,13 +112,11 @@ router.beforeEach(async (to, from) => {
       return { path: '/mint-process/choose-avatar' }
     }
   } else if (to.path === '/mint-process/mint') {
-     if (
-       from.path === '/mint-process/enter-info'
-     ) {
-       return true
-     } else {
-       return { path: '/mint-process/choose-avatar' }
-     }
+    if (from.path === '/mint-process/enter-info') {
+      return true
+    } else {
+      return { path: '/mint-process/choose-avatar' }
+    }
   }
 })
 export default router

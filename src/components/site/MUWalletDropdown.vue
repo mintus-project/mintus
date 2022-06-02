@@ -51,9 +51,7 @@
         <MUButton
           class="w-full"
           :disabled="!store.userInfo.purchased"
-          @click="
-            $router.push(`/profile/${store.walletInfo.address}`)
-          "
+          @click="$router.push(`/profile/${store.walletInfo.address}`)"
           >My Profile</MUButton
         >
       </div>

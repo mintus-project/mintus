@@ -81,7 +81,7 @@
   import MUIconButton from '@/components/common/MUIconButton.vue'
   import { Icon } from '@iconify/vue'
   import MUTag from '@/components/common/MUTag.vue'
-  import { ref, watchEffect, onMounted } from 'vue'
+  import { ref, watchEffect } from 'vue'
   import materials from '@/utils/materials'
   import {
     drawAvatar,

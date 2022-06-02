@@ -37,7 +37,7 @@
       <div class="flex justify-between items-center text-sm mb-8">
         <span>Total (Estimated)</span>
         <span class="text-xl font-bold">
-          {{ `${props.serviceFee+props.gasFee} ETH` }}
+          {{ `${props.serviceFee + props.gasFee} ETH` }}
         </span>
       </div>
     </template>
