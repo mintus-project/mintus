@@ -5,7 +5,7 @@
       <!-- avatar -->
       <div class="avatar">
         <div class="w-56 rounded-xl">
-          <canvas ref="canvas"></canvas>
+          <canvas class="rounded-xl" ref="canvas"></canvas>
         </div>
       </div>
       <div class="flex flex-col gap-4">
@@ -141,7 +141,6 @@
   }
 
   watchEffect(() => {
-    console.log([...store.mintInfo.avatarConfig])
     drawAvatar(canvas, [...store.mintInfo.avatarConfig])
   })
 </script>

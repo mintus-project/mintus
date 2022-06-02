@@ -27,7 +27,6 @@ export const contextDraw = (canvas, images, size) => {
 
   images.forEach((img) => {
     ctx.drawImage(img, 0, 0, size, size)
-    console.log(img)
   })
 }
 
@@ -76,7 +75,6 @@ export const fromAvatarConfigToAvatarString = ([...avatarConfig]) => {
     avatarStringArr.push(String.fromCharCode(e + 65))
   })
   const avatarString = avatarStringArr.join('_')
-  // console.log(avatarString)
   return avatarString
 }
 
@@ -97,6 +95,5 @@ export const fromAvatarStringToAvatarConfig = (avatarString) => {
   avatarStringArr.forEach((e) => {
     avatarConfig.push(e.charCodeAt() - 65)
   })
-  // console.log(avatarConfig)
   return avatarConfig
 }
