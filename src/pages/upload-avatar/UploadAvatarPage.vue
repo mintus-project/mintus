@@ -21,7 +21,7 @@
           :on-before-upload="onBeforeUpload"
           :on-error="onError"
           :on-finish="onFinish"
-          action="/api/picture_recognition"
+          action="http://mintus.link:8000/api/picture_recognition/"
           @change="handleChange"
         >
           <n-upload-dragger
@@ -114,8 +114,9 @@
     state.content = 'failed'
   }
   const onFinish = (res) => {
-    console.log(res)
+    console.log('------+++++', res)
     router.push('/profile/0xd83039Ff4B0D7022281769eDb509b32F6c390867')
+    console.log('------+++++', res)
   }
   const handleChange = () => {}
   const handleDragEnter = () => {

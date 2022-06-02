@@ -72,6 +72,7 @@ const router = createRouter({
   routes
 })
 
+// 守卫
 router.beforeEach(async (to, from) => {
   const address = to.params.address
   if (to.path.split('/').includes('profile')) {

@@ -56,6 +56,7 @@ export const updateRecord = async (username, domains, addresses) => {
 export const getRecord = async (address) => {
   try {
     const res = await contractObj.getRecord(address)
+    console.log(res)
     return {
       avatarString: res[0] ?? '',
       username: res[1] ?? '',

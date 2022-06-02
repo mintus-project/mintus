@@ -53,7 +53,7 @@
         class="h-[19.75rem] p-2 rounded-xl grid grid-cols-6 items-start gap-2 overflow-auto"
       >
         <div
-          v-for="(item, index) in materials[currentTab].matPathArr"
+          v-for="(item, index) in materials[currentTab].matPathArr320"
           :key="index"
           class="avatar rounded-xl border-4 border-white my-shadow-sm cursor-pointer hover:scale-[0.96] hover:border-gray-100 duration-200 ease-in-out"
           :class="{
@@ -81,7 +81,7 @@
   import MUIconButton from '@/components/common/MUIconButton.vue'
   import { Icon } from '@iconify/vue'
   import MUTag from '@/components/common/MUTag.vue'
-  import { ref, watchEffect } from 'vue'
+  import { ref, watchEffect, onMounted } from 'vue'
   import materials from '@/utils/materials'
   import {
     drawAvatar,
@@ -141,6 +141,7 @@
   }
 
   watchEffect(() => {
+    console.log([...store.mintInfo.avatarConfig])
     drawAvatar(canvas, [...store.mintInfo.avatarConfig])
   })
 </script>

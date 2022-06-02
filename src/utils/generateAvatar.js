@@ -14,7 +14,7 @@ export const createImages = (avatarConfig) => {
   const arr = []
   orderArr.forEach((e, i) => {
     const img = new Image()
-    img.src = materials[e].matPathArr[avatarConfig[i]]
+    img.src = materials[e].matPathArr320[avatarConfig[i]]
     arr.push(img)
   })
   return arr
@@ -27,6 +27,7 @@ export const contextDraw = (canvas, images, size) => {
 
   images.forEach((img) => {
     ctx.drawImage(img, 0, 0, size, size)
+    console.log(img)
   })
 }
 
@@ -45,13 +46,13 @@ export const drawAvatar = (canvas, avatarConfig, size = 224) => {
 
 export const generateRandomAvatarConfig = () => {
   return [
-    randomFromTo(0, materials.background.matPathArr.length - 1),
-    randomFromTo(0, materials.cloth.matPathArr.length - 1),
-    randomFromTo(0, materials.body.matPathArr.length - 1),
-    randomFromTo(0, materials.mouth.matPathArr.length - 1),
-    randomFromTo(0, materials.nose.matPathArr.length - 1),
-    randomFromTo(0, materials.eyes.matPathArr.length - 1),
-    randomFromTo(0, materials.hair.matPathArr.length - 1)
+    randomFromTo(0, materials.background.matPathArr320.length - 1),
+    randomFromTo(0, materials.cloth.matPathArr320.length - 1),
+    randomFromTo(0, materials.body.matPathArr320.length - 1),
+    randomFromTo(0, materials.mouth.matPathArr320.length - 1),
+    randomFromTo(0, materials.nose.matPathArr320.length - 1),
+    randomFromTo(0, materials.eyes.matPathArr320.length - 1),
+    randomFromTo(0, materials.hair.matPathArr320.length - 1)
   ]
 }
 
