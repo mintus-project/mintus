@@ -5,7 +5,7 @@
       <!-- avatar -->
       <div class="avatar">
         <div class="w-56 rounded-xl">
-          <canvas class="rounded-xl" ref="canvas"></canvas>
+          <canvas ref="canvas" class="rounded-xl"></canvas>
         </div>
       </div>
       <div class="flex flex-col gap-4">

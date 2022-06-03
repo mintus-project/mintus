@@ -122,10 +122,16 @@ router.beforeEach(async (to, from) => {
 
 router.afterEach((to, from) => {
   console.log(from.path, to.path)
-  const isFromChooseAvatarToEnterInfo = from.path === '/mint-process/choose-avatar' && to.path === '/mint-process/enter-info'
-  const isFromEnterInfoToMint = from.path === '/mint-process/enter-info' && to.path === '/mint-process/mint'
-  const isFromEnterInfoToChooseAvatar = from.path === '/mint-process/enter-info' && to.path === '/mint-process/choose-avatar'
-  const isFromMintToEnterInfo = from.path === '/mint-process/mint' && to.path === '/mint-process/enter-info'
+  const isFromChooseAvatarToEnterInfo =
+    from.path === '/mint-process/choose-avatar' &&
+    to.path === '/mint-process/enter-info'
+  const isFromEnterInfoToMint =
+    from.path === '/mint-process/enter-info' && to.path === '/mint-process/mint'
+  const isFromEnterInfoToChooseAvatar =
+    from.path === '/mint-process/enter-info' &&
+    to.path === '/mint-process/choose-avatar'
+  const isFromMintToEnterInfo =
+    from.path === '/mint-process/mint' && to.path === '/mint-process/enter-info'
 
   if (isFromChooseAvatarToEnterInfo || isFromEnterInfoToMint) {
     console.log('a', to.meta)

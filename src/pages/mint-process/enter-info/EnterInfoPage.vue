@@ -61,7 +61,7 @@
 
   const router = useRouter()
 
-  const { handleSubmit, resetForm } = useForm()
+  const { handleSubmit } = useForm()
 
   configure({
     validateOnBlur: true, // controls if `blur` events should trigger validation with `handleChange` handler
