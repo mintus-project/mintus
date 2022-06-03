@@ -51,7 +51,6 @@ export const updateRecord = async (username, domains, addresses) => {
 export const getRecord = async (address) => {
   try {
     const res = await contractObj.getRecord(address)
-    console.log(res)
     return {
       avatarString: res[0] ?? '',
       username: res[1] ?? '',
@@ -67,10 +66,6 @@ export const getEstimatedGasFee = async (from, to) => {
   try {
     const { ethereum } = window
     if (ethereum) {
-      console.log(111111, {
-        method: 'eth_estimateGas',
-        params: [{ from, to }]
-      })
       const res = await ethereum.request({
         method: 'eth_estimateGas',
         params: [{ from, to }]

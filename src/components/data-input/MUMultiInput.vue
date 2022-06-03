@@ -6,6 +6,7 @@
       :label="props.label"
       :placeholder="props.placeholder"
       :validator="props.validator"
+      :default-value="props.defaultValueArray[0]"
     ></component>
     <!-- more domains -->
     <div
@@ -19,6 +20,8 @@
         :name="`${props.name}-${item}`"
         :placeholder="props.placeholder"
         :validator="props.validator"
+        required
+        :default-value="props.defaultValueArray[index + 1]"
       >
         <template #after>
           <Icon
@@ -71,6 +74,10 @@
     },
     disabled: Boolean,
     required: Boolean,
+    defaultValueArray: {
+      type: Array,
+      default: () => []
+    },
     type: {
       type: String,
       default: 'text',
@@ -96,7 +103,7 @@
     }
   })
 
-  const inputComponentArr = ref([])
+  const inputComponentArr = ref(new Array((props.defaultValueArray.length || 1) - 1))
 
   const handleAddMore = () => {
     const tempArr = inputComponentArr.value

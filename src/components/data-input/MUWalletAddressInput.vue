@@ -7,6 +7,7 @@
     :type="props.type"
     :placeholder="props.placeholder"
     :validator="props.validator"
+    :default-value="props.defaultValue.address"
   >
     <template #before>
       <select
@@ -42,6 +43,10 @@
         return ['password', 'text', 'email', 'phone'].includes(value)
       }
     },
+    defaultValue: {
+      type: Object,
+      default: () => {return {coinType: 'ETH', address: ''}}
+    },
     name: {
       type: String,
       required: true,
@@ -59,8 +64,10 @@
       default: () => true
     }
   })
-  const { value: coinType } = useField(`${props.name}-coinType`)
-  coinType.value = 'ETH'
+
+  const { value: coinType } = useField(`${props.name}-coinType`, undefined, {
+    initialValue: props.defaultValue.coinType
+  })
 </script>
 
 <style scoped></style>

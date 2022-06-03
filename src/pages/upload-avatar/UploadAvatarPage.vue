@@ -113,10 +113,8 @@
   const onError = () => {
     state.content = 'failed'
   }
-  const onFinish = (res) => {
-    console.log('------+++++', res)
+  const onFinish = () => {
     router.push('/profile/0xd83039Ff4B0D7022281769eDb509b32F6c390867')
-    console.log('------+++++', res)
   }
   const handleChange = () => {}
   const handleDragEnter = () => {

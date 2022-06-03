@@ -15,6 +15,7 @@
           :show-error-message="firstClicked && !store.userInfo.connected"
         ></MUWalletInput>
         <MUInput
+          :default-value="store.mintInfo.username"
           name="username"
           label="Username"
           placeholder="Please input your username"
@@ -22,6 +23,7 @@
           :validator="validators.username"
         ></MUInput>
         <MUMultiInput
+          :default-value-array="store.mintInfo.domains"
           name="domain"
           label="Domain Name"
           placeholder="Please input your domain name"
@@ -30,6 +32,7 @@
           :component="'MUInput'"
         />
         <MUMultiInput
+          :default-value-array="store.mintInfo.addresses"
           name="address"
           label="Address"
           placeholder="Please input your address"
@@ -61,7 +64,7 @@
 
   const router = useRouter()
 
-  const { handleSubmit, resetForm } = useForm()
+  const { handleSubmit } = useForm()
 
   configure({
     validateOnBlur: true, // controls if `blur` events should trigger validation with `handleChange` handler
@@ -135,7 +138,7 @@
       }
     }
     store.mintInfo = { ...store.mintInfo, ...newValue }
-    resetForm()
+    // resetForm()
     router.push('mint')
   }, onInvalidSubmit)
 

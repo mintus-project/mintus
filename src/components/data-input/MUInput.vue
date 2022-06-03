@@ -21,12 +21,15 @@
 </template>
 
 <script setup>
-  import { defineProps } from 'vue'
+  import { defineProps, toRaw } from 'vue'
   import { useField } from 'vee-validate'
 
   const props = defineProps({
     disabled: Boolean,
     required: Boolean,
+    defaultValue: {
+      type: String
+    },
     type: {
       type: String,
       default: 'text',
@@ -62,7 +65,10 @@
   }
 
   // value, error message
-  const { value, errorMessage } = useField(props.name, validator)
+  const { value, errorMessage } = useField(props.name, validator, {
+    initialValue: props.defaultValue,
+    validateOnMount: false
+  })
 </script>
 
 <style scoped>
