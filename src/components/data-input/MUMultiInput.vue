@@ -19,6 +19,7 @@
         :name="`${props.name}-${item}`"
         :placeholder="props.placeholder"
         :validator="props.validator"
+        required
       >
         <template #after>
           <Icon
