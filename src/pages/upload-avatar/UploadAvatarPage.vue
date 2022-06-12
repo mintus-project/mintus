@@ -22,7 +22,7 @@
           :on-error="onError"
           :on-finish="onFinish"
           action="http://104.238.132.95:8000/api/picture_recognition/"
-          name="file"
+          name="images"
           @change="handleChange"
         >
           <n-upload-dragger
