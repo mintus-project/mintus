@@ -21,7 +21,8 @@
           :on-before-upload="onBeforeUpload"
           :on-error="onError"
           :on-finish="onFinish"
-          action="http://mintus.link:8000/api/picture_recognition/"
+          action="http://104.238.132.95:8000/api/picture_recognition/"
+          name="file"
           @change="handleChange"
         >
           <n-upload-dragger
