@@ -1,7 +1,5 @@
-import abi from '@/utils/Contract.json'
+import contract from '@/utils/Contract.json'
 import { ethers } from 'ethers'
-
-const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
 
 export const initContract = () => {
   // 先判断ethereum是否可用
@@ -13,15 +11,15 @@ export const initContract = () => {
   // ethereum -> provider -> signer(执行合约的签名方)
   const provider = new ethers.providers.Web3Provider(ethereum)
   const signer = provider.getSigner()
-  // 建立一个合约的实体（合约地址、合约ABI(之前由hardhat编译生成的Counter.json文件)、签名方）
-  return new ethers.Contract(CONTRACT_ADDRESS, abi.abi, signer)
+  // 建立一个合约的实体
+  return new ethers.Contract(contract.address, contract.abi, signer)
 }
 
 const contractObj = initContract()
 
 export const register = async (avatarString, username, domains, addresses) => {
   try {
-    let tx = await contractObj.register(
+    let tx = await contractObj.regist(
       avatarString,
       username,
       JSON.stringify(domains),
