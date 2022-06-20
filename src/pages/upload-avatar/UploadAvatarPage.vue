@@ -116,7 +116,7 @@
   }
   const onFinish = (res) => {
     console.log('------+++++', res)
-    router.push('/profile/0xd83039Ff4B0D7022281769eDb509b32F6c390867')
+    router.push('/profile/0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
     console.log('------+++++', res)
   }
   const handleChange = () => {}

@@ -52,12 +52,12 @@
     <!-- Dialog Modal (Success / Failed) -->
     <MUPayResult
       v-if="state.dialogModal"
-      :title="payResultConfig[resultModalType].title"
-      :description="payResultConfig[resultModalType].description"
-      :type="payResultConfig[resultModalType].type"
-      :button-text="payResultConfig[resultModalType].buttonText"
-      :close-callback="payResultConfig[resultModalType].closeCallback"
-      :button-callback="payResultConfig[resultModalType].buttonCallback"
+      :title="payResultConfig[state.resultModalType].title"
+      :description="payResultConfig[state.resultModalType].description"
+      :type="payResultConfig[state.resultModalType].type"
+      :button-text="payResultConfig[state.resultModalType].buttonText"
+      :close-callback="payResultConfig[state.resultModalType].closeCallback"
+      :button-callback="payResultConfig[state.resultModalType].buttonCallback"
     />
   </div>
 </template>
@@ -73,7 +73,6 @@
   import BillModal from '../../mint-process/components/BillModal.vue'
   import MUPayResult from '@/components/feedback/MUPayResult.vue'
   import { useRouter } from 'vue-router'
-  import { computed } from '@vue/reactivity'
   import { updateRecord, getEstimatedGasFee } from '@/services'
 
   const store = useStore()
@@ -81,7 +80,7 @@
     billModal: false,
     gasFee: 0,
     serviceFee: 0,
-    completed: false,
+    resultModalType: 'success',
     dialogModal: false
   })
   const router = useRouter()
@@ -204,13 +203,12 @@
     state.billModal = false
     if (res) {
       resetForm()
+      state.resultModalType = 'success'
+    } else {
+      state.resultModalType = 'failed'
     }
-    state.completed = res
     state.dialogModal = true
   }
-  const resultModalType = computed(() => {
-    return state.completed ? 'success' : 'failed'
-  })
 
   const payResultConfig = {
     success: {
