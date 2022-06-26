@@ -102,6 +102,7 @@
   import { reactive } from 'vue'
   import { useRouter } from 'vue-router'
   import MUTitle from '@/components/typography/MUTitle.vue'
+  import { getOwner } from '@/services'
 
   const router = useRouter()
   const state = reactive({
@@ -114,10 +115,14 @@
   const onError = () => {
     state.content = 'failed'
   }
-  const onFinish = (res) => {
-    console.log('------+++++', res)
-    router.push('/profile/0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
-    console.log('------+++++', res)
+  const onFinish = async (res) => {
+    if (res) {
+      const name = res?.file?.name?.substring(0, res.file.name.lastIndexOf('.'))
+      const addr = await getOwner(name)
+      if (addr) {
+        router.push(`/profile/${addr}`)
+      }
+    }
   }
   const handleChange = () => {}
   const handleDragEnter = () => {

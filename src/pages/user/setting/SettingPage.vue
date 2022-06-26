@@ -185,12 +185,12 @@
 
   const openBillModal = async () => {
     try {
-      const res = await getEstimatedGasFee(
-        store.walletInfo.address,
-        '0x5fbdb2315678afecb367f032d93f642f64180aa3'
-      )
-      state.gasFee = res?.result ?? 0
-      state.serviceFee = 0
+      // const res = await getEstimatedGasFee(
+      //   store.walletInfo.address,
+      //   '0x5fbdb2315678afecb367f032d93f642f64180aa3'
+      // )
+      state.gasFee = 0
+      state.serviceFee = 0.001
       state.billModal = true
     } catch (err) {
       console.error(err)

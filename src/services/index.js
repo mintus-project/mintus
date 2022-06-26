@@ -23,7 +23,8 @@ export const register = async (avatarString, username, domains, addresses) => {
       avatarString,
       username,
       JSON.stringify(domains),
-      JSON.stringify(addresses)
+      JSON.stringify(addresses),
+      { value: ethers.utils.parseEther(contract.registerServiceFee) }
     )
     await tx.wait() // 确定上链
     return true
@@ -38,7 +39,8 @@ export const updateRecord = async (username, domains, addresses) => {
     let tx = await contractObj.updateRecord(
       username,
       JSON.stringify(domains),
-      JSON.stringify(addresses)
+      JSON.stringify(addresses),
+      { value: ethers.utils.parseEther(contract.updateServiceFee) }
     )
     await tx.wait()
     return true
@@ -60,6 +62,16 @@ export const getRecord = async (address) => {
   } catch (err) {
     console.error(err)
   }
+}
+
+export const getOwner = async (avatarString) => {
+  try {
+    const res = await contractObj.getOwner(avatarString)
+    return res
+  } catch (err) {
+    console.error(err)
+  }
+  return false
 }
 
 export const getEstimatedGasFee = async (from, to) => {
