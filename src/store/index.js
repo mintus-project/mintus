@@ -1,9 +1,14 @@
 import { defineStore } from 'pinia'
 import detectEthereumProvider from '@metamask/detect-provider'
+import { getChainInfoByChainId } from '@/services'
 
 export const useStore = defineStore('main', {
   state: () => {
     return {
+      chainInfo: {
+        chainId: '',
+        currencySymbol: ''
+      },
       walletInfo: {
         type: '',
         address: ''
@@ -34,7 +39,6 @@ export const useStore = defineStore('main', {
   },
   getters: {
     getShortAddress(state) {
-      // return `${state.walletInfo.address.slice(0, 6)}...${state.walletInfo.address.slice(-4)}`
       const addr = state.walletInfo.address.toString()
       return `${addr.slice(0, 6)}...${addr.slice(-4)}`
     }
@@ -46,21 +50,22 @@ export const useStore = defineStore('main', {
       if (ethereum) {
         // 如果已授权会返回钱包地址
         try {
-          const accounts = await ethereum.request({ method: 'eth_accounts' })
-          if (accounts.length !== 0) {
-            this.walletInfo.address = accounts[0]
-            this.walletInfo.type = 'metamask'
-            this.userInfo.connected = true
-          }
-          ethereum.on('accountsChanged', (accounts) => {
+          await ethereum.request({ method: 'eth_accounts' })
+          ethereum.on('accountsChanged', async (accounts) => {
             console.log('accountsChanged', accounts)
             if (accounts.length !== 0) {
-              this.walletInfo.address = accounts[0]
-              this.walletInfo.type = 'metamask'
+              await this.setWalletAndChain(accounts)
               this.userInfo.connected = true
             } else {
               this.userInfo.connected = false
             }
+          })
+          ethereum.on('chainChanged', async (chainId) => {
+            this.chainInfo.chainId = chainId
+            const chainInfo = await getChainInfoByChainId(
+              Number.parseInt(chainId)
+            )
+            this.chainInfo.currencySymbol = chainInfo.nativeCurrency.symbol
           })
         } catch (error) {
           console.error(error)
@@ -90,9 +95,8 @@ export const useStore = defineStore('main', {
                   method: 'eth_requestAccounts'
                 })
               )
-              .then((accounts) => {
-                this.walletInfo.address = accounts[0]
-                this.walletInfo.type = 'metamask'
+              .then(async (accounts) => {
+                await this.setWalletAndChain(accounts)
                 this.userInfo.connected = true
               })
               .catch((err) => {
@@ -113,6 +117,14 @@ export const useStore = defineStore('main', {
       } catch (err) {
         console.error(err)
       }
+    },
+    async setWalletAndChain(accounts) {
+      const { ethereum } = window
+      this.walletInfo.address = accounts[0]
+      this.walletInfo.type = 'metamask'
+      this.chainInfo.chainId = Number.parseInt(ethereum.chainId)
+      const chainInfo = await getChainInfoByChainId(this.chainInfo.chainId)
+      this.chainInfo.currencySymbol = chainInfo.nativeCurrency.symbol
     }
   }
 })

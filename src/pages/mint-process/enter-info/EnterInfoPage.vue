@@ -1,52 +1,74 @@
 <template>
-  <ProcessCard>
-    <template #title>Edit Your Profile</template>
-    <template #subtitle>
-      These information will display on your profile page.
-    </template>
-    <template #content>
-      <form
-        class="px-12 py-8 flex flex-col gap-4 w-[30rem] text-sm"
-        @submit.prevent=""
-      >
-        <MUWalletInput
-          label="Wallet"
-          required
-          :show-error-message="firstClicked && !store.userInfo.connected"
-        ></MUWalletInput>
-        <MUInput
-          name="username"
-          label="Username"
-          placeholder="Please input your username"
-          required
-          :validator="validators.username"
-        ></MUInput>
-        <MUMultiInput
-          name="domain"
-          label="Domain Name"
-          placeholder="Please input your domain name"
-          :required="false"
-          :validator="validators.domain"
-          :component="'MUInput'"
-        />
-        <MUMultiInput
-          name="address"
-          label="Address"
-          placeholder="Please input your address"
-          :required="false"
-          :validator="validators.address"
-          :component="'MUWalletAddressInput'"
-        />
-      </form>
-    </template>
-    <template #footer>
-      <MUButton btn-type="ghost" @click="$router.back()">Back</MUButton>
-      <MUButton @click="handleNext">Next</MUButton>
-    </template>
-  </ProcessCard>
+  <div>
+    <ProcessCard>
+      <template #title>Edit Your Profile</template>
+      <template #subtitle>
+        These information will display on your profile page.
+      </template>
+      <template #content>
+        <form
+          class="px-12 py-8 flex flex-col gap-4 w-[30rem] text-sm"
+          @submit.prevent=""
+        >
+          <MUWalletInput
+            label="Wallet"
+            required
+            :show-error-message="firstClicked && !store.userInfo.connected"
+          ></MUWalletInput>
+          <MUInput
+            name="username"
+            label="Username"
+            placeholder="Please input your username"
+            required
+            :validator="validators.username"
+          ></MUInput>
+          <MUMultiInput
+            name="domain"
+            label="Domain Name"
+            placeholder="Please input your domain name"
+            :required="false"
+            :validator="validators.domain"
+            :component="'MUInput'"
+          />
+          <MUMultiInput
+            name="address"
+            label="Address"
+            placeholder="Please input your address"
+            :required="false"
+            :validator="validators.address"
+            :component="'MUWalletAddressInput'"
+          />
+        </form>
+      </template>
+      <template #footer>
+        <MUButton btn-type="ghost" @click="$router.back()">Back</MUButton>
+        <MUButton @click="handleNext">Next</MUButton>
+      </template>
+    </ProcessCard>
+    <MUModal
+      v-if="openModal"
+      close-icon
+      @close="
+        () => {
+          openModal = false
+        }
+      "
+    >
+      <template #header>
+        <h2>One avatar only</h2>
+      </template>
+      <template #content>
+        <div>
+          Each address can only buy one avatar. You can change wallet address to
+          buy another avatar.
+        </div>
+      </template>
+    </MUModal>
+  </div>
 </template>
 
 <script setup>
+  import MUModal from '@/components/feedback/MUModal.vue'
   import ProcessCard from '../components/ProcessCard.vue'
   import MUButton from '@/components/common/MUButton.vue'
   import MUInput from '@/components/data-input/MUInput.vue'
@@ -72,12 +94,17 @@
 
   //
   const firstClicked = ref(false)
+  const openModal = ref(false)
 
   // methods
   const handleNext = () => {
     firstClicked.value = true
     if (store.userInfo.connected) {
-      onSubmit()
+      if (store.userInfo.purchased) {
+        openModal.value = true
+      } else {
+        onSubmit()
+      }
     }
   }
   // eslint-disable-next-line no-unused-vars

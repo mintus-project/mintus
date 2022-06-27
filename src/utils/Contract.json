@@ -1,6 +1,6 @@
 {
   "testnet": "Binance Smart Chain Testnet",
-  "chainId": "97",
+  "chainId": "0x61",
   "address": "0x5708A283298938AA3899Bb02f0586EA7ce628E95",
   "registerServiceFee": "0.01",
   "updateServiceFee": "0.001",

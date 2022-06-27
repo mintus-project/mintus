@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="flex items-center gap-5">
-      <MUCoin :type="coinType" show-name />
+      <MUCoin :type="store.chainInfo.currencySymbol.toLowerCase()" show-name />
       <MUWalletDropdown />
     </div>
   </div>
@@ -51,9 +51,6 @@
       }
     }
   })
-
-  //TODO: 获取逻辑
-  const coinType = 'eth'
 </script>
 
 <style scoped></style>

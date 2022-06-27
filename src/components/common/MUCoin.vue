@@ -30,7 +30,8 @@
           'fantom',
           'opera',
           'arbitrum',
-          'optimism'
+          'optimism',
+          'tbnb'
         ]
         return allTypes.includes(value)
       }
@@ -47,7 +48,8 @@
     fantom: { text: 'Fantom', icon: 'ph:coins-fill', color: '#6b8cef' },
     opera: { text: 'Opera', icon: 'mdi:opera', color: '#6b8cef' },
     arbitrum: { text: 'Arbitrum One', icon: 'ph:coins-fill', color: '#6b8cef' },
-    optimism: { text: 'Optimism', icon: 'ph:coins-fill', color: '#6b8cef' }
+    optimism: { text: 'Optimism', icon: 'ph:coins-fill', color: '#6b8cef' },
+    tbnb: { text: 'tBNB', icon: 'ph:coins-fill', color: '#6b8cef' }
   }
 </script>
 

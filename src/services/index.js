@@ -17,7 +17,23 @@ export const initContract = () => {
 
 const contractObj = initContract()
 
+export const checkChain = () => {
+  const { ethereum } = window
+  if (ethereum) {
+    if (ethereum?.chainId === contract.chainId) {
+      return true
+    } else {
+      // alert('Please change network to Binance Smart Chain Testnet')
+      return false
+    }
+  } else {
+    alert('Please install metamask')
+    return false
+  }
+}
+
 export const register = async (avatarString, username, domains, addresses) => {
+  if (!checkChain()) return false
   try {
     let tx = await contractObj.regist(
       avatarString,
@@ -35,6 +51,7 @@ export const register = async (avatarString, username, domains, addresses) => {
 }
 
 export const updateRecord = async (username, domains, addresses) => {
+  if (!checkChain()) return false
   try {
     let tx = await contractObj.updateRecord(
       username,
@@ -51,6 +68,7 @@ export const updateRecord = async (username, domains, addresses) => {
 }
 
 export const getRecord = async (address) => {
+  if (!checkChain()) return false
   try {
     const res = await contractObj.getRecord(address)
     return {
@@ -65,8 +83,11 @@ export const getRecord = async (address) => {
 }
 
 export const getOwner = async (avatarString) => {
+  if (!checkChain()) return false
   try {
+    console.log(contractObj)
     const res = await contractObj.getOwner(avatarString)
+    console.log(99999, res)
     return res
   } catch (err) {
     console.error(err)
@@ -92,3 +113,19 @@ export const getEstimatedGasFee = async (from, to) => {
     console.error(err)
   }
 }
+
+export const fetchChainList = async () => {
+  try {
+    const res = await fetch('https://chainid.network/chains.json')
+    const json = await res.json()
+    return json
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const getChainInfoByChainId = async (chainId) => {
+  const list = await fetchChainList()
+  return list.filter((item) => item.chainId === chainId)?.[0]
+}
+window.getChainInfoByChainId = getChainInfoByChainId
