@@ -56,10 +56,7 @@
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
   import BillModal from '../components/BillModal.vue'
-  import {
-    register,
-    getRecord
-  } from '@/services'
+  import { register, getRecord } from '@/services'
 
   const router = useRouter()
 
