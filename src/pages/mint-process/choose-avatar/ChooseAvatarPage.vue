@@ -44,6 +44,10 @@
   import { useStore } from '@/store'
   import { useRouter } from 'vue-router'
   import { getOwner } from '@/services'
+  import { useMessage } from 'naive-ui'
+  import { MSG_DURATION } from '@/utils/constant'
+
+  const message = useMessage()
 
   const router = useRouter()
   const store = useStore()
@@ -75,7 +79,7 @@
         openModal.value = true
       }
     } catch (e) {
-      console.error(e)
+      message.error(e.message, { duration: MSG_DURATION })
     }
     isLoading.value = false
   }

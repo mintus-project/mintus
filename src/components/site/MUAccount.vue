@@ -29,26 +29,33 @@
     drawAvatar,
     fromAvatarStringToAvatarConfig
   } from '@/utils/generateAvatar'
+  import { useMessage } from 'naive-ui'
+  import { MSG_DURATION } from '@/utils/constant'
 
+  const message = useMessage()
   const canvas = ref(null)
 
   const store = useStore()
   watchEffect(async () => {
-    if (store.userInfo.connected) {
-      const res = await getRecord(store.walletInfo.address)
-      // 如果用户有购买过我们的 nft 头像
-      if (res?.avatarString) {
-        store.userInfo.avatarString = res?.avatarString
-        store.userInfo.purchased = true
-        drawAvatar(
-          canvas,
-          fromAvatarStringToAvatarConfig(store.userInfo.avatarString),
-          46
-        )
-      } else {
-        store.userInfo.avatarString = ''
-        store.userInfo.purchased = false
+    try {
+      if (store.userInfo.connected) {
+        const res = await getRecord(store.walletInfo.address)
+        // 如果用户有购买过我们的 nft 头像
+        if (res?.avatarString) {
+          store.userInfo.avatarString = res?.avatarString
+          store.userInfo.purchased = true
+          drawAvatar(
+            canvas,
+            fromAvatarStringToAvatarConfig(store.userInfo.avatarString),
+            46
+          )
+        } else {
+          store.userInfo.avatarString = ''
+          store.userInfo.purchased = false
+        }
       }
+    } catch (e) {
+      message.error(e.message, { duration: MSG_DURATION })
     }
   })
 </script>

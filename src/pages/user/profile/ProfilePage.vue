@@ -14,7 +14,10 @@
   import { useStore } from '@/store'
   import { useRoute } from 'vue-router'
   import { getRecord } from '@/services'
+  import { useMessage } from 'naive-ui'
+  import { MSG_DURATION } from '@/utils/constant'
 
+  const message = useMessage()
   const store = useStore()
   const route = useRoute()
   const setProfile = async () => {
@@ -29,8 +32,8 @@
         domains,
         addresses
       }
-    } catch (err) {
-      console.error(err)
+    } catch (e) {
+      message.error(e.message, { duration: MSG_DURATION })
     }
   }
   setProfile()

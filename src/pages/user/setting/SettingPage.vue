@@ -74,7 +74,10 @@
   import MUPayResult from '@/components/feedback/MUPayResult.vue'
   import { useRouter } from 'vue-router'
   import { updateRecord, getEstimatedGasFee } from '@/services'
+  import { useMessage } from 'naive-ui'
+  import { MSG_DURATION } from '@/utils/constant'
 
+  const message = useMessage()
   const store = useStore()
   const state = reactive({
     billModal: false,
@@ -199,15 +202,19 @@
 
   const handleConfirm = async () => {
     const { username, domains, addresses } = store.mintInfo
-    const res = await updateRecord(username, domains, addresses)
-    state.billModal = false
-    if (res) {
-      resetForm()
-      state.resultModalType = 'success'
-    } else {
-      state.resultModalType = 'failed'
+    try {
+      const res = await updateRecord(username, domains, addresses)
+      state.billModal = false
+      if (res) {
+        resetForm()
+        state.resultModalType = 'success'
+      } else {
+        state.resultModalType = 'failed'
+      }
+      state.dialogModal = true
+    } catch (e) {
+      message.error(e.message, { duration: MSG_DURATION })
     }
-    state.dialogModal = true
   }
 
   const payResultConfig = {

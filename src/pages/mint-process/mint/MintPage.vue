@@ -57,7 +57,10 @@
   import { computed } from '@vue/reactivity'
   import BillModal from '../components/BillModal.vue'
   import { register, getRecord } from '@/services'
+  import { useMessage } from 'naive-ui'
+  import { MSG_DURATION } from '@/utils/constant'
 
+  const message = useMessage()
   const router = useRouter()
 
   const store = useStore()
@@ -104,9 +107,8 @@
       } else {
         return false
       }
-    } catch (err) {
-      console.error(err)
-      return false
+    } catch (e) {
+      message.error(e.message, { duration: MSG_DURATION })
     }
   }
 

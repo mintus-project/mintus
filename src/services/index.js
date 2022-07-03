@@ -1,29 +1,40 @@
 import contract from '@/utils/Contract.json'
 import { ethers } from 'ethers'
 
-export const initContract = () => {
-  // 先判断ethereum是否可用
+export const addBinanceChain = async () => {
   const { ethereum } = window
-  if (!ethereum) {
-    alert('Please install metamask')
-    return false
-  }
-  // ethereum -> provider -> signer(执行合约的签名方)
-  const provider = new ethers.providers.Web3Provider(ethereum)
-  const signer = provider.getSigner()
-  // 建立一个合约的实体
-  return new ethers.Contract(contract.address, contract.abi, signer)
+  ethereum
+    .request({
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainId: '0x61',
+          chainName: 'Binance Smart Chain Testnet',
+          nativeCurrency: {
+            name: 'BNB',
+            symbol: 'tBNB',
+            decimals: 18
+          },
+          rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
+          blockExplorerUrls: ['https://testnet.bscscan.com']
+        }
+      ]
+    })
+    .then(() => {
+      console.log('网络切换成功')
+      return true
+    })
+    .catch((e) => {
+      console.error(e)
+    })
 }
-
-const contractObj = initContract()
-
 export const checkChain = () => {
   const { ethereum } = window
   if (ethereum) {
     if (ethereum?.chainId === contract.chainId) {
       return true
     } else {
-      // alert('Please change network to Binance Smart Chain Testnet')
+      // addBinanceChain()
       return false
     }
   } else {
@@ -31,9 +42,31 @@ export const checkChain = () => {
     return false
   }
 }
+export const initContract = () => {
+  // 先判断ethereum是否可用
+  const { ethereum } = window
+  if (!ethereum) {
+    alert('Please install metamask')
+    return false
+  }
+
+  if (checkChain()) {
+    // ethereum -> provider -> signer(执行合约的签名方)
+    const provider = new ethers.providers.Web3Provider(ethereum)
+    const signer = provider.getSigner()
+    // 建立一个合约的实体
+    return new ethers.Contract(contract.address, contract.abi, signer)
+  } else {
+    return false
+  }
+}
+
+const contractObj = initContract()
 
 export const register = async (avatarString, username, domains, addresses) => {
-  if (!checkChain()) return false
+  if (!checkChain()) {
+    throw new Error('Please use Binance Smart Chain Testnet (Chain ID:97)')
+  }
   try {
     let tx = await contractObj.regist(
       avatarString,
@@ -51,7 +84,9 @@ export const register = async (avatarString, username, domains, addresses) => {
 }
 
 export const updateRecord = async (username, domains, addresses) => {
-  if (!checkChain()) return false
+  if (!checkChain()) {
+    throw new Error('Please use Binance Smart Chain Testnet (Chain ID:97)')
+  }
   try {
     let tx = await contractObj.updateRecord(
       username,
@@ -68,7 +103,9 @@ export const updateRecord = async (username, domains, addresses) => {
 }
 
 export const getRecord = async (address) => {
-  if (!checkChain()) return false
+  if (!checkChain()) {
+    throw new Error('Please use Binance Smart Chain Testnet (Chain ID:97)')
+  }
   try {
     const res = await contractObj.getRecord(address)
     return {
@@ -83,11 +120,11 @@ export const getRecord = async (address) => {
 }
 
 export const getOwner = async (avatarString) => {
-  if (!checkChain()) return false
+  if (!checkChain()) {
+    throw new Error('Please use Binance Smart Chain Testnet (Chain ID:97)')
+  }
   try {
-    console.log(contractObj)
     const res = await contractObj.getOwner(avatarString)
-    console.log(99999, res)
     return res
   } catch (err) {
     console.error(err)

@@ -44,13 +44,15 @@
     <template #footer>
       <div class="flex justify-evenly">
         <MUButton btn-type="outline" @click="emit('cancel')">Cancel</MUButton>
-        <MUButton :is-loading=isLoading @click="handleConfirm">Confirm</MUButton>
+        <MUButton :is-loading="isLoading" @click="handleConfirm"
+          >Confirm</MUButton
+        >
       </div>
     </template>
   </MUModal>
 </template>
 <script setup>
-  import { defineProps,ref } from 'vue'
+  import { defineProps, ref } from 'vue'
   import { useStore } from '@/store'
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '@/components/common/MUWalletType.vue'

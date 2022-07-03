@@ -103,6 +103,10 @@
   import { useRouter } from 'vue-router'
   import MUTitle from '@/components/typography/MUTitle.vue'
   import { getOwner } from '@/services'
+  import { useMessage } from 'naive-ui'
+  import { MSG_DURATION } from '@/utils/constant'
+
+  const message = useMessage()
 
   const router = useRouter()
   const state = reactive({
@@ -116,12 +120,19 @@
     state.content = 'failed'
   }
   const onFinish = async (res) => {
-    if (res) {
-      const name = res?.file?.name?.substring(0, res.file.name.lastIndexOf('.'))
-      const addr = await getOwner(name)
-      if (addr) {
-        router.push(`/profile/${addr}`)
+    try {
+      if (res) {
+        const name = res?.file?.name?.substring(
+          0,
+          res.file.name.lastIndexOf('.')
+        )
+        const addr = await getOwner(name)
+        if (addr) {
+          router.push(`/profile/${addr}`)
+        }
       }
+    } catch (e) {
+      message.error(e.message, { duration: MSG_DURATION })
     }
   }
   const handleChange = () => {}
