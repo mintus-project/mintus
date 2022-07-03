@@ -1,26 +1,6 @@
 import contract from '@/utils/Contract.json'
 import { ethers } from 'ethers'
-// initContract - checkChain - addBinanceChain
-// export const initContract = async () => {
-//   // 先判断ethereum是否可用
-//   const { ethereum } = window
-//   if (!ethereum) {
-//     alert('Please install metamask')
-//     return undefined
-//   }
-//   const isTargetChain = checkChain()
-//   if (!isTargetChain) {
-//     await addBinanceChain()
-//     // ethereum -> provider -> signer(执行合约的签名方)
-//     const provider = new ethers.providers.Web3Provider(ethereum)
-//     const signer = provider.getSigner()
-//     // 建立一个合约的实体
-//     return new ethers.Contract(contract.address, contract.abi, signer)
-//   } else {
 
-//     return false
-//   }
-// }
 export const checkChain = async () => {
   const { ethereum } = window
   const currentChain = await ethereum.request({ method: 'eth_chainId' })
