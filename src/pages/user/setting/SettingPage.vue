@@ -204,7 +204,6 @@
     const { username, domains, addresses } = store.mintInfo
     try {
       const res = await updateRecord(username, domains, addresses)
-      state.billModal = false
       if (res) {
         resetForm()
         state.resultModalType = 'success'
@@ -215,6 +214,7 @@
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
     }
+    state.billModal = false
   }
 
   const payResultConfig = {

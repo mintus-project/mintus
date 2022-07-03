@@ -87,7 +87,6 @@
   }
   const handleConfirm = async () => {
     const res = await mintIt()
-    state.billModal = false
     state.dialogModal = true
     if (res) {
       state.completed = true
@@ -100,7 +99,7 @@
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
       const res = await register(avatarString, username, domains, addresses)
-      
+
       if (res) {
         const profile = await getRecord(store.walletInfo.address)
         store.profileInfo = { ...store.profileInfo, ...profile }
@@ -111,6 +110,7 @@
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
     }
+    state.billModal = false
   }
 
   const resultModalType = computed(() => {
