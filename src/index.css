@@ -24,5 +24,5 @@
 }
 
 .my-btn {
-  @apply hover:scale-[1.04] active:scale-[1.06] disabled:hover:scale-100 cursor-not-allowed;
+  @apply hover:scale-[1.04] active:scale-[1.06] disabled:hover:scale-100 disabled:hover:cursor-not-allowed;
 }
