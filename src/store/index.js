@@ -61,6 +61,7 @@ export const useStore = defineStore('main', {
             }
           })
           ethereum.on('chainChanged', async (chainId) => {
+            console.log(888888, chainId)
             this.chainInfo.chainId = chainId
             const chainInfo = await getChainInfoByChainId(
               Number.parseInt(chainId)

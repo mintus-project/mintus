@@ -100,6 +100,7 @@
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
       const res = await register(avatarString, username, domains, addresses)
+      
       if (res) {
         const profile = await getRecord(store.walletInfo.address)
         store.profileInfo = { ...store.profileInfo, ...profile }
