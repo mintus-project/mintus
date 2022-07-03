@@ -9,7 +9,9 @@
         <GenerateAvatar></GenerateAvatar>
       </template>
       <template #footer>
-        <MUButton @click="handleNextClick">Next</MUButton>
+        <MUButton :is-loading="isLoading" @click="handleNextClick"
+          >Next</MUButton
+        >
       </template>
     </ProcessCard>
     <MUModal
@@ -46,6 +48,7 @@
   const router = useRouter()
   const store = useStore()
   const openModal = ref(false)
+  const isLoading = ref(false)
 
   const handleNextClick = async () => {
     // console.log('111', store.mintInfo.avatarConfig)
@@ -55,6 +58,7 @@
     // const avatarConfig = fromAvatarStringToAvatarConfig(avatarString)
     // console.log('222', avatarConfig, avatarString)
     // 设置 avatar string
+    isLoading.value = true
     store.mintInfo.avatarString = fromAvatarConfigToAvatarString(
       store.mintInfo.avatarConfig
     )
@@ -73,6 +77,7 @@
     } catch (e) {
       console.error(e)
     }
+    isLoading.value = false
   }
 </script>
 

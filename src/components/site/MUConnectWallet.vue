@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full" @click="state.openModal = true">
+  <div class="w-full" @click="handleClick">
     <slot></slot>
   </div>
-  <MUModal v-if="state.openModal" close-icon @close="handleClose">
+  <MUModal v-if="openModal" close-icon @close="handleClose">
     <template #header>
       <h2>Connect to Your Wallet</h2>
     </template>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-  import { reactive } from 'vue'
+  import { ref } from 'vue'
   import { useStore } from '@/store/index.js'
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '../common/MUWalletType.vue'
@@ -31,11 +31,14 @@
   import MUWalletButton from '../common/MUWalletButton.vue'
 
   const store = useStore()
-  const state = reactive({ openModal: false })
+  const openModal = ref(false)
   const walletList = ['metamask', 'coinbase', 'fortmatic']
 
+  const handleClick = () => {
+    openModal.value = true
+  }
   const handleClose = () => {
-    state.openModal = false
+    openModal.value = false
   }
 
   const handleConnect = (type) => {
