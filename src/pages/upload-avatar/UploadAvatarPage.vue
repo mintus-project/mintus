@@ -119,17 +119,13 @@
   const onError = () => {
     state.content = 'failed'
   }
-  const onFinish = async (res) => {
+  const onFinish = async ({ file, event }) => {
     try {
+      const res = JSON.parse(event?.target?.response)?.data?.result
       if (res) {
-        const name = res?.file?.name?.substring(
-          0,
-          res.file.name.lastIndexOf('.')
-        )
+        const name = res.substring(0, res.lastIndexOf('.'))
         const addr = await getOwner(name)
-        if (addr) {
-          router.push(`/profile/${addr}`)
-        }
+        if (addr) router.push(`/profile/${addr}`)
       }
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })

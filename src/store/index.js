@@ -78,7 +78,7 @@ export const useStore = defineStore('main', {
       try {
         const provider = await detectEthereumProvider()
         if (provider) {
-          if (provider == window.ethereum) {
+          if (provider === window.ethereum) {
             const { ethereum } = window
             // 询问用户是否授权当前网站获取钱包地址
             ethereum
