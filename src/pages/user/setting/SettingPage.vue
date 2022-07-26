@@ -73,7 +73,7 @@
   import BillModal from '../../mint-process/components/BillModal.vue'
   import MUPayResult from '@/components/feedback/MUPayResult.vue'
   import { useRouter } from 'vue-router'
-  import { updateRecord, getEstimatedGasFee } from '@/services'
+  import contract from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
 
@@ -203,7 +203,7 @@
   const handleConfirm = async () => {
     const { username, domains, addresses } = store.mintInfo
     try {
-      const res = await updateRecord(username, domains, addresses)
+      const res = await contract.updateRecord(username, domains, addresses)
       if (res) {
         resetForm()
         state.resultModalType = 'success'

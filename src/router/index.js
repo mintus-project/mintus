@@ -10,7 +10,7 @@ import UserPage from '../pages/user/UserPage.vue'
 import ProfilePage from '../pages/user/profile/ProfilePage.vue'
 import SettingPage from '../pages/user/setting/SettingPage.vue'
 import UploadAvatarPage from '../pages/upload-avatar/UploadAvatarPage.vue'
-import { checkChain, getRecord } from '@/services'
+import contract from '@/services/contract'
 
 const routes = [
   {
@@ -81,7 +81,7 @@ router.beforeEach(async (to, from) => {
   if (to.path.split('/').includes('profile')) {
     // 访问的地址是否购买过nft
     //TODO:请求等待页面
-    const { avatarString } = await getRecord(address)
+    const { avatarString } = await contract.getRecord(address)
     if (avatarString) {
       return true //这时候Pinia还没有create，所以不能设置profileInfo
     } else {

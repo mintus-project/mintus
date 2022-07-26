@@ -13,7 +13,7 @@
   import Exhibition from './components/Exhibition.vue'
   import { useStore } from '@/store'
   import { useRoute } from 'vue-router'
-  import { getRecord } from '@/services'
+  import contract from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
 
@@ -22,7 +22,7 @@
   const route = useRoute()
   const setProfile = async () => {
     try {
-      const { avatarString, username, domains, addresses } = await getRecord(
+      const { avatarString, username, domains, addresses } = await contract.getRecord(
         route.params.address
       )
       store.profileInfo = {

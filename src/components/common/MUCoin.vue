@@ -1,13 +1,13 @@
 <template>
   <div class="flex items-center gap-1">
     <Icon
-      :icon="AllCoins[props.type].icon"
+      :icon="AllCoins[props.type]?.icon ?? 'mdi:bitcoin'"
       height="24"
-      :color="AllCoins[props.type].color"
+      :color="AllCoins[props.type]?.color ?? '#6b8cef'"
       class="inline-block"
     />
     <span v-if="props.showName" class="font-bold text-sm text-[#727272]">{{
-      AllCoins[props.type].text
+      AllCoins[props.type]?.text ?? props.type
     }}</span>
   </div>
 </template>

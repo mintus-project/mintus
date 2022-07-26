@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import detectEthereumProvider from '@metamask/detect-provider'
-import { getChainInfoByChainId } from '@/services'
+import { getChainInfoByChainId } from '@/services/utils'
+import { updateContract } from '@/services/contract'
 
 export const useStore = defineStore('main', {
   state: () => {
@@ -48,25 +49,11 @@ export const useStore = defineStore('main', {
     async initWalletInfo() {
       const { ethereum } = window
       if (ethereum) {
-        // 如果已授权会返回钱包地址
+        // 如果已经启用了Metamask
         try {
           await ethereum.request({ method: 'eth_accounts' })
-          ethereum.on('accountsChanged', async (accounts) => {
-            console.log('accountsChanged', accounts)
-            if (accounts.length !== 0) {
-              await this.setWalletAndChain(accounts)
-              this.userInfo.connected = true
-            } else {
-              this.userInfo.connected = false
-            }
-          })
-          ethereum.on('chainChanged', async (chainId) => {
-            this.chainInfo.chainId = chainId
-            const chainInfo = await getChainInfoByChainId(
-              Number.parseInt(chainId)
-            )
-            this.chainInfo.currencySymbol = chainInfo.nativeCurrency.symbol
-          })
+          ethereum.on('accountsChanged', this.updateWalletChainContract)
+          ethereum.on('chainChanged', this.updateWalletChainContract)
         } catch (error) {
           console.error(error)
         }
@@ -80,8 +67,8 @@ export const useStore = defineStore('main', {
         if (provider) {
           if (provider === window.ethereum) {
             const { ethereum } = window
-            // 询问用户是否授权当前网站获取钱包地址
             ethereum
+              // 先取消之前的授权
               .request({
                 method: 'wallet_requestPermissions',
                 params: [
@@ -90,15 +77,13 @@ export const useStore = defineStore('main', {
                   }
                 ]
               })
+              // 再重新询问用户是否授权登录
               .then(() =>
                 ethereum.request({
                   method: 'eth_requestAccounts'
                 })
               )
-              .then(async (accounts) => {
-                await this.setWalletAndChain(accounts)
-                this.userInfo.connected = true
-              })
+              .then(this.updateWalletChainContract)
               .catch((err) => {
                 if (err.code === 4001) {
                   // EIP-1193 userRejectedRequest error
@@ -118,10 +103,18 @@ export const useStore = defineStore('main', {
         console.error(err)
       }
     },
-    async setWalletAndChain(accounts) {
+    async updateWalletChainContract() {
       const { ethereum } = window
-      this.walletInfo.address = accounts[0]
-      this.walletInfo.type = 'metamask'
+      // 先更新Contract实例（将其绑定到新账户对应的Signer）
+      await updateContract()
+      if (ethereum.selectedAddress !== null) {
+        this.walletInfo.address = ethereum.selectedAddress
+        this.walletInfo.type = 'metamask'  
+        this.userInfo.connected = true
+      } else {
+        this.userInfo.connected = false
+      }
+      // 更新chain信息
       this.chainInfo.chainId = Number.parseInt(ethereum.chainId)
       const chainInfo = await getChainInfoByChainId(this.chainInfo.chainId)
       this.chainInfo.currencySymbol = chainInfo.nativeCurrency.symbol

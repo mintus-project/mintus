@@ -40,10 +40,9 @@
   import MUModal from '@/components/feedback/MUModal.vue'
   import GenerateAvatar from './ components/GenerateAvatar.vue'
   import { fromAvatarConfigToAvatarString } from '@/utils/generateAvatar'
-  // import { useRouter } from 'vue-router'
   import { useStore } from '@/store'
   import { useRouter } from 'vue-router'
-  import { getOwner } from '@/services'
+  import contract from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
 
@@ -72,7 +71,7 @@
     )
     try {
       console.log(store.mintInfo.avatarString)
-      const res = await getOwner(store.mintInfo.avatarString)
+      const res = await contract.getOwner(store.mintInfo.avatarString)
       if (res && res === '0x0000000000000000000000000000000000000000') {
         router.push('enter-info')
       } else if (res) {

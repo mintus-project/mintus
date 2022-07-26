@@ -56,7 +56,7 @@
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
   import BillModal from '../components/BillModal.vue'
-  import { register, getRecord } from '@/services'
+  import contract from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
 
@@ -98,10 +98,10 @@
   const mintIt = async () => {
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
-      const res = await register(avatarString, username, domains, addresses)
+      const res = await contract.register(avatarString, username, domains, addresses)
 
       if (res) {
-        const profile = await getRecord(store.walletInfo.address)
+        const profile = await contract.getRecord(store.walletInfo.address)
         store.profileInfo = { ...store.profileInfo, ...profile }
         return true
       } else {
