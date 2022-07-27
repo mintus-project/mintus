@@ -31,7 +31,7 @@ export const updateContract = async () => {
   }
 }
 
-// 和钱包地址有关的操作(写操作、根据地址查询购买记录）都需要检查是否连接到了测试网上[改为仅在切换网络时提醒一次]
+// 和钱包地址有关的操作(写操作、根据地址查询购买记录）都需要检查是否连接到了测试网上 [改为仅在切换网络时提醒一次]
 export const register = async (avatarString, username, domains, addresses) => {
   // await checkEnv()
   let tx = await window.Contract?.regist(
@@ -73,31 +73,46 @@ export const getOwner = async (avatarString) => {
   return res
 }
 
-//TODO:
-export const getEstimatedGasFee = async (from, to) => {
-  try {
-    const { ethereum } = window
-    if (ethereum) {
-      console.log(111111, {
-        method: 'eth_estimateGas',
-        params: [{ from, to }]
-      })
-      const res = await ethereum.request({
-        method: 'eth_estimateGas',
-        params: [{ from, to }]
-      })
-      return res
-    }
-  } catch (err) {
-    console.error(err)
-  }
+// 燃油费估算
+// 1 BNB = 1000000000 Gwei, 1 Gwei = 1000000000 Wei
+export const estimateRegisterGas = async (avatarString, username, domains, addresses) => {
+  const gasAmount = await window.Contract?.estimateGas.regist(
+    avatarString,
+    username,
+    JSON.stringify(domains),
+    JSON.stringify(addresses),
+    { value: ethers.utils.parseEther(contract.registerServiceFee) }
+  )
+  const gasPrice = await window.Contract?.provider.getGasPrice() // 单位：Wei, 类型：BigNumber
+  const gasFee = gasPrice.mul(gasAmount)
+  const totalFee = gasFee.add(ethers.utils.parseEther(contract.registerServiceFee))
+  const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18)   // 单位：BNB, 类型：string
+  const totalFeeInBnB = ethers.utils.formatUnits(totalFee, 18)
+  // console.log('gas fee:', gasFee, 'totalFee', totalFee)
+  return [gasFeeInBnB, totalFeeInBnB]
+}
+export const estimateUpdateRecordGas = async (username, domains, addresses) => {
+  const gasAmount = await window.Contract?.estimateGas.updateRecord(
+    username,
+    JSON.stringify(domains),
+    JSON.stringify(addresses),
+    { value: ethers.utils.parseEther(contract.updateServiceFee) }
+  )
+  const gasPrice = await window.Contract?.provider.getGasPrice() 
+  const gasFee = gasPrice.mul(gasAmount)
+  const totalFee = gasFee.add(ethers.utils.parseEther(contract.updateServiceFee))
+  const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18)  
+  const totalFeeInBnB = ethers.utils.formatUnits(totalFee, 18)
+  return [gasFeeInBnB, totalFeeInBnB]
 }
 
-const Contract = {
+const ContractServices = {
   register,
   updateRecord,
   getRecord,
-  getOwner
+  getOwner,
+  estimateRegisterGas,
+  estimateUpdateRecordGas
 }
 
-export default Contract
+export default ContractServices

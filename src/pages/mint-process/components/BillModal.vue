@@ -21,13 +21,13 @@
         <div class="flex justify-between items-center text-sm">
           <span>Gas fee (Estimated)</span>
           <span class="text-base font-bold">
-            {{ `${props.gasFee} ETH` }}
+            {{ `${props.gasFee} ${store.chainInfo.currencySymbol}` }}
           </span>
         </div>
         <div class="flex justify-between items-center text-sm">
           <span>Service fee (Estimated)</span>
           <span class="text-base font-bold">
-            {{ `${props.serviceFee} ETH` }}
+            {{ `${props.serviceFee} ${store.chainInfo.currencySymbol}` }}
           </span>
         </div>
       </div>
@@ -37,7 +37,7 @@
       <div class="flex justify-between items-center text-sm mb-8">
         <span>Total (Estimated)</span>
         <span class="text-xl font-bold">
-          {{ `${props.serviceFee + props.gasFee} ETH` }}
+          {{ `${props.totalFee} ${store.chainInfo.currencySymbol}` }}
         </span>
       </div>
     </template>
@@ -61,12 +61,16 @@
 
   const props = defineProps({
     gasFee: {
-      type: Number,
-      default: 0
+      type: String,
+      default: '0'
     },
     serviceFee: {
-      type: Number,
-      default: 0
+      type: String,
+      default: '0'
+    },
+    totalFee: {
+      type: String,
+      default: '0'
     }
   })
   const store = useStore()
@@ -77,9 +81,5 @@
     isLoading.value = true
     emit('confirm')
   }
-
-  // onMounted(() => {
-  //   // getGasOracle
-  // })
 </script>
 <style scoped></style>

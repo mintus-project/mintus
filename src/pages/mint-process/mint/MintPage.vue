@@ -29,7 +29,8 @@
     <BillModal
       v-if="state.billModal"
       :gas-fee="state.gasFee"
-      :service-fee="state.serviceFee"
+      :service-fee="contract.registerServiceFee"
+      :total-fee="state.totalFee"
       @cancel="state.billModal = false"
       @confirm="handleConfirm"
     />
@@ -56,7 +57,8 @@
   import { useRouter } from 'vue-router'
   import { computed } from '@vue/reactivity'
   import BillModal from '../components/BillModal.vue'
-  import contract from '@/services/contract'
+  import contractServices from '@/services/contract'
+  import contract from '@/utils/Contract.json'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
 
@@ -66,23 +68,21 @@
   const store = useStore()
   const state = reactive({
     billModal: false,
-    gasFee: 0,
-    serviceFee: 0,
+    gasFee: '0',
+    totalFee: '0',
     completed: false,
     dialogModal: false
   })
 
   const handleMint = async () => {
     try {
-      // const res = await getEstimatedGasFee(
-      //   store.walletInfo.address,
-      //   '0x5fbdb2315678afecb367f032d93f642f64180aa3'
-      // )
-      state.gasFee = 0
-      state.serviceFee = 0.01
+      const { avatarString, username, domains, addresses } = store.mintInfo
+      const res = await contractServices.estimateRegisterGas(avatarString, username, domains, addresses)
+      state.gasFee = res[0]
+      state.totalFee = res[1]
       state.billModal = true
-    } catch (err) {
-      console.error(err)
+    } catch (e) {
+      message.error(e.message, { duration: MSG_DURATION })
     }
   }
   const handleConfirm = async () => {
@@ -98,10 +98,10 @@
   const mintIt = async () => {
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
-      const res = await contract.register(avatarString, username, domains, addresses)
+      const res = await contractServices.register(avatarString, username, domains, addresses)
 
       if (res) {
-        const profile = await contract.getRecord(store.walletInfo.address)
+        const profile = await contractServices.getRecord(store.walletInfo.address)
         store.profileInfo = { ...store.profileInfo, ...profile }
         return true
       } else {
