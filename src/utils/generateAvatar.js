@@ -48,8 +48,8 @@ export const generateRandomAvatarConfig = () => {
     randomFromTo(0, materials.background.matPathArr320.length - 1),
     randomFromTo(0, materials.cloth.matPathArr320.length - 1),
     randomFromTo(0, materials.body.matPathArr320.length - 1),
-    randomFromTo(0, materials.mouth.matPathArr320.length - 1),
-    randomFromTo(0, materials.nose.matPathArr320.length - 1),
+    0, // randomFromTo(0, materials.mouth.matPathArr320.length - 1),
+    0, // randomFromTo(0, materials.nose.matPathArr320.length - 1),
     randomFromTo(0, materials.eyes.matPathArr320.length - 1),
     randomFromTo(0, materials.hair.matPathArr320.length - 1)
   ]
@@ -58,6 +58,17 @@ export const generateRandomAvatarConfig = () => {
 export const fromAvatarConfigToAvatarString = ([...avatarConfig]) => {
   // avatar config 顺序为：background, cloth, body, mouth, nose, eyes, hair
   // avatar string 顺序为：hair, body, eyes, nose, mouth, cloth, background
+  /**
+   * background, cloth, body, mouth, nose, eyes, hair
+   * 
+   * 反转
+   * 
+   * hair, eyes, nose, mouth, body, cloth, background
+   *  0     1     2      3     4      5        6 
+   * 
+   * hair, body, eyes, nose, mouth, cloth, background
+   *  0     4     1     2      3      5        6
+   */
   const avatarStringArr = []
   // 改顺序
   avatarConfig.reverse()
@@ -79,6 +90,19 @@ export const fromAvatarConfigToAvatarString = ([...avatarConfig]) => {
 }
 
 export const fromAvatarStringToAvatarConfig = (avatarString) => {
+  // avatar config 顺序为：background, cloth, body, mouth, nose, eyes, hair
+  // avatar string 顺序为：hair, body, eyes, nose, mouth, cloth, background
+  /**
+   * hair, body, eyes, nose, mouth, cloth, background
+   * 
+   * 反转
+   * 
+   * background, cloth, mouth, nose, eyes, body, hair
+   *     0         1      2     3     4     5     6
+   * 
+   * background, cloth, body, mouth, nose, eyes, hair
+   *     0         1     5      2     3     4     6
+   */
   let avatarStringArr = avatarString.split('_')
   // 改顺序
   avatarStringArr.reverse()
@@ -97,3 +121,19 @@ export const fromAvatarStringToAvatarConfig = (avatarString) => {
   })
   return avatarConfig
 }
+
+export const fromAvatarString7to5 = (avatarString7) => {
+  // avatar7 string 顺序为：hair, body, eyes, nose, mouth, cloth, background
+  //                        0     1     2     3      4      5        6
+  const avatarString5 = avatarString7.split('_').splice(3, 2).join('_')
+
+  return avatarString5
+}
+
+export const fromAvatarString5to7 = (avatarString5) => {
+  // avatar5 string 顺序为：hair, body, eyes, cloth, background
+  //                        0     1     2      5        6
+  const avatarString7 = avatarString5.split('_').splice(3, 0 , 0, 0)
+
+  return avatarString7
+} 

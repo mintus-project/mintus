@@ -16,6 +16,7 @@
   import contract from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
+import { fromAvatarString5to7 } from '@/utils/generateAvatar'
 
   const message = useMessage()
   const store = useStore()
@@ -25,9 +26,10 @@
       const { avatarString, username, domains, addresses } = await contract.getRecord(
         route.params.address
       )
+      const avatarString7 = fromAvatarString5to7(avatarString)
       store.profileInfo = {
         ...store.profileInfo,
-        avatarString,
+        avatarString: avatarString7,
         username,
         domains,
         addresses
