@@ -57,8 +57,6 @@ export const useStore = defineStore('main', {
         } catch (error) {
           console.error(error)
         }
-      } else {
-        console.log('Please install Metamask or other wallets!')
       }
     },
     async connectMetaMask() {
@@ -88,19 +86,19 @@ export const useStore = defineStore('main', {
                 if (err.code === 4001) {
                   // EIP-1193 userRejectedRequest error
                   // If this happens, the user rejected the connection request.
-                  console.log('Please connect to MetaMask.')
+                  throw new Error('Please connect to MetaMask.')
                 } else {
-                  console.error(err)
+                  throw err
                 }
               })
           } else {
-            console.error('Do you have multiple wallets installed?')
+            throw new Error('Do you have multiple wallets installed?')
           }
         } else {
-          console.log('Please install MetaMask!')
+          throw new Error('Please install MetaMask!')
         }
       } catch (err) {
-        console.error(err)
+        throw new Error(err)
       }
     },
     async updateWalletChainContract() {

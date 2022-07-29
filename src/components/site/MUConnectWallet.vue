@@ -27,9 +27,11 @@
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '../common/MUWalletType.vue'
   import { Icon } from '@iconify/vue'
-  // import detectEthereumProvider from '@metamask/detect-provider'
   import MUWalletButton from '../common/MUWalletButton.vue'
+  import { useMessage } from 'naive-ui'
+  import { MSG_DURATION } from '@/utils/constant'
 
+  const message = useMessage()
   const store = useStore()
   const openModal = ref(false)
   const walletList = ['metamask', 'coinbase', 'fortmatic']
@@ -42,18 +44,22 @@
   }
 
   const handleConnect = (type) => {
-    switch (type) {
-      case 'metamask':
-        store.connectMetaMask()
-        break
-      case 'coinbase':
-        connectCoinbase()
-        break
-      case 'formatic':
-        connectFormatic()
-        break
-      default:
-        break
+    try {
+      switch (type) {
+        case 'metamask':
+          store.connectMetaMask()
+          break
+        case 'coinbase':
+          connectCoinbase()
+          break
+        case 'formatic':
+          connectFormatic()
+          break
+        default:
+          break
+      }
+    } catch (e) {
+      message.error(e.message, { duration: MSG_DURATION })
     }
     handleClose()
   }

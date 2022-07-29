@@ -4,7 +4,6 @@
 
   const store = useStore()
   store.initWalletInfo()
-  
   initContract()
 </script>
 

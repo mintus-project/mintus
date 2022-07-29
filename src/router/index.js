@@ -125,7 +125,6 @@ router.beforeEach(async (to, from) => {
 })
 
 router.afterEach((to, from) => {
-  console.log(from.path, to.path)
   const isFromChooseAvatarToEnterInfo =
     from.path === '/mint-process/choose-avatar' &&
     to.path === '/mint-process/enter-info'
@@ -138,10 +137,8 @@ router.afterEach((to, from) => {
     from.path === '/mint-process/mint' && to.path === '/mint-process/enter-info'
 
   if (isFromChooseAvatarToEnterInfo || isFromEnterInfoToMint) {
-    console.log('a', to.meta)
     to.meta.transitionName = 'slide-left'
   } else if (isFromEnterInfoToChooseAvatar || isFromMintToEnterInfo) {
-    console.log('b', to.meta)
     to.meta.transitionName = 'slide-right'
   }
 })

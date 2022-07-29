@@ -199,8 +199,8 @@
       state.gasFee = res[0]
       state.totalFee = res[1]
       state.billModal = true
-    } catch (err) {
-      console.error(err)
+    } catch (e) {
+      message.error(e.message)
     }
   }
 

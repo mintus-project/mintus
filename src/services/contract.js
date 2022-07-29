@@ -88,7 +88,6 @@ export const estimateRegisterGas = async (avatarString, username, domains, addre
   const totalFee = gasFee.add(ethers.utils.parseEther(contract.registerServiceFee))
   const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18)   // 单位：BNB, 类型：string
   const totalFeeInBnB = ethers.utils.formatUnits(totalFee, 18)
-  // console.log('gas fee:', gasFee, 'totalFee', totalFee)
   return [gasFeeInBnB, totalFeeInBnB]
 }
 export const estimateUpdateRecordGas = async (username, domains, addresses) => {

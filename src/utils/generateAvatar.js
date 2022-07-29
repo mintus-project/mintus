@@ -125,7 +125,9 @@ export const fromAvatarStringToAvatarConfig = (avatarString) => {
 export const fromAvatarString7to5 = (avatarString7) => {
   // avatar7 string 顺序为：hair, body, eyes, nose, mouth, cloth, background
   //                        0     1     2     3      4      5        6
-  const avatarString5 = avatarString7.split('_').splice(3, 2).join('_')
+  const avatarString5Arr = avatarString7.split('_')
+  avatarString5Arr.splice(3, 2)
+  const avatarString5 = avatarString5Arr.join('_')
 
   return avatarString5
 }
@@ -133,7 +135,8 @@ export const fromAvatarString7to5 = (avatarString7) => {
 export const fromAvatarString5to7 = (avatarString5) => {
   // avatar5 string 顺序为：hair, body, eyes, cloth, background
   //                        0     1     2      5        6
-  const avatarString7 = avatarString5.split('_').splice(3, 0 , 0, 0)
-
+  const avatarString7Arr = avatarString5.split('_')
+  avatarString7Arr.splice(3, 0 , 'A', 'A')
+  const avatarString7 = avatarString7Arr.join('_')
   return avatarString7
 } 

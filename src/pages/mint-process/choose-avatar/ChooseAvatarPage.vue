@@ -54,12 +54,6 @@
   const isLoading = ref(false)
 
   const handleNextClick = async () => {
-    // console.log('111', store.mintInfo.avatarConfig)
-    // const avatarString = fromAvatarConfigToAvatarString(
-    //   store.mintInfo.avatarConfig
-    // )
-    // const avatarConfig = fromAvatarStringToAvatarConfig(avatarString)
-    // console.log('222', avatarConfig, avatarString)
     // 设置 avatar string
     isLoading.value = true
     store.mintInfo.avatarString = fromAvatarConfigToAvatarString(
@@ -70,7 +64,6 @@
       1
     )
     try {
-      console.log(store.mintInfo.avatarString)
       const res = await contract.getOwner(store.mintInfo.avatarString)
       if (res && res === '0x0000000000000000000000000000000000000000') {
         router.push('enter-info')
