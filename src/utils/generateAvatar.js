@@ -48,8 +48,8 @@ export const generateRandomAvatarConfig = () => {
     randomFromTo(0, materials.background.matPathArr320.length - 1),
     randomFromTo(0, materials.cloth.matPathArr320.length - 1),
     randomFromTo(0, materials.body.matPathArr320.length - 1),
-    randomFromTo(0, materials.mouth.matPathArr320.length - 1),
-    randomFromTo(0, materials.nose.matPathArr320.length - 1),
+    0, // randomFromTo(0, materials.mouth.matPathArr320.length - 1),
+    0, // randomFromTo(0, materials.nose.matPathArr320.length - 1),
     randomFromTo(0, materials.eyes.matPathArr320.length - 1),
     randomFromTo(0, materials.hair.matPathArr320.length - 1)
   ]

@@ -114,14 +114,14 @@
       tabName: 'Eyes',
       active: false
     },
-    {
-      tabName: 'Nose',
-      active: false
-    },
-    {
-      tabName: 'Mouth',
-      active: false
-    },
+    // {
+    //   tabName: 'Nose',
+    //   active: false
+    // },
+    // {
+    //   tabName: 'Mouth',
+    //   active: false
+    // },
     {
       tabName: 'Background',
       active: false
