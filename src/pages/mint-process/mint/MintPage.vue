@@ -61,6 +61,7 @@
   import contract from '@/utils/Contract.json'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
+import { fromAvatarString7to5 } from '@/utils/generateAvatar'
 
   const message = useMessage()
   const router = useRouter()
@@ -77,7 +78,8 @@
   const handleMint = async () => {
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
-      const res = await contractServices.estimateRegisterGas(avatarString, username, domains, addresses)
+      const avatarString5 = fromAvatarString7to5(avatarString)
+      const res = await contractServices.estimateRegisterGas(avatarString5, username, domains, addresses)
       state.gasFee = res[0]
       state.totalFee = res[1]
       state.billModal = true
@@ -98,7 +100,8 @@
   const mintIt = async () => {
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
-      const res = await contractServices.register(avatarString, username, domains, addresses)
+      const avatarString5 = fromAvatarString7to5(avatarString)
+      const res = await contractServices.register(avatarString5, username, domains, addresses)
 
       if (res) {
         const profile = await contractServices.getRecord(store.walletInfo.address)

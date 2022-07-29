@@ -27,6 +27,7 @@
   import contract from '@/services/contract'
   import {
     drawAvatar,
+    fromAvatarString5to7,
     fromAvatarStringToAvatarConfig
   } from '@/utils/generateAvatar'
   import { useMessage } from 'naive-ui'
@@ -42,7 +43,7 @@
         const res = await contract.getRecord(store.walletInfo.address)
         // 如果用户有购买过我们的 nft 头像
         if (res?.avatarString) {
-          store.userInfo.avatarString = res?.avatarString
+          store.userInfo.avatarString = fromAvatarString5to7(res?.avatarString)
           store.userInfo.purchased = true
           drawAvatar(
             canvas,
