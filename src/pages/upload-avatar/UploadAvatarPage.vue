@@ -102,7 +102,7 @@
   import { reactive } from 'vue'
   import { useRouter } from 'vue-router'
   import MUTitle from '@/components/typography/MUTitle.vue'
-  import contract from '@/services/contract'  
+  import contract from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
 
@@ -123,9 +123,14 @@
     try {
       const res = JSON.parse(event?.target?.response)?.data?.result
       if (res) {
-        const name = res.substring(0, res.lastIndexOf('.'))
+        const name = res.substring(0, res.lastIndexOf('.')).toUpperCase()
         const addr = await contract.getOwner(name)
-        if (addr) router.push(`/profile/${addr}`)
+        if (addr == '0x0000000000000000000000000000000000000000') {
+          state.content = 'upload'
+          throw new Error('No record was found.')
+        } else {
+          router.push(`/profile/${addr}`)
+        }
       }
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
