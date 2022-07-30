@@ -8,7 +8,7 @@ export const useStore = defineStore('main', {
     return {
       chainInfo: {
         chainId: '',
-        currencySymbol: ''
+        currencySymbol: 'unknown'
       },
       walletInfo: {
         type: '',

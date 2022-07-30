@@ -1,9 +1,9 @@
 <template>
   <div class="flex items-center gap-1">
     <Icon
-      :icon="AllCoins[props.type]?.icon ?? 'mdi:bitcoin'"
+      :icon="AllCoins[props.type]?.icon"
       height="24"
-      :color="AllCoins[props.type]?.color ?? '#6b8cef'"
+      :color="AllCoins[props.type]?.color"
       class="inline-block"
     />
     <span v-if="props.showName" class="font-bold text-sm text-[#727272]">{{
@@ -19,6 +19,7 @@
     showName: Boolean,
     type: {
       type: String,
+      default: 'unknown',
       validator(value) {
         const allTypes = [
           'btc',
@@ -31,7 +32,8 @@
           'opera',
           'arbitrum',
           'optimism',
-          'tbnb'
+          'tbnb',
+          'unknown'
         ]
         return allTypes.includes(value)
       }
@@ -49,7 +51,12 @@
     opera: { text: 'Opera', icon: 'mdi:opera', color: '#6b8cef' },
     arbitrum: { text: 'Arbitrum One', icon: 'ph:coins-fill', color: '#6b8cef' },
     optimism: { text: 'Optimism', icon: 'ph:coins-fill', color: '#6b8cef' },
-    tbnb: { text: 'tBNB', icon: 'ph:coins-fill', color: '#6b8cef' }
+    tbnb: { text: 'tBNB', icon: 'ph:coins-fill', color: '#6b8cef' },
+    unknown: {
+      text: 'Unknown',
+      icon: 'ri:question-fill',
+      color: '#6b8cef'
+    }
   }
 </script>
 
