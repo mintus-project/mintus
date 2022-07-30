@@ -1,7 +1,13 @@
 <template>
   <div class="overflow-x-auto shadow rounded-xl">
     <table class="table w-[40rem] text-sm">
-      <tbody>
+      <tbody
+        v-if="store.profileInfo.addresses.length === 0"
+        class="flex justify-center p-4 text-sm text-gray-300"
+      >
+        - Empty -
+      </tbody>
+      <tbody v-else>
         <tr v-for="(item, index) in store.profileInfo.addresses" :key="index">
           <th>{{ item.coinType }}</th>
           <td>
@@ -14,37 +20,10 @@
 </template>
 
 <script setup>
-  // import { ref } from 'vue'
   import { useStore } from '@/store'
   import MUWalletAddr from '@/components/common/MUWalletAddr.vue'
 
   const store = useStore()
-  // const addresses = ref([
-  //   {
-  //     coinType: 'ETH',
-  //     address: '0x3a8195422dea3339c14b1b888629b3393bd02f44'
-  //   },
-  //   {
-  //     coinType: 'ETH',
-  //     address: '0x3a8195422dea3339c14b1b888629b3393bd02f44'
-  //   },
-  //   {
-  //     coinType: 'ETH',
-  //     address: '0x3a8195422dea3339c14b1b888629b3393bd02f44'
-  //   },
-  //   {
-  //     coinType: 'ETH',
-  //     address: '0x3a8195422dea3339c14b1b888629b3393bd02f44'
-  //   },
-  //   {
-  //     coinType: 'ETH',
-  //     address: '0x3a8195422dea3339c14b1b888629b3393bd02f44'
-  //   },
-  //   {
-  //     coinType: 'ETH',
-  //     address: '0x3a8195422dea3339c14b1b888629b3393bd02f44'
-  //   }
-  // ])
 </script>
 
 <style lang="scss" scoped></style>

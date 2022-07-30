@@ -33,7 +33,7 @@ export const useStore = defineStore('main', {
         avatarString: '',
         avatarConfig: [],
         username: '',
-        domains: [],
+        domains: ['ddddd', 'bbbbbb'],
         addresses: []
       }
     }
