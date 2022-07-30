@@ -125,7 +125,7 @@
       if (res) {
         const name = res.substring(0, res.lastIndexOf('.')).toUpperCase()
         const addr = await contract.getOwner(name)
-        if (addr == '0x0000000000000000000000000000000000000000') {
+        if (addr === '0x0000000000000000000000000000000000000000') {
           state.content = 'upload'
           throw new Error('No record was found.')
         } else {
