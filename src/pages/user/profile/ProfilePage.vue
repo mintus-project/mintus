@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
   import MUSiteProfile from '../../../components/site/MUSiteProfile.vue'
   import PersonalInfo from './components/PersonalInfo.vue'
   import Exhibition from './components/Exhibition.vue'
@@ -30,10 +30,6 @@
   const isThisUserExist = ref(true)
 
   const setProfile = async () => {
-    console.log(
-      '🚀 ~ file: ProfilePage.vue ~ line 56 ~ setProfile ~ setProfile',
-      '-------setProfile+++++++'
-    )
     try {
       isLoading.value = true
       const { avatarString, username, domains, addresses } =
@@ -41,6 +37,7 @@
       isLoading.value = false
 
       if (avatarString) {
+        isThisUserExist.value = true
         const avatarString7 = fromAvatarString5to7(avatarString)
         store.profileInfo = {
           ...store.profileInfo,
@@ -56,7 +53,7 @@
       message.error(e.message, { duration: MSG_DURATION })
     }
   }
-  setProfile()
+  watch(() => route.params.address, setProfile, { immediate: true, deep: true })
 </script>
 
 <style lang="scss" scoped></style>
