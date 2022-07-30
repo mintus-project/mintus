@@ -1,6 +1,6 @@
 <template>
   <div class="min-w-[1200px]">
-    <MUNavbar class="fixed"></MUNavbar>
+    <MUNavbar v-if="!props.hideNavBar" class="fixed"></MUNavbar>
     <div
       class="dynamic-background min-h-screen flex flex-col items-center overflow-x-hidden"
     >
@@ -10,7 +10,14 @@
 </template>
 
 <script setup>
-  import MUNavbar from './MUNavbar.vue'
+import MUNavbar from './MUNavbar.vue'
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  hideNavBar: {
+    type: Boolean
+  }
+})
 </script>
 
 <style scoped>
