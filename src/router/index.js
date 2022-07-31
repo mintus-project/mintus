@@ -67,7 +67,11 @@ const routes = [
     name: 'UploadAvatarPage',
     component: UploadAvatarPage
   },
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound }
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: PageNotFound
+  }
 ]
 const router = createRouter({
   history: createWebHashHistory(),
