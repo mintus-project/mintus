@@ -51,8 +51,11 @@ export const useStore = defineStore('main', {
       if (ethereum) {
         // 如果已经启用了Metamask
         try {
-          await ethereum.request({ method: 'eth_accounts' })
-          ethereum.on('accountsChanged', this.updateWalletChainContract)
+          const accounts = await ethereum.request({ method: 'eth_accounts' })
+          if (accounts?.length !== 0) {
+            this.updateWalletChainContract()
+          }
+          ethereum.on('accountsChanged',this.updateWalletChainContract)
           ethereum.on('chainChanged', this.updateWalletChainContract)
         } catch (error) {
           console.error(error)
