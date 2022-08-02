@@ -11,7 +11,6 @@ import ProfilePage from '../pages/user/profile/ProfilePage.vue'
 import SettingPage from '../pages/user/setting/SettingPage.vue'
 import UploadAvatarPage from '../pages/upload-avatar/UploadAvatarPage.vue'
 import PageNotFound from '../pages/not-found/PageNotFound.vue'
-import contract from '@/services/contract'
 
 const routes = [
   {

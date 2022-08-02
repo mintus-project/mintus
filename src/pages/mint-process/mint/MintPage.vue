@@ -78,18 +78,26 @@
   const handleMint = async () => {
     try {
       const { avatarString, username, domains, addresses } = store.mintInfo
-      const avatarString5 = fromAvatarString7to5(avatarString)
-      const res = await contractServices.estimateRegisterGas(
-        avatarString5,
-        username,
-        domains,
-        addresses
+      const res = await contractServices.checkBalance(
+        store.walletInfo.address,
+        contract.registerServiceFee
       )
-      state.gasFee = res[0]
-      state.totalFee = res[1]
-      state.billModal = true
+      if (res) {
+        const avatarString5 = fromAvatarString7to5(avatarString)
+        const res = await contractServices.estimateRegisterGas(
+          avatarString5,
+          username,
+          domains,
+          addresses
+        )
+        state.gasFee = res[0]
+        state.totalFee = res[1]
+        state.billModal = true
+      } else {
+        throw new Error('Insufficient funds.')
+      }
     } catch (e) {
-      message.error(e.message, { duration: MSG_DURATION })
+      message.error(e.message)
     }
   }
   const handleConfirm = async () => {

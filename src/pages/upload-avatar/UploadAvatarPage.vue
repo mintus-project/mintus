@@ -102,7 +102,7 @@
   import { reactive } from 'vue'
   import { useRouter } from 'vue-router'
   import MUTitle from '@/components/typography/MUTitle.vue'
-  import contract from '@/services/contract'
+  import contractServices from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
 
@@ -124,7 +124,7 @@
       const res = JSON.parse(event?.target?.response)?.data?.result
       if (res) {
         const name = res.substring(0, res.lastIndexOf('.')).toUpperCase()
-        const addr = await contract.getOwner(name)
+        const addr = await contractServices.getOwner(name)
         if (addr === '0x0000000000000000000000000000000000000000') {
           state.content = 'upload'
           throw new Error('No record was found.')

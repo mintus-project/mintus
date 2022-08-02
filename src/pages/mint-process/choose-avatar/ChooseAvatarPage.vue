@@ -42,7 +42,7 @@
   import { fromAvatarConfigToAvatarString } from '@/utils/generateAvatar'
   import { useStore } from '@/store'
   import { useRouter } from 'vue-router'
-  import contract from '@/services/contract'
+  import contractServices from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
 
@@ -64,7 +64,7 @@
       1
     )
     try {
-      const res = await contract.getOwner(store.mintInfo.avatarString)
+      const res = await contractServices.getOwner(store.mintInfo.avatarString)
       if (res && res === '0x0000000000000000000000000000000000000000') {
         router.push('enter-info')
       } else if (res) {

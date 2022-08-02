@@ -24,7 +24,7 @@
   import MUConnectWallet from './MUConnectWallet.vue'
   import MUButton from '../common/MUButton.vue'
   import { ref, watchEffect } from 'vue'
-  import contract from '@/services/contract'
+  import contractServices from '@/services/contract'
   import {
     drawAvatar,
     fromAvatarString5to7,
@@ -40,7 +40,7 @@
   watchEffect(async () => {
     try {
       if (store.userInfo.connected) {
-        const res = await contract.getRecord(store.walletInfo.address)
+        const res = await contractServices.getRecord(store.walletInfo.address)
         // 如果用户有购买过我们的 nft 头像
         if (res?.avatarString) {
           store.userInfo.avatarString = fromAvatarString5to7(res?.avatarString)

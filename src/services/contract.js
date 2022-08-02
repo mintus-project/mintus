@@ -73,6 +73,11 @@ export const getOwner = async (avatarString) => {
   return res
 }
 
+export const checkBalance = async (address,serviceFee) => {
+  const accountBalance = await window.Contract?.provider.getBalance(address)
+  const serviceCost = ethers.utils.parseEther(serviceFee)
+  return accountBalance.gte(serviceCost)
+}
 // 燃油费估算
 // 1 BNB = 1000000000 Gwei, 1 Gwei = 1000000000 Wei
 export const estimateRegisterGas = async (avatarString, username, domains, addresses) => {
@@ -81,10 +86,10 @@ export const estimateRegisterGas = async (avatarString, username, domains, addre
     username,
     JSON.stringify(domains),
     JSON.stringify(addresses),
-    { value: ethers.utils.parseEther(contract.registerServiceFee) }
+    { value: ethers.utils.parseEther(contract.registerServiceFee),gasLimit:0 }
   )
-  const gasPrice = await window.Contract?.provider.getGasPrice() // 单位：Wei, 类型：BigNumber
-  const gasFee = gasPrice.mul(gasAmount)
+  const feeData =  await window.Contract?.provider.getFeeData()
+  const gasFee = feeData?.gasPrice.mul(gasAmount)
   const totalFee = gasFee.add(ethers.utils.parseEther(contract.registerServiceFee))
   const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18)   // 单位：BNB, 类型：string
   const totalFeeInBnB = ethers.utils.formatUnits(totalFee, 18)
@@ -97,8 +102,8 @@ export const estimateUpdateRecordGas = async (username, domains, addresses) => {
     JSON.stringify(addresses),
     { value: ethers.utils.parseEther(contract.updateServiceFee) }
   )
-  const gasPrice = await window.Contract?.provider.getGasPrice() 
-  const gasFee = gasPrice.mul(gasAmount)
+  const feeData =  await window.Contract?.provider.getFeeData()
+  const gasFee = feeData?.gasPrice.mul(gasAmount)
   const totalFee = gasFee.add(ethers.utils.parseEther(contract.updateServiceFee))
   const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18)  
   const totalFeeInBnB = ethers.utils.formatUnits(totalFee, 18)
@@ -110,6 +115,7 @@ const ContractServices = {
   updateRecord,
   getRecord,
   getOwner,
+  checkBalance,
   estimateRegisterGas,
   estimateUpdateRecordGas
 }

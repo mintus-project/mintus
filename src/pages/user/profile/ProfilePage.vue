@@ -15,7 +15,7 @@
   import Exhibition from './components/Exhibition.vue'
   import { useStore } from '@/store'
   import { useRoute } from 'vue-router'
-  import contract from '@/services/contract'
+  import contractServices from '@/services/contract'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
   import { fromAvatarString5to7 } from '@/utils/generateAvatar'
@@ -33,7 +33,7 @@
     try {
       isLoading.value = true
       const { avatarString, username, domains, addresses } =
-        await contract.getRecord(route.params.address)
+        await contractServices.getRecord(route.params.address)
       isLoading.value = false
 
       if (avatarString) {

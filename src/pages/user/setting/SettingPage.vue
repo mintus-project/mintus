@@ -191,14 +191,22 @@
   const openBillModal = async () => {
     try {
       const { username, domains, addresses } = store.mintInfo
-      const res = await contractServices.estimateUpdateRecordGas(
-        username,
-        domains,
-        addresses
+      const res = await contractServices.checkBalance(
+        store.walletInfo.address,
+        contract.updateServiceFee
       )
-      state.gasFee = res[0]
-      state.totalFee = res[1]
-      state.billModal = true
+      if (res) {
+        const res = await contractServices.estimateUpdateRecordGas(
+          username,
+          domains,
+          addresses
+        )
+        state.gasFee = res[0]
+        state.totalFee = res[1]
+        state.billModal = true
+      } else {
+        throw new Error('Insufficient funds.')
+      }
     } catch (e) {
       message.error(e.message)
     }
@@ -207,7 +215,11 @@
   const handleConfirm = async () => {
     const { username, domains, addresses } = store.mintInfo
     try {
-      const res = await contractServices.updateRecord(username, domains, addresses)
+      const res = await contractServices.updateRecord(
+        username,
+        domains,
+        addresses
+      )
       if (res) {
         resetForm()
         state.resultModalType = 'success'
