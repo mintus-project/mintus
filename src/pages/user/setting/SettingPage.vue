@@ -209,6 +209,7 @@
       }
     } catch (e) {
       message.error(e.message)
+      console.error(e.message)
     }
   }
 
@@ -229,6 +230,7 @@
       state.dialogModal = true
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
+      console.error(e.message)
     }
     state.billModal = false
   }

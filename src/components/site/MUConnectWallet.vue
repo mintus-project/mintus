@@ -60,6 +60,7 @@
       }
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
+      console.error(e.message)
     }
     handleClose()
   }

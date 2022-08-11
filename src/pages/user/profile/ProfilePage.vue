@@ -31,6 +31,8 @@
 
   const setProfile = async () => {
     try {
+      // 防止路由跳转时因为路由参数中address=undefined而导致请求报错
+      if (!route.params.address) return
       isLoading.value = true
       const { avatarString, username, domains, addresses } =
         await contractServices.getRecord(route.params.address)
@@ -51,8 +53,10 @@
       }
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
+      console.error(e.message)
     }
   }
+  // 防止路径参数中的address改变时页面没有及时刷新
   watch(() => route.params.address, setProfile, { immediate: true, deep: true })
 </script>
 
