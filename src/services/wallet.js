@@ -97,7 +97,6 @@ export const connectWallet = async () => {
 }
 
 export const handleAccountsChanged = async (accounts) => {
-  console.log('accounts changed', accounts)
   const store = useStore()
   if (accounts?.length !== 0) {
     // 先更新Contract实例（将其绑定到新账户对应的Signer）
@@ -115,7 +114,6 @@ export const handleAccountsChanged = async (accounts) => {
 }
 
 export const handleChainChanged = async (chainId) => {
-  console.log('chain changed', chainId)
   await updateContract()
   const store = useStore()
   store.setChainInfo(chainId)

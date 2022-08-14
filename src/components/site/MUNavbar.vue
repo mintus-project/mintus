@@ -8,7 +8,7 @@
     >
       <img src="@/assets/mintUs.svg" />
     </span>
-    <span class="opacity-10 justify-self-start">2022.07.30</span>
+    <span class="opacity-10 justify-self-start">2022.08.14</span>
     <MUAccount />
   </div>
 </template>
