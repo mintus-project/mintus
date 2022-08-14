@@ -51,6 +51,7 @@
       }
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
+      console.error(e)
     }
   }
   watch(() => route.params.address, setProfile, { immediate: true, deep: true })

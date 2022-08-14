@@ -18,15 +18,13 @@ export const initContract = () => {
 }
 export const updateContract = async () => {
   try {
-    if (window.ethereum.selectedAddress !== null) {
-      await checkEnv()
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
-      const newContract = window?.Contract?.connect(signer)
-      window.Contract = newContract
-    }
+    await checkEnv()
+    const signer = window.selectedProvider.getSigner()
+    const newContract = window?.Contract?.connect(signer)
+    window.Contract = newContract
   } catch (e) {
     console.error(e)
+    // 重置为无signer的合约对象
     window.Contract = initContract()
   }
 }

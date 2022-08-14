@@ -23,18 +23,17 @@
 
 <script setup>
   import { ref } from 'vue'
-  import { useStore } from '@/store/index.js'
   import MUModal from '@/components/feedback/MUModal.vue'
   import MUWalletType from '../common/MUWalletType.vue'
   import { Icon } from '@iconify/vue'
   import MUWalletButton from '../common/MUWalletButton.vue'
   import { useMessage } from 'naive-ui'
   import { MSG_DURATION } from '@/utils/constant'
+  import { detectProviders, connectWallet } from '@/services/wallet'
 
   const message = useMessage()
-  const store = useStore()
   const openModal = ref(false)
-  const walletList = ['metamask', 'coinbase', 'fortmatic']
+  const walletList = Object.keys(detectProviders()).map((e) => e.toLowerCase())
 
   const handleClick = () => {
     openModal.value = true
@@ -43,27 +42,23 @@
     openModal.value = false
   }
 
-  const handleConnect = (type) => {
+  const handleConnect = async (type) => {
     try {
-      switch (type) {
-        case 'metamask':
-          store.connectMetaMask()
-          break
-        case 'coinbase':
-          connectCoinbase()
-          break
-        case 'formatic':
-          connectFormatic()
-          break
-        default:
-          break
-      }
+      // [['MetaMask', Web3Provider],['Coinbase', Web3Provider],['Binance', Web3Provider]]
+      const providerList = Object.entries(detectProviders())
+      window.selectedProvider = providerList.filter(
+        // type: 'metamask'
+        // entry: ['MetaMask', Web3Provider]
+        (entry) => entry[0].toLowerCase() === type
+      )[0][1]
+
+      // store.walletInfo.type = type
+      await connectWallet()
+      handleClose()
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
+      console.error(e)
     }
-    handleClose()
   }
-  const connectCoinbase = () => {}
-  const connectFormatic = () => {}
 </script>
 <style scoped></style>

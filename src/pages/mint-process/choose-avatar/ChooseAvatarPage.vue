@@ -72,6 +72,7 @@
       }
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
+      console.error(e)
     }
     isLoading.value = false
   }

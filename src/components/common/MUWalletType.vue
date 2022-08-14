@@ -17,7 +17,7 @@
     type: {
       type: String,
       validator(value) {
-        const allTypes = ['metamask', 'coinbase', 'fortmatic']
+        const allTypes = ['metamask', 'coinbase', 'binance']
         return allTypes.includes(value)
       }
     }
@@ -31,7 +31,11 @@
       icon: 'arcticons:coinbase',
       color: '#2D65F8'
     },
-    fortmatic: { text: 'Fortmatic', icon: 'mdi:wallet', color: '#617BFF' }
+    binance: {
+      text: 'Binance Chain Wallet',
+      icon: 'simple-icons:binance',
+      color: '#F4C10B'
+    }
   }
 </script>
 

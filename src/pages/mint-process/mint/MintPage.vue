@@ -98,6 +98,7 @@
       }
     } catch (e) {
       message.error(e.message)
+      console.error(e)
     }
   }
   const handleConfirm = async () => {
@@ -132,6 +133,7 @@
       }
     } catch (e) {
       message.error(e.message, { duration: MSG_DURATION })
+      console.error(e)
     }
     state.billModal = false
   }
