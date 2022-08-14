@@ -82,22 +82,21 @@ router.beforeEach(async (to, from) => {
   const address = to.params.address
   if (to.path.split('/').includes('setting')) {
     // 访问的是不是当前连接钱包地址对应的setting
-    if (window.ethereum) {
-      const { ethereum } = window
-      if (ethereum) {
-        // 如果已授权会返回钱包地址
-        try {
-          const accounts = await ethereum.request({ method: 'eth_accounts' })
-          if (accounts.length !== 0) {
-            return address.toLowerCase() === accounts[0].toLowerCase()
-          } else {
-            return false
-          }
-        } catch (error) {
-          console.error(error)
+    if (window.selectedProvider) {
+      try {
+        const accounts = await window.selectedProvider.provider.request({
+          method: 'eth_accounts'
+        })
+        if (accounts.length !== 0) {
+          return address.toLowerCase() === accounts[0].toLowerCase()
+            ? true
+            : { name: 'NotFound' }
+        } else {
+          return { name: 'NotFound' }
         }
+      } catch (error) {
+        console.error(error)
       }
-      return { name: 'Home' }
     }
   } else if (to.path === '/mint-process/enter-info') {
     if (

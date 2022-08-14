@@ -1,9 +1,8 @@
 <script setup>
-  import { useStore } from './store'
   import { initContract } from './services/contract'
+  import { initWallet } from './services/wallet'
 
-  const store = useStore()
-  store.initWalletInfo()
+  initWallet()
   initContract()
 </script>
 
