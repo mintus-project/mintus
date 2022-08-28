@@ -14,6 +14,8 @@
     "@metamask/detect-provider": "^1.2.0",
     "@vitejs/plugin-legacy": "^1.8.2",
     "@vueuse/core": "^8.5.0",
+    "alchemy-sdk": "^2.0.3",
+    "axios": "^0.27.2",
     "daisyui": "^2.14.3",
     "ethers": "^5.6.6",
     "pinia": "^2.0.14",
