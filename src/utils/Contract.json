@@ -1,5 +1,6 @@
 {
   "testnet": "Binance Smart Chain Testnet",
+  "RpcServerAddress": "https://data-seed-prebsc-1-s3.binance.org:8545",
   "chainId": "0x61",
   "address": "0x7Fd467A27985146De2CCd44a9AFE7d4D8742d0c3",
   "registerServiceFee": "0.01",

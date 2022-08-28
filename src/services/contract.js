@@ -5,7 +5,7 @@ import { checkEnv } from './utils'
 export const initContract = () => {
   // const provider = ethers.providers.getDefaultProvider(['1']) // 上主网之后default is better（更快更稳定）
   const provider = new ethers.providers.JsonRpcProvider(
-    'https://data-seed-prebsc-2-s3.binance.org:8545'
+    contract.RpcServerAddress
   )
   // 合约实体
   const contractObj = new ethers.Contract(
@@ -71,25 +71,32 @@ export const getOwner = async (avatarString) => {
   return res
 }
 
-export const checkBalance = async (address,serviceFee) => {
+export const checkBalance = async (address, serviceFee) => {
   const accountBalance = await window.Contract?.provider.getBalance(address)
   const serviceCost = ethers.utils.parseEther(serviceFee)
   return accountBalance.gte(serviceCost)
 }
 // 燃油费估算
 // 1 BNB = 1000000000 Gwei, 1 Gwei = 1000000000 Wei
-export const estimateRegisterGas = async (avatarString, username, domains, addresses) => {
+export const estimateRegisterGas = async (
+  avatarString,
+  username,
+  domains,
+  addresses
+) => {
   const gasAmount = await window.Contract?.estimateGas.regist(
     avatarString,
     username,
     JSON.stringify(domains),
     JSON.stringify(addresses),
-    { value: ethers.utils.parseEther(contract.registerServiceFee),gasLimit:0 }
+    { value: ethers.utils.parseEther(contract.registerServiceFee), gasLimit: 0 }
   )
-  const feeData =  await window.Contract?.provider.getFeeData()
+  const feeData = await window.Contract?.provider.getFeeData()
   const gasFee = feeData?.gasPrice.mul(gasAmount)
-  const totalFee = gasFee.add(ethers.utils.parseEther(contract.registerServiceFee))
-  const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18)   // 单位：BNB, 类型：string
+  const totalFee = gasFee.add(
+    ethers.utils.parseEther(contract.registerServiceFee)
+  )
+  const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18) // 单位：BNB, 类型：string
   const totalFeeInBnB = ethers.utils.formatUnits(totalFee, 18)
   return [gasFeeInBnB, totalFeeInBnB]
 }
@@ -100,10 +107,12 @@ export const estimateUpdateRecordGas = async (username, domains, addresses) => {
     JSON.stringify(addresses),
     { value: ethers.utils.parseEther(contract.updateServiceFee) }
   )
-  const feeData =  await window.Contract?.provider.getFeeData()
+  const feeData = await window.Contract?.provider.getFeeData()
   const gasFee = feeData?.gasPrice.mul(gasAmount)
-  const totalFee = gasFee.add(ethers.utils.parseEther(contract.updateServiceFee))
-  const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18)  
+  const totalFee = gasFee.add(
+    ethers.utils.parseEther(contract.updateServiceFee)
+  )
+  const gasFeeInBnB = ethers.utils.formatUnits(gasFee, 18)
   const totalFeeInBnB = ethers.utils.formatUnits(totalFee, 18)
   return [gasFeeInBnB, totalFeeInBnB]
 }

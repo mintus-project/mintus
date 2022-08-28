@@ -50,7 +50,7 @@ window.detectProviders = detectProviders
 export const initWallet = async () => {
   const providers = detectProviders()
   window.selectedProvider =
-    providers.Binance || providers[Object.keys(providers)[0]]
+    providers.MetaMask || providers[Object.keys(providers)[0]]
   if (window.selectedProvider) {
     try {
       window.selectedProvider.provider.on(
